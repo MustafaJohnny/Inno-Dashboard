@@ -1,0 +1,181 @@
+img {
+  width: 100%;
+}
+
+.loginBox {
+  display: flex;
+  position: relative;
+}
+
+.loginActionsArea {
+  width: 50vw;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoArea {
+  gap: 1.2rem;
+  display: flex;
+  align-items: center;
+  padding-left: 7rem;
+  padding-top: 3.4rem;
+  position: absolute;
+  z-index: 10;
+}
+
+.logoImg {
+  width: 5.2rem;
+  transition: all 2s;
+  cursor: pointer;
+}
+
+.logoImg:hover {
+  transform: rotate(900deg);
+}
+
+.logoText {
+  font-weight: 500;
+  font-size: 2rem;
+  color: #27272a;
+}
+
+.actionBox {
+  gap: 4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.loginSmailHeading {
+  color: #27272a;
+  font-weight: 400;
+  font-size: 3rem;
+}
+
+.mainFormInputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.wholeInput {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.inputsLable {
+  color: #27272a;
+  font-weight: 400;
+  font-size: 1.5rem;
+}
+
+.mainInput {
+  width: 36rem;
+  height: 5rem;
+  font-size: 2rem;
+  border-radius: 5px;
+  padding-left: 0.8rem;
+  transition: all 0.5s;
+  color: #27272a;
+  border: 1px solid #e8ecef;
+}
+
+.mainInput:focus {
+  outline: none;
+  border: 1px solid #97bdda;
+}
+
+.forgotBox {
+  display: flex;
+  align-items: center;
+  gap: 10.4rem;
+}
+
+.rememberArea {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.loginCheckboxInput {
+  accent-color: #6666ab;
+  width: 1.1vw;
+  height: 1vw;
+  cursor: pointer;
+  border-radius: 50%;
+}
+
+.checkPassLable {
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #778ca2;
+}
+
+.forgetPassLink {
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #4d7cfe;
+}
+
+.loginBtn {
+  width: 100%;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 1.8rem;
+  border-radius: 5px;
+  font-family: inherit;
+  margin-top: 1rem;
+  padding: 1.2rem 0rem;
+  transition: all 0.5s;
+  background: #4d7cfe;
+}
+
+.loginBtn:hover {
+  background: #2a5ce7;
+}
+
+.loginHeadingImgArea {
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  gap: 2rem;
+  width: 50vw;
+  min-height: 100vh;
+  background: linear-gradient(90deg, #4b6cb7 4.79%, #253f72 87.85%);
+}
+
+.loginHeading {
+  margin-top: 10rem;
+  font-weight: 700;
+  font-size: 4.8rem;
+  text-align: center;
+  color: #fafafa;
+}
+
+.loginTextArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.loginText {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 3rem;
+  text-align: center;
+  color: #eaeaea;
+}
+
+.loginImgBox {
+  transform: translateY(-4rem);
+}
