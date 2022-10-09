@@ -12,8 +12,13 @@ import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import user from "../Icons/user.svg";
 import LogoDash from "../Icons/LogoDashborad.svg";
+import { useSelector, useDispatch } from "react-redux";
+import { controlActions } from "../Redux/ReduxStore";
 
 const HomePage = () => {
+  const userName = useSelector((state) => state.controler.user_name);
+  const userRole = useSelector((state) => state.controler.user_role);
+
   return (
     <React.Fragment>
       <section>
@@ -152,7 +157,46 @@ const HomePage = () => {
               </div>
             </div>
           </div>
-          <div className={classes.contentBigBox}></div>
+          <div className={classes.contentBigBox}>
+            <header className={classes.upHeader}>
+              <h2 className={classes.headerHeading}>Менеджмент</h2>
+              <div className={classes.nameRoleArea}>
+                <span className={classes.userName}>{userName}</span>
+                <span className={classes.userRole}>{userRole}</span>
+              </div>
+            </header>
+            <main className={classes.changeContentBox}>
+              <div className={classes.managmentContent}>
+                <div className={classes.managementBtnsArea}>
+                  <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
+                  <div className={classes.twoBtnsManage}>
+                    <button className={classes.manageBtn} type="button">
+                      + Добавить сервис
+                    </button>
+                    <button className={classes.manageBtn} type="button">
+                      + Добавить ресторан
+                    </button>
+                  </div>
+                </div>
+
+                <div className={classes.managementRestaurents}>
+                  <div className={classes.itemRestaurent}></div>
+                  <div className={classes.itemRestaurent}></div>
+                  <div className={classes.itemRestaurent}></div>
+                </div>
+
+                <div className={classes.serviceHeadingArea}>
+                  <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
+                </div>
+
+                <div className={classes.managementRestaurents}>
+                  <div className={classes.itemRestaurent}></div>
+                  <div className={classes.itemRestaurent}></div>
+                  <div className={classes.itemRestaurent}></div>
+                </div>
+              </div>
+            </main>
+          </div>
         </main>
       </section>
     </React.Fragment>
