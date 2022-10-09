@@ -56,6 +56,9 @@ const LoginPage = () => {
 
         if (mounted) {
           dispatch(controlActions.getUserDataFromServer(request.data));
+          navigate("/home", {
+            replace: true,
+          });
         }
       };
 
