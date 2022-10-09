@@ -1,14 +1,68 @@
 import React from "react";
+import axios from "axios";
 import classes from "./LoginPage.module.css";
 import LoginImg from "../Images/LoginImg.png";
 import Logo from "../Icons/Logo.svg";
-// import { useParams, useNavigate } from "react-router-dom";
-// import { useDispatch, useSelector } from "react-redux";
-// import { useState, useEffect } from "react";
-// import { controlActions } from "../Redux/ReduxStore";
-// import axios from "axios";
+import { useSelector, useDispatch } from "react-redux";
+import { controlActions } from "../Redux/ReduxStore";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+
+  const getEmail = (event) => {
+    dispatch(controlActions.getUserEmail(event.target.value));
+  };
+
+  const getPassword = (event) => {
+    dispatch(controlActions.getUserPassword(event.target.value));
+  };
+
+  const checkUserLogin = (event) => {
+    event.preventDefault();
+
+    const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
+
+    if (!regex.test(userEmail)) return;
+
+    if (userEmail.trim() === "") return;
+
+    if (userPassword.trim() === "") return;
+
+    if (regex.test(userEmail) && userPassword) {
+      let mounted = true;
+
+      const getData = async () => {
+        const data = {
+          username: userEmail,
+          password: userPassword,
+        };
+
+        const request = await axios.post(
+          `http://innomenu.ru:8000/api/v1/user/login`,
+          {},
+
+          {
+            auth: {
+              username: userEmail,
+              password: userPassword,
+            },
+          }
+        );
+
+        if (mounted) {
+          dispatch(controlActions.getUserDataFromServer(request.data));
+        }
+      };
+
+      getData();
+    }
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -20,12 +74,16 @@ const LoginPage = () => {
           <div className={classes.loginActionsArea}>
             <div className={classes.actionBox}>
               <h1 className={classes.loginSmailHeading}>Войти</h1>
-              <form className={classes.mainFormInputs}>
+              <form
+                onSubmit={checkUserLogin}
+                className={classes.mainFormInputs}
+              >
                 <div className={classes.wholeInput}>
                   <label className={classes.inputsLable} htmlFor="email">
                     Электронная почта
                   </label>
                   <input
+                    onChange={getEmail}
                     className={classes.mainInput}
                     id="email"
                     type="email"
@@ -36,6 +94,7 @@ const LoginPage = () => {
                     Пароль
                   </label>
                   <input
+                    onChange={getPassword}
                     className={classes.mainInput}
                     id="password"
                     type="password"
@@ -60,7 +119,7 @@ const LoginPage = () => {
                     Забыли пароль?
                   </a>
                 </div>
-                <button className={classes.loginBtn} type="button">
+                <button type="submit" className={classes.loginBtn}>
                   Войти
                 </button>
               </form>
