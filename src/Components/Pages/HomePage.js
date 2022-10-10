@@ -9,15 +9,61 @@ import order from "../Icons/order.svg";
 import review from "../Icons/review.svg";
 import Settings from "../Icons/Settings.svg";
 import statica from "../Icons/static.svg";
+import axios from "axios";
 import tarrif from "../Icons/tarrif.svg";
 import user from "../Icons/user.svg";
-import LogoDash from "../Icons/LogoDashborad.svg";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect, useState } from "react";
 import { controlActions } from "../Redux/ReduxStore";
 
 const HomePage = () => {
+  const [waitLogo, setWaitLogo] = useState(false);
+  const dispatch = useDispatch();
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userDomain = useSelector((state) => state.controler.user_domain);
   const userName = useSelector((state) => state.controler.user_name);
   const userRole = useSelector((state) => state.controler.user_role);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+  const userLogo = useSelector((state) => state.controler.user_logo);
+  const userLogoText = useSelector((state) => state.controler.user_logo_text);
+  const userServices = useSelector((state) => state.controler.user_services);
+  const userRestaurants = useSelector(
+    (state) => state.controler.user_restaurants
+  );
+
+  console.log(userRestaurants);
+
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://innomenu.ru:8000/dash/restandservice_list?lang=RU`,
+        {},
+
+        {
+          "Content-Type": "application/json",
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserDataAfterLogin(request.data));
+
+        setTimeout(() => {
+          setWaitLogo(true);
+        }, 500);
+      }
+    };
+
+    getData();
+  }, []);
+
+  const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
   return (
     <React.Fragment>
@@ -25,8 +71,16 @@ const HomePage = () => {
         <main className={classes.mainContiner}>
           <div className={classes.sideNavBox}>
             <div className={classes.logoArea}>
-              <img className={classes.logoDash} alt="icon" src={LogoDash} />
-              <p className={classes.logoText}>ЯМБУРГ</p>
+              {waitLogo && (
+                <div
+                  className={classes.logoImg}
+                  style={{
+                    backgroundImage: `url("${URL}/${userLogo}")`,
+                  }}
+                ></div>
+              )}
+
+              <p className={classes.logoText}>{userLogoText}</p>
             </div>
 
             <div className={classes.actionArea}>
@@ -180,19 +234,44 @@ const HomePage = () => {
                 </div>
 
                 <div className={classes.managementRestaurents}>
-                  <div className={classes.itemRestaurent}></div>
-                  <div className={classes.itemRestaurent}></div>
-                  <div className={classes.itemRestaurent}></div>
+                  {userRestaurants.map((ele, index) => (
+                    <div
+                      style={{
+                        backgroundImage: `url("${URL}/${ele.image}")`,
+                      }}
+                      key={ele.id}
+                      id={index}
+                      className={classes.itemRestaurent}
+                    >
+                      <div className={classes.packageArea}>
+                        <span id={index} className={classes.itemRestHeading}>
+                          {ele.name_rest}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
 
                 <div className={classes.serviceHeadingArea}>
                   <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
                 </div>
-
                 <div className={classes.managementRestaurents}>
-                  <div className={classes.itemRestaurent}></div>
-                  <div className={classes.itemRestaurent}></div>
-                  <div className={classes.itemRestaurent}></div>
+                  {userServices.map((ele, index) => (
+                    <div
+                      style={{
+                        backgroundImage: `url("${URL}/${ele.image}")`,
+                      }}
+                      key={ele.id}
+                      id={index}
+                      className={classes.itemRestaurent}
+                    >
+                      <div className={classes.packageArea}>
+                        <span id={index} className={classes.itemRestHeading}>
+                          {ele.name_service}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
             </main>

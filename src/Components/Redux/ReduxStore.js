@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
+  serverAPI: "innomenu.ru",
   user_email: "",
   user_password: "",
   user_name: "",
@@ -8,6 +9,12 @@ const initialState = {
   user_phone_number: "",
   user_register_date: "",
   user_last_seen_date: "",
+  user_logo: "",
+  user_logo_text: "",
+  user_restaurants: "",
+  user_services: "",
+  user_currency: "",
+  user_domain: "",
 };
 
 const controlSlice = createSlice({
@@ -28,6 +35,15 @@ const controlSlice = createSlice({
       state.user_phone_number = action.payload.tel;
       state.user_register_date = action.payload.date_reg;
       state.user_last_seen_date = action.payload.last_time;
+    },
+
+    getUserDataAfterLogin(state, action) {
+      state.user_logo = action.payload.logo;
+      state.user_logo_text = action.payload.owner_name;
+      state.user_currency = action.payload.money;
+      state.user_restaurants = action.payload.rest;
+      state.user_services = action.payload.service;
+      state.user_domain = action.payload.domain;
     },
   },
 });

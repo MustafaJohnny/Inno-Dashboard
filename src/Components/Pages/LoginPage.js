@@ -37,11 +37,6 @@ const LoginPage = () => {
       let mounted = true;
 
       const getData = async () => {
-        const data = {
-          username: userEmail,
-          password: userPassword,
-        };
-
         const request = await axios.post(
           `http://innomenu.ru:8000/api/v1/user/login`,
           {},
