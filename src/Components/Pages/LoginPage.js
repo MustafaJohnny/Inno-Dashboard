@@ -13,6 +13,7 @@ const LoginPage = () => {
 
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
 
   const getEmail = (event) => {
     dispatch(controlActions.getUserEmail(event.target.value));
@@ -38,7 +39,7 @@ const LoginPage = () => {
 
       const getData = async () => {
         const request = await axios.post(
-          `http://innomenu.ru:8000/api/v1/user/login`,
+          `http://${serverAPI}:8000/api/v1/user/login`,
           {},
 
           {

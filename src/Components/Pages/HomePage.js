@@ -39,7 +39,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://innomenu.ru:8000/dash/restandservice_list?lang=RU`,
+        `http://${serverAPI}:8000/dash/restandservice_list?lang=RU`,
         {},
 
         {
