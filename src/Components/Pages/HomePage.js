@@ -1,4 +1,5 @@
 import React from "react";
+import AddRestaurant from "../UI-Components/AddRestaurant";
 import classes from "./HomePage.module.css";
 import arrowR from "../Icons/arrowR.svg";
 import mangeIcon from "../Icons/mange.svg";
@@ -32,13 +33,38 @@ const HomePage = () => {
     (state) => state.controler.user_restaurants
   );
 
-  console.log(userRestaurants);
+  // useEffect(() => {
+  //   let mounted = true;
+
+  //   const getData = async () => {
+  //     const request = await axios.get(
+  //       `http://${serverAPI}:8000/dash/restandservice_list?lang=RU`,
+  //       {},
+
+  //       {
+  //         "Content-Type": "application/json",
+  //         auth: {
+  //           username: userEmail,
+  //           password: userPassword,
+  //         },
+  //       }
+  //     );
+
+  //     if (mounted) {
+  //       dispatch(controlActions.getUserDataAfterLogin(request.data));
+
+  //       setTimeout(() => {
+  //         setWaitLogo(true);
+  //       }, 500);
+  //     }
+  //   };
+
+  //   getData();
+  // }, []);
 
   useEffect(() => {
-    let mounted = true;
-
-    const getData = async () => {
-      const request = await axios.get(
+    axios
+      .get(
         `http://${serverAPI}:8000/dash/restandservice_list?lang=RU`,
         {},
 
@@ -49,18 +75,14 @@ const HomePage = () => {
             password: userPassword,
           },
         }
-      );
-
-      if (mounted) {
-        dispatch(controlActions.getUserDataAfterLogin(request.data));
+      )
+      .then((response) => {
+        dispatch(controlActions.getUserDataAfterLogin(response.data));
 
         setTimeout(() => {
           setWaitLogo(true);
         }, 500);
-      }
-    };
-
-    getData();
+      });
   }, []);
 
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
@@ -68,6 +90,7 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <section>
+        <AddRestaurant />
         <main className={classes.mainContiner}>
           <div className={classes.sideNavBox}>
             <div className={classes.logoArea}>

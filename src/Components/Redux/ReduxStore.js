@@ -11,8 +11,8 @@ const initialState = {
   user_last_seen_date: "",
   user_logo: "",
   user_logo_text: "",
-  user_restaurants: "",
-  user_services: "",
+  user_restaurants: [],
+  user_services: [],
   user_currency: "",
   user_domain: "",
 };

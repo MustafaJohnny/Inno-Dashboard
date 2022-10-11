@@ -1,0 +1,128 @@
+.modal {
+  top: 50%;
+  left: 50%;
+  width: 65rem;
+  height: 60rem;
+  display: flex;
+  position: fixed;
+  overflow: hidden;
+  border-radius: 5px;
+  transition: all 0.5s;
+  flex-direction: column;
+  background-color: #fff;
+  transform: translate(-50%, -50%);
+  animation: openModall 0.5s ease-out forwards;
+  z-index: 99999999999999999999999999999999999999;
+  box-shadow: 0px 3px 20px rgba(101, 101, 101, 0.15);
+}
+
+@keyframes openModall {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -100%);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translate(-50%, -20%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, -50%);
+  }
+}
+
+.btnCloseModal {
+  font-family: inherit;
+  position: absolute;
+  background: none;
+  color: #969ea1;
+  font-weight: 300;
+  cursor: pointer;
+  font-size: 3.4rem;
+  border: none;
+  top: 1%;
+  right: 2%;
+}
+
+.modalHeading {
+  color: #27272a;
+  font-weight: 400;
+  font-size: 1.8rem;
+  padding: 2rem;
+}
+
+.modalForm {
+  padding: 2rem;
+  background-color: #f8fafb;
+}
+
+.inputImgArea {
+  display: flex;
+  border-radius: 5px;
+  align-items: center;
+  justify-content: center;
+  border: 0.5px solid #40404034;
+  padding: 5rem;
+}
+
+.inputImgModal {
+  padding: 1rem;
+  border-radius: 5px;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 15%);
+}
+
+::-webkit-file-upload-button {
+  background: linear-gradient(90deg, #45cbd8 3.25%, #4d7cfe 89.92%);
+  font-family: "Rubik", sans-serif;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem 1rem 2rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.modalInputsContainer {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  padding-top: 3.2rem;
+  row-gap: 2.6rem;
+  column-gap: 1.6rem;
+}
+
+.wholeModalInput {
+  display: flex;
+  gap: 1rem;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+.modalBasicLable {
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #27272a;
+}
+
+.modalBasicInput {
+  font-family: inherit;
+  font-size: 1.7rem;
+  padding: 1rem 0rem;
+  padding-left: 1rem;
+  width: 100%;
+  color: #252631;
+  background: #fff;
+  border-radius: 5px;
+  border: 1px solid #e8ecef;
+  transition: all 0.5s;
+  box-shadow: 0 0.5px 0.5px rgb(0 0 0 / 5%);
+}
+
+.modalBasicInput:focus {
+  outline: none;
+  border: 1px solid #4d7cfe;
+}
