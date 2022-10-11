@@ -37,11 +37,13 @@ const AddRestaurant = () => {
               <label className={classes.modalBasicLable} htmlFor="lang">
                 Язык
               </label>
-              <input
-                type="text"
-                className={classes.modalBasicInput}
-                id="lang"
-              />
+
+              <select id="lang" className={classes.modalBasicInput}>
+                <option value=""></option>
+                <option value="friends">русский</option>
+                <option value="youtube">английский</option>
+                <option value="podcast">испанский</option>
+              </select>
             </div>
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable} htmlFor="address">
@@ -64,7 +66,52 @@ const AddRestaurant = () => {
               />
             </div>
           </div>
+          <div className={classes.modalInputsContaine2}>
+            <div className={classes.twoInputsArea}>
+              <div className={classes.wholeModalInput}>
+                <label className={classes.modalBasicLable} htmlFor="start">
+                  Начало работы
+                </label>
+                <input
+                  type="time"
+                  className={classes.modalBasicInput}
+                  id="start"
+                />
+              </div>
+              <div className={classes.wholeModalInput}>
+                <label className={classes.modalBasicLable} htmlFor="end">
+                  Конец работы
+                </label>
+                <input
+                  type="time"
+                  className={classes.modalBasicInput}
+                  id="end"
+                />
+              </div>
+            </div>
+            <div className={classes.wholeModalInput}>
+              <label className={classes.modalBasicLable} htmlFor="zone">
+                Временная зона
+              </label>
+
+              <select
+                id="zone"
+                className={`${classes.modalBasicInput} ${classes.zoneInput}`}
+              >
+                <option value=""></option>
+                <option value="friends">Москва</option>
+                <option value="youtube">Минск</option>
+                <option value="podcast">Буэнос айрес</option>
+              </select>
+            </div>
+          </div>
         </form>
+        <div className={classes.modalControlBtnsArea}>
+          <button className={classes.controlBtn}>ДОБАВИТЬ</button>
+          <button className={`${classes.controlBtn} ${classes.cencelBtn}`}>
+            Отменить
+          </button>
+        </div>
         <button className={classes.btnCloseModal}>&times;</button>
       </div>
     </React.Fragment>

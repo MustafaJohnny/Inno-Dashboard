@@ -1,8 +1,7 @@
 .modal {
   top: 50%;
   left: 50%;
-  width: 65rem;
-  height: 60rem;
+  width: 70rem;
   display: flex;
   position: fixed;
   overflow: hidden;
@@ -64,7 +63,7 @@
   align-items: center;
   justify-content: center;
   border: 0.5px solid #40404034;
-  padding: 5rem;
+  padding: 4rem 5rem;
 }
 
 .inputImgModal {
@@ -79,7 +78,7 @@
   font-family: "Rubik", sans-serif;
   color: #fff;
   border: none;
-  padding: 1rem 2rem 1rem 2rem;
+  padding: 1rem 2rem;
   border-radius: 5px;
   font-size: 1.2rem;
   transition: all 0.4s;
@@ -91,6 +90,7 @@
   grid-template-columns: 1fr 1fr;
   align-items: center;
   padding-top: 3.2rem;
+  padding-bottom: 1.8rem;
   row-gap: 2.6rem;
   column-gap: 1.6rem;
 }
@@ -102,6 +102,7 @@
   align-items: flex-start;
   width: 100%;
 }
+
 .modalBasicLable {
   font-weight: 400;
   font-size: 1.4rem;
@@ -110,7 +111,7 @@
 
 .modalBasicInput {
   font-family: inherit;
-  font-size: 1.7rem;
+  font-size: 1.6rem;
   padding: 1rem 0rem;
   padding-left: 1rem;
   width: 100%;
@@ -125,4 +126,42 @@
 .modalBasicInput:focus {
   outline: none;
   border: 1px solid #4d7cfe;
+}
+
+.modalInputsContaine2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 1.6rem;
+}
+
+.twoInputsArea {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.modalControlBtnsArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.4rem 1.8rem;
+}
+
+.controlBtn {
+  background: linear-gradient(90deg, #45cbd8 3.25%, #4d7cfe 89.92%);
+  padding: 1rem 2rem;
+  font-family: inherit;
+  transition: all 0.5s;
+  border-radius: 5px;
+  font-size: 1.4rem;
+  font-weight: 400;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+}
+
+.cencelBtn {
+  background: unset !important;
+  background-color: #f2f4f6 !important;
+  color: #778ca2 !important;
 }
