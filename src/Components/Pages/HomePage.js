@@ -1,5 +1,6 @@
 import React from "react";
 import AddRestaurant from "../UI-Components/AddRestaurant";
+import AddService from "../UI-Components/AddService";
 import classes from "./HomePage.module.css";
 import arrowR from "../Icons/arrowR.svg";
 import mangeIcon from "../Icons/mange.svg";
@@ -29,43 +30,25 @@ const HomePage = () => {
   const userLogo = useSelector((state) => state.controler.user_logo);
   const userLogoText = useSelector((state) => state.controler.user_logo_text);
   const userServices = useSelector((state) => state.controler.user_services);
+
   const userRestaurants = useSelector(
     (state) => state.controler.user_restaurants
   );
 
-  // useEffect(() => {
-  //   let mounted = true;
+  const showAddRestaurant = useSelector(
+    (state) => state.controler.show_add_restaurant
+  );
 
-  //   const getData = async () => {
-  //     const request = await axios.get(
-  //       `http://${serverAPI}:8000/dash/restandservice_list?lang=RU`,
-  //       {},
-
-  //       {
-  //         "Content-Type": "application/json",
-  //         auth: {
-  //           username: userEmail,
-  //           password: userPassword,
-  //         },
-  //       }
-  //     );
-
-  //     if (mounted) {
-  //       dispatch(controlActions.getUserDataAfterLogin(request.data));
-
-  //       setTimeout(() => {
-  //         setWaitLogo(true);
-  //       }, 500);
-  //     }
-  //   };
-
-  //   getData();
-  // }, []);
+  const showAddService = useSelector(
+    (state) => state.controler.show_add_service
+  );
 
   useEffect(() => {
-    axios
-      .get(
-        `http://${serverAPI}:8000/dash/restandservice_list?lang=RU`,
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/restandservice_list?lang=RU`,
         {},
 
         {
@@ -75,22 +58,71 @@ const HomePage = () => {
             password: userPassword,
           },
         }
-      )
-      .then((response) => {
-        dispatch(controlActions.getUserDataAfterLogin(response.data));
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserDataAfterLogin(request.data));
 
         setTimeout(() => {
           setWaitLogo(true);
         }, 500);
-      });
+      }
+    };
+
+    getData();
   }, []);
 
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
+  const activateOrDeactivateMenu = (menuID) => {
+    axios
+      .post(
+        `http://innomenu.ru/api/v1/owner/rest_active_or_deactivate/${menuID}`,
+        {},
+
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.status);
+      });
+  };
+
+  const activateOrDeactivateService = (menuID) => {
+    axios
+      .post(
+        `http://innomenu.ru/api/v1/owner/service_active_or_deactivate/${menuID}`,
+        {},
+
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.status);
+      });
+  };
+
+  const unHideAddRestaurent = () => {
+    dispatch(controlActions.toggleAddRestaurant());
+  };
+
+  const unHideAddService = () => {
+    dispatch(controlActions.toggleAddService());
+  };
+
   return (
     <React.Fragment>
       <section>
-        <AddRestaurant />
+        {showAddRestaurant && <AddRestaurant />}
+        {showAddService && <AddService />}
         <main className={classes.mainContiner}>
           <div className={classes.sideNavBox}>
             <div className={classes.logoArea}>
@@ -247,10 +279,18 @@ const HomePage = () => {
                 <div className={classes.managementBtnsArea}>
                   <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
                   <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
+                    <button
+                      onClick={unHideAddService}
+                      className={classes.manageBtn}
+                      type="button"
+                    >
                       + Добавить сервис
                     </button>
-                    <button className={classes.manageBtn} type="button">
+                    <button
+                      onClick={unHideAddRestaurent}
+                      className={classes.manageBtn}
+                      type="button"
+                    >
                       + Добавить ресторан
                     </button>
                   </div>
@@ -266,6 +306,17 @@ const HomePage = () => {
                       id={index}
                       className={classes.itemRestaurent}
                     >
+                      <button
+                        onClick={() => activateOrDeactivateMenu(ele.id)}
+                        className={
+                          ele.is_active
+                            ? classes.activeMenu
+                            : classes.notActiveMenu
+                        }
+                        type="button"
+                      >
+                        {ele.is_active ? "Активный" : "Неактивный"}
+                      </button>
                       <div className={classes.packageArea}>
                         <span id={index} className={classes.itemRestHeading}>
                           {ele.name_rest}
@@ -288,6 +339,17 @@ const HomePage = () => {
                       id={index}
                       className={classes.itemRestaurent}
                     >
+                      <button
+                        onClick={() => activateOrDeactivateService(ele.id)}
+                        className={
+                          ele.is_active
+                            ? classes.activeMenu
+                            : classes.notActiveMenu
+                        }
+                        type="button"
+                      >
+                        {ele.is_active ? "Активный" : "Неактивный"}
+                      </button>
                       <div className={classes.packageArea}>
                         <span id={index} className={classes.itemRestHeading}>
                           {ele.name_service}
@@ -305,4 +367,4 @@ const HomePage = () => {
   );
 };
 
-export default HomePage;
+export default React.memo(HomePage);

@@ -39,7 +39,7 @@ const LoginPage = () => {
 
       const getData = async () => {
         const request = await axios.post(
-          `http://${serverAPI}:8000/api/v1/user/login`,
+          `http://${serverAPI}/api/v1/user/login`,
           {},
 
           {
@@ -67,7 +67,7 @@ const LoginPage = () => {
       <section>
         <div className={classes.logoArea}>
           <img alt="logo" className={classes.logoImg} src={Logo} />
-          <p className={classes.logoText}>INNO MENU</p>
+          <p className={classes.logoText}>TACTIC MENU</p>
         </div>
         <main className={classes.loginBox}>
           <div className={classes.loginActionsArea}>

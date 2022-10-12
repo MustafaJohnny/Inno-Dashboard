@@ -7,6 +7,10 @@ import { useDispatch } from "react-redux";
 const AddRestaurant = () => {
   const dispatch = useDispatch();
 
+  const hideAddRestaurent = () => {
+    dispatch(controlActions.toggleAddRestaurant());
+  };
+
   return (
     <React.Fragment>
       <Overlay />
@@ -108,11 +112,16 @@ const AddRestaurant = () => {
         </form>
         <div className={classes.modalControlBtnsArea}>
           <button className={classes.controlBtn}>ДОБАВИТЬ</button>
-          <button className={`${classes.controlBtn} ${classes.cencelBtn}`}>
+          <button
+            onClick={hideAddRestaurent}
+            className={`${classes.controlBtn} ${classes.cencelBtn}`}
+          >
             Отменить
           </button>
         </div>
-        <button className={classes.btnCloseModal}>&times;</button>
+        <button onClick={hideAddRestaurent} className={classes.btnCloseModal}>
+          &times;
+        </button>
       </div>
     </React.Fragment>
   );

@@ -15,6 +15,9 @@ const initialState = {
   user_services: [],
   user_currency: "",
   user_domain: "",
+  show_add_restaurant: false,
+  show_add_service: false,
+  all_data: {},
 };
 
 const controlSlice = createSlice({
@@ -44,6 +47,15 @@ const controlSlice = createSlice({
       state.user_restaurants = action.payload.rest;
       state.user_services = action.payload.service;
       state.user_domain = action.payload.domain;
+      state.all_data = action.payload;
+    },
+
+    toggleAddRestaurant(state) {
+      state.show_add_restaurant = !state.show_add_restaurant;
+    },
+
+    toggleAddService(state) {
+      state.show_add_service = !state.show_add_service;
     },
   },
 });

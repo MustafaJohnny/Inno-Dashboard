@@ -195,6 +195,8 @@
   background-position: center;
   overflow: hidden;
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
   align-items: flex-end;
   cursor: pointer;
 }
@@ -222,4 +224,40 @@
 
 .serviceHeadingArea {
   padding: 2.5rem 0rem;
+}
+
+.activeMenu {
+  border: none;
+  font-family: inherit;
+  color: #fff;
+  background-color: #6dd230;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  margin: 1rem 1rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.activeMenu:hover {
+  transform: translateY(-2px);
+}
+
+.notActiveMenu {
+  border: none;
+  font-family: inherit;
+  color: #fff;
+  background-color: #dc2626;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  margin: 1rem 1rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.notActiveMenu:hover {
+  transform: translateY(-2px);
 }
