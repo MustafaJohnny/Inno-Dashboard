@@ -11,6 +11,7 @@ import Settings from "../Icons/Settings.svg";
 import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import user from "../Icons/user.svg";
+import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -22,11 +23,19 @@ const SideNavigation = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
+  const navigate = useNavigate();
+
   useEffect(() => {
     setTimeout(() => {
       setWaitLogo(true);
     }, 500);
   }, []);
+
+  const goHomeforNow = () => {
+    navigate("/home", {
+      replace: true,
+    });
+  };
 
   return (
     <React.Fragment>
@@ -47,7 +56,7 @@ const SideNavigation = () => {
         <div className={classes.actionArea}>
           <h2 className={classes.actionHeading}>Ресторан</h2>
           <div className={classes.actionBox}>
-            <div className={classes.wholeAction}>
+            <div onClick={goHomeforNow} className={classes.wholeAction}>
               <div className={classes.iconTextArea}>
                 <img
                   alt="icon"

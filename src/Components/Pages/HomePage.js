@@ -134,6 +134,7 @@ const HomePage = () => {
     const clickedMenuHeading = userRestaurants[event.target.id].name_rest;
 
     dispatch(controlActions.setRestaurantPageHeading(clickedMenuHeading));
+    dispatch(controlActions.getUserMenuID(clickedMenuID));
 
     let mounted = true;
 
@@ -152,6 +153,40 @@ const HomePage = () => {
       if (mounted) {
         dispatch(controlActions.getUserMenus(request.data));
         navigate("/restaurants", {
+          replace: false,
+        });
+      }
+    };
+    getData();
+  };
+
+  ////////////////////////////////////////////////////////////////////////
+
+  const getClickedService = (event) => {
+    const clickedServiceID = userServices[event.target.id].id;
+    const clickedServiceHeading = userServices[event.target.id].name_service;
+
+    dispatch(controlActions.setServicesPageHeading(clickedServiceHeading));
+    dispatch(controlActions.getUserServiceID(clickedServiceID));
+
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/uslugi_list/${clickedServiceID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        console.log(request.data);
+        dispatch(controlActions.getUserServiceItems(request.data));
+        navigate("/services", {
           replace: false,
         });
       }
@@ -227,6 +262,7 @@ const HomePage = () => {
                 <div className={classes.managementRestaurents}>
                   {userServices.map((ele, index) => (
                     <div
+                      onClick={getClickedService}
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,
                       }}

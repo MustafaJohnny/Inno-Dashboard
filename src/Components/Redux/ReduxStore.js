@@ -11,19 +11,25 @@ const initialState = {
   user_register_date: "",
   user_last_seen_date: "",
   /* Owner Product States */
+  user_service_items: [],
   user_restaurants: [],
-  user_menus: [],
   user_services: [],
+  user_menus: [],
+  user_menu_ID: "",
+  user_service_ID: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
   user_logo: "",
   /* App Toggling States */
-  show_add_service: false,
+  show_add_service_items: false,
   show_add_restaurant: false,
+  show_add_service: false,
+  show_add_menu: false,
   /* The App States */
   up_navigation_heading: "Менеджмент",
   restaurant_page_heading: "",
+  services_page_heading: "",
   serverAPI: "innomenu.ru",
   app_languages: [],
 };
@@ -69,6 +75,18 @@ const controlSlice = createSlice({
       state.user_menus = action.payload;
     },
 
+    getUserServiceItems(state, action) {
+      state.user_service_items = action.payload;
+    },
+
+    getUserMenuID(state, action) {
+      state.user_menu_ID = action.payload;
+    },
+
+    getUserServiceID(state, action) {
+      state.user_service_ID = action.payload;
+    },
+
     /* controling the app functions */
 
     setUpNavHeading(state, action) {
@@ -79,6 +97,10 @@ const controlSlice = createSlice({
       state.restaurant_page_heading = action.payload;
     },
 
+    setServicesPageHeading(state, action) {
+      state.services_page_heading = action.payload;
+    },
+
     /* toggling app functions */
     toggleAddRestaurant(state) {
       state.show_add_restaurant = !state.show_add_restaurant;
@@ -86,6 +108,14 @@ const controlSlice = createSlice({
 
     toggleAddService(state) {
       state.show_add_service = !state.show_add_service;
+    },
+
+    toggleAddMenu(state) {
+      state.show_add_menu = !state.show_add_menu;
+    },
+
+    toggleShowAddServiceItems(state) {
+      state.show_add_service_items = !state.show_add_service_items;
     },
   },
 });

@@ -66,6 +66,7 @@
   width: 100%;
   padding: 1rem 2rem 1rem 3rem;
   display: flex;
+  cursor: pointer;
   align-items: center;
   justify-content: space-between;
   /* background-color: #363741; */

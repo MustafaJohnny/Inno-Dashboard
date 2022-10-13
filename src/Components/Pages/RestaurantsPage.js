@@ -1,33 +1,33 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
 import axios from "axios";
-import { useSelector } from "react-redux";
-
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { controlActions } from "../Redux/ReduxStore";
 
 const RestaurantsPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const showAddMenu = useSelector((state) => state.controler.show_add_menu);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userMenus = useSelector((state) => state.controler.user_menus);
 
   const pageHeading = useSelector(
     (state) => state.controler.restaurant_page_heading
   );
 
-  const userMenus = useSelector((state) => state.controler.user_menus);
-
-  console.log(userMenus);
-
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
-  const activateOrDeactivateMenu = (menuID) => {
+  const activateOrDeactivateCategory = (menuID) => {
     axios
       .post(
-        `http://innomenu.ru/api/v1/owner/rest_active_or_deactivate/${menuID}`,
+        `http://innomenu.ru/api/v1/menu/menu_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -38,14 +38,19 @@ const RestaurantsPage = () => {
         }
       )
       .then((response) => {
-        console.log(response.status);
+        console.log(response);
         navigate(0);
       });
+  };
+
+  const unHideAddMenu = () => {
+    dispatch(controlActions.toggleAddMenu());
   };
 
   return (
     <React.Fragment>
       <section>
+        {showAddMenu && <AddMenu />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -58,7 +63,11 @@ const RestaurantsPage = () => {
                     <button className={classes.manageBtn} type="button">
                       Редактировать ресторан
                     </button>
-                    <button className={classes.manageBtn} type="button">
+                    <button
+                      onClick={unHideAddMenu}
+                      className={classes.manageBtn}
+                      type="button"
+                    >
                       + Добавить меню
                     </button>
                   </div>
@@ -75,7 +84,7 @@ const RestaurantsPage = () => {
                       className={classes.itemRestaurent}
                     >
                       <button
-                        onClick={() => activateOrDeactivateMenu(ele.id)}
+                        onClick={() => activateOrDeactivateCategory(ele.id)}
                         className={
                           ele.is_active
                             ? classes.activeMenu
