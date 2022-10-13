@@ -1,37 +1,22 @@
 import React from "react";
+import SideNavigation from "../UI-Components/SideNavigation";
+import UpNavigation from "../UI-Components/UpNavigation";
 import AddRestaurant from "../UI-Components/AddRestaurant";
 import AddService from "../UI-Components/AddService";
 import classes from "./HomePage.module.css";
-import arrowR from "../Icons/arrowR.svg";
-import mangeIcon from "../Icons/mange.svg";
-import clinets from "../Icons/clinets.svg";
-import delivery from "../Icons/delivery.svg";
-import menu from "../Icons/menu.svg";
-import order from "../Icons/order.svg";
-import review from "../Icons/review.svg";
-import Settings from "../Icons/Settings.svg";
-import statica from "../Icons/static.svg";
 import axios from "axios";
-import tarrif from "../Icons/tarrif.svg";
-import user from "../Icons/user.svg";
-import LogOut from "../Icons/LogOut.svg";
 import { useSelector, useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const HomePage = () => {
-  const [waitLogo, setWaitLogo] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
-  const userName = useSelector((state) => state.controler.user_name);
-  const userRole = useSelector((state) => state.controler.user_role);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const userLogo = useSelector((state) => state.controler.user_logo);
-  const userLogoText = useSelector((state) => state.controler.user_logo_text);
   const userServices = useSelector((state) => state.controler.user_services);
 
   const userRestaurants = useSelector(
@@ -46,6 +31,7 @@ const HomePage = () => {
     (state) => state.controler.show_add_service
   );
 
+  // This one is for getting information about the product owner first time we load the home page
   useEffect(() => {
     let mounted = true;
 
@@ -63,14 +49,36 @@ const HomePage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserDataAfterLogin(request.data));
-
-        setTimeout(() => {
-          setWaitLogo(true);
-        }, 500);
       }
     };
 
     getData();
+  }, []);
+
+  // This one if for getting the list of languages from the server also first time when we load the home page.
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}:8000/api/v1/dict/lang`
+      );
+
+      if (mounted) {
+        // Converting the received objects {key: valye} to an array of [key, valye].
+        const convertLanguages = request.data
+          .map((ele) => Object.entries(ele))
+          .map((ele) => ele[0]);
+
+        dispatch(controlActions.getAppLanguages(convertLanguages));
+      }
+    };
+
+    getData();
+
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
@@ -121,12 +129,34 @@ const HomePage = () => {
     dispatch(controlActions.toggleAddService());
   };
 
-  const logOutAndReset = () => {
-    window.localStorage.clear();
-    window.localStorage.removeItem("persist:root");
-    navigate("/", {
-      replace: true,
-    });
+  const getClickedMenu = (event) => {
+    const clickedMenuID = userRestaurants[event.target.id].id;
+    const clickedMenuHeading = userRestaurants[event.target.id].name_rest;
+
+    dispatch(controlActions.setRestaurantPageHeading(clickedMenuHeading));
+
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/rest_menu_list/${clickedMenuID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserMenus(request.data));
+        navigate("/restaurants", {
+          replace: false,
+        });
+      }
+    };
+    getData();
   };
 
   return (
@@ -135,161 +165,9 @@ const HomePage = () => {
         {showAddRestaurant && <AddRestaurant />}
         {showAddService && <AddService />}
         <main className={classes.mainContiner}>
-          <div className={classes.sideNavBox}>
-            <div className={classes.logoArea}>
-              {waitLogo && (
-                <div
-                  className={classes.logoImg}
-                  style={{
-                    backgroundImage: `url("${URL}/${userLogo}")`,
-                  }}
-                ></div>
-              )}
-
-              <p className={classes.logoText}>{userLogoText}</p>
-            </div>
-
-            <div className={classes.actionArea}>
-              <h2 className={classes.actionHeading}>Ресторан</h2>
-              <div className={classes.actionBox}>
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={mangeIcon}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Менеджмент</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={order}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Заказы</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img alt="icon" src={user} className={classes.actionIcon} />
-
-                    <span className={classes.actionText}>Сотрудники</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img alt="icon" src={menu} className={classes.actionIcon} />
-
-                    <span className={classes.actionText}>Меню</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={clinets}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Клиенты</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={review}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Отчеты</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={delivery}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Доставка</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={Settings}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Настройки</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-              </div>
-              <h2 className={classes.actionHeading}>Аккаунт</h2>
-              <div className={classes.actionBox}>
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={tarrif}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Тарифы</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-                <div className={classes.wholeAction}>
-                  <div className={classes.iconTextArea}>
-                    <img
-                      alt="icon"
-                      src={statica}
-                      className={classes.actionIcon}
-                    />
-
-                    <span className={classes.actionText}>Статистика</span>
-                  </div>
-                  <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-                </div>
-              </div>
-            </div>
-          </div>
+          <SideNavigation />
           <div className={classes.contentBigBox}>
-            <header className={classes.upHeader}>
-              <h2 className={classes.headerHeading}>Менеджмент</h2>
-              <div className={classes.logingArea}>
-                <div className={classes.nameRoleArea}>
-                  <span className={classes.userName}>{userName}</span>
-                  <span className={classes.userRole}>{userRole}</span>
-                </div>
-                <button onClick={logOutAndReset} className={classes.logOutBtn}>
-                  <img alt="icon" src={LogOut} className={classes.logOutIcon} />
-                </button>
-              </div>
-            </header>
+            <UpNavigation />
             <main className={classes.changeContentBox}>
               <div className={classes.managmentContent}>
                 <div className={classes.managementBtnsArea}>
@@ -315,6 +193,7 @@ const HomePage = () => {
                 <div className={classes.managementRestaurents}>
                   {userRestaurants.map((ele, index) => (
                     <div
+                      onClick={getClickedMenu}
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,
                       }}

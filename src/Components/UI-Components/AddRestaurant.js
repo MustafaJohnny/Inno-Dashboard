@@ -1,14 +1,69 @@
 import React from "react";
+import axios from "axios";
 import classes from "./ModalStyle.module.css";
 import Overlay from "../UI-Components/Overlay";
 import { controlActions } from "../Redux/ReduxStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AddRestaurant = () => {
+  const [restImage, setRestImage] = useState([]);
+  const [restName, setRestName] = useState("");
+  const [restLanguage, setRestLanguage] = useState("");
+  const [restAddress, setRestAddress] = useState("");
+  const [restPhone, setRestPhone] = useState("");
+  const [restStartTime, setRestStartTime] = useState("");
+  const [restEndTime, setRestEndTime] = useState("");
+  const [restTimeZone, setRestTimeZone] = useState("");
+
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+  const appLanguages = useSelector((state) => state.controler.app_languages);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const hideAddRestaurent = () => {
     dispatch(controlActions.toggleAddRestaurant());
+  };
+
+  const createNewRestaurant = () => {
+    const serverParams = {
+      name_rest: restName,
+      addr_rest: restAddress,
+      tel_rest: restPhone,
+      // time_start: restStartTime,
+      // time_end: restEndTime,
+      timezone: restTimeZone,
+    };
+
+    // if (!serviceName) return;
+    // if (!serviceImage) return;
+
+    const formData = new FormData();
+
+    formData.append("in_file", restImage, restImage.name);
+
+    axios
+      .post(
+        `http://${serverAPI}/api/v1/owner/rest_new/${restLanguage}`,
+        formData,
+        {
+          params: serverParams,
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
+      .then((response) => {
+        if (response.data) {
+          hideAddRestaurent();
+          navigate(0);
+        }
+      });
   };
 
   return (
@@ -23,6 +78,7 @@ const AddRestaurant = () => {
               type="file"
               multiple
               accept="image/png, image/jpeg"
+              onChange={(event) => setRestImage(event.target.files[0])}
               required
             />
           </div>
@@ -35,6 +91,7 @@ const AddRestaurant = () => {
                 type="text"
                 className={classes.modalBasicInput}
                 id="name"
+                onChange={(event) => setRestName(event.target.value)}
               />
             </div>
             <div className={classes.wholeModalInput}>
@@ -42,11 +99,18 @@ const AddRestaurant = () => {
                 Язык
               </label>
 
-              <select id="lang" className={classes.modalBasicInput}>
+              <select
+                onChange={(event) => setRestLanguage(event.target.value)}
+                id="lang"
+                className={classes.modalBasicInput}
+              >
                 <option value=""></option>
-                <option value="friends">русский</option>
-                <option value="youtube">английский</option>
-                <option value="podcast">испанский</option>
+                {appLanguages.map((element, index) => (
+                  <option key={index} value={element[0]}>
+                    {" "}
+                    {element[1]}
+                  </option>
+                ))}
               </select>
             </div>
             <div className={classes.wholeModalInput}>
@@ -54,6 +118,7 @@ const AddRestaurant = () => {
                 Адрес
               </label>
               <input
+                onChange={(event) => setRestAddress(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
@@ -64,6 +129,7 @@ const AddRestaurant = () => {
                 Телефон
               </label>
               <input
+                onChange={(event) => setRestPhone(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="phone"
@@ -77,6 +143,7 @@ const AddRestaurant = () => {
                   Начало работы
                 </label>
                 <input
+                  onChange={(event) => setRestStartTime(event.target.value)}
                   type="time"
                   className={classes.modalBasicInput}
                   id="start"
@@ -87,6 +154,7 @@ const AddRestaurant = () => {
                   Конец работы
                 </label>
                 <input
+                  onChange={(event) => setRestEndTime(event.target.value)}
                   type="time"
                   className={classes.modalBasicInput}
                   id="end"
@@ -97,21 +165,19 @@ const AddRestaurant = () => {
               <label className={classes.modalBasicLable} htmlFor="zone">
                 Временная зона
               </label>
-
-              <select
-                id="zone"
-                className={`${classes.modalBasicInput} ${classes.zoneInput}`}
-              >
-                <option value=""></option>
-                <option value="friends">Москва</option>
-                <option value="youtube">Минск</option>
-                <option value="podcast">Буэнос айрес</option>
-              </select>
+              <input
+                onChange={(event) => setRestTimeZone(event.target.value)}
+                type="text"
+                className={classes.modalBasicInput}
+                id="address"
+              />
             </div>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button className={classes.controlBtn}>ДОБАВИТЬ</button>
+          <button onClick={createNewRestaurant} className={classes.controlBtn}>
+            ДОБАВИТЬ
+          </button>
           <button
             onClick={hideAddRestaurent}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
