@@ -1,14 +1,52 @@
 import React from "react";
+import axios from "axios";
 import classes from "./ModalStyle.module.css";
 import Overlay from "../UI-Components/Overlay";
 import { controlActions } from "../Redux/ReduxStore";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const AddService = () => {
+  const [serviceName, setServiceName] = useState("");
+  const [serviceImage, setServiceImage] = useState([]);
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const hideAddService = () => {
     dispatch(controlActions.toggleAddService());
+  };
+
+  const createNewService = () => {
+    const serverParams = {
+      name_service: serviceName,
+    };
+
+    if (!serviceName) return;
+    if (!serviceImage) return;
+
+    const formData = new FormData();
+
+    formData.append("in_file", serviceImage, serviceImage.name);
+
+    axios
+      .post(`http://${serverAPI}/api/v1/owner/service_new/RU`, formData, {
+        params: serverParams,
+        auth: {
+          username: userEmail,
+          password: userPassword,
+        },
+      })
+      .then((response) => {
+        if (response.data) {
+          hideAddService();
+          navigate(0);
+        }
+      });
   };
 
   return (
@@ -23,6 +61,7 @@ const AddService = () => {
               type="file"
               multiple
               accept="image/png, image/jpeg"
+              onChange={(event) => setServiceImage(event.target.files[0])}
               required
             />
           </div>
@@ -34,15 +73,19 @@ const AddService = () => {
                 Название
               </label>
               <input
+                onChange={(event) => setServiceName(event.target.value)}
                 type="text"
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService}`}
                 id="name"
+                required
               />
             </div>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button className={classes.controlBtn}>ДОБАВИТЬ</button>
+          <button onClick={createNewService} className={classes.controlBtn}>
+            ДОБАВИТЬ
+          </button>
           <button
             onClick={hideAddService}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}

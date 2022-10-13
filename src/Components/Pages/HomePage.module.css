@@ -10,9 +10,8 @@
   width: 20% !important;
   background-color: #252631;
   box-shadow: 1px 0px 50px rgba(208, 200, 200, 0.25);
-
-  display: flex;
   gap: 5rem;
+  display: flex;
   flex-direction: column;
   align-items: flex-start;
   justify-content: flex-start;
@@ -120,8 +119,24 @@
 .nameRoleArea {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-end;
   gap: 0.4rem;
+}
+
+.logingArea {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.logOutBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.logOutIcon {
+  width: 1.6rem;
 }
 
 .userName {
@@ -178,11 +193,10 @@
 }
 
 .managementRestaurents {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  gap: 3rem;
-  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  column-gap: 3rem;
+  row-gap: 2rem;
 }
 
 .itemRestaurent {

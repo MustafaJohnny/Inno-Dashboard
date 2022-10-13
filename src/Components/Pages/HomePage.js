@@ -14,13 +14,16 @@ import statica from "../Icons/static.svg";
 import axios from "axios";
 import tarrif from "../Icons/tarrif.svg";
 import user from "../Icons/user.svg";
+import LogOut from "../Icons/LogOut.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const HomePage = () => {
   const [waitLogo, setWaitLogo] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userName = useSelector((state) => state.controler.user_name);
@@ -49,14 +52,12 @@ const HomePage = () => {
     const getData = async () => {
       const request = await axios.get(
         `http://${serverAPI}/api/dash/restandservice_list?lang=RU`,
-        {},
-
         {
-          "Content-Type": "application/json",
           auth: {
             username: userEmail,
             password: userPassword,
           },
+          headers: { accept: "application/json" },
         }
       );
 
@@ -89,6 +90,7 @@ const HomePage = () => {
       )
       .then((response) => {
         console.log(response.status);
+        navigate(0);
       });
   };
 
@@ -107,6 +109,7 @@ const HomePage = () => {
       )
       .then((response) => {
         console.log(response.status);
+        navigate(0);
       });
   };
 
@@ -116,6 +119,14 @@ const HomePage = () => {
 
   const unHideAddService = () => {
     dispatch(controlActions.toggleAddService());
+  };
+
+  const logOutAndReset = () => {
+    window.localStorage.clear();
+    window.localStorage.removeItem("persist:root");
+    navigate("/", {
+      replace: true,
+    });
   };
 
   return (
@@ -269,9 +280,14 @@ const HomePage = () => {
           <div className={classes.contentBigBox}>
             <header className={classes.upHeader}>
               <h2 className={classes.headerHeading}>Менеджмент</h2>
-              <div className={classes.nameRoleArea}>
-                <span className={classes.userName}>{userName}</span>
-                <span className={classes.userRole}>{userRole}</span>
+              <div className={classes.logingArea}>
+                <div className={classes.nameRoleArea}>
+                  <span className={classes.userName}>{userName}</span>
+                  <span className={classes.userRole}>{userRole}</span>
+                </div>
+                <button onClick={logOutAndReset} className={classes.logOutBtn}>
+                  <img alt="icon" src={LogOut} className={classes.logOutIcon} />
+                </button>
               </div>
             </header>
             <main className={classes.changeContentBox}>

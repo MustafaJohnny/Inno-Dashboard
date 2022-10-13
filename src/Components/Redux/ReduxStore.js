@@ -1,29 +1,33 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  serverAPI: "innomenu.ru",
+  /* User Login States */
   user_email: "",
   user_password: "",
+  /* User Account States */
   user_name: "",
   user_role: "",
   user_phone_number: "",
   user_register_date: "",
   user_last_seen_date: "",
-  user_logo: "",
-  user_logo_text: "",
+  /* Owner Product States */
   user_restaurants: [],
   user_services: [],
+  user_logo_text: "",
   user_currency: "",
   user_domain: "",
+  user_logo: "",
+  /* App Toggling States */
   show_add_restaurant: false,
   show_add_service: false,
-  all_data: {},
+  serverAPI: "innomenu.ru",
 };
 
 const controlSlice = createSlice({
   name: "control",
   initialState,
   reducers: {
+    /* user login functions */
     getUserEmail(state, action) {
       state.user_email = action.payload;
     },
@@ -32,6 +36,7 @@ const controlSlice = createSlice({
       state.user_password = action.payload;
     },
 
+    /* user account functions */
     getUserDataFromServer(state, action) {
       state.user_name = action.payload.name;
       state.user_role = action.payload.role;
@@ -40,6 +45,7 @@ const controlSlice = createSlice({
       state.user_last_seen_date = action.payload.last_time;
     },
 
+    /* owner product function */
     getUserDataAfterLogin(state, action) {
       state.user_logo = action.payload.logo;
       state.user_logo_text = action.payload.owner_name;
@@ -50,6 +56,7 @@ const controlSlice = createSlice({
       state.all_data = action.payload;
     },
 
+    /* toggling app functions */
     toggleAddRestaurant(state) {
       state.show_add_restaurant = !state.show_add_restaurant;
     },
