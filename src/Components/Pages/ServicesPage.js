@@ -48,18 +48,24 @@ const ServicesPage = () => {
           <SideNavigation />
           <div className={classes.contentBigBox}>
             <UpNavigation />
-            <main className={classes.changeContentBox}>
-              <div className={classes.managmentContent}>
-                <div className={classes.managementBtnsArea}>
-                  <h1 className={classes.managementHeading}>{pageHeading}</h1>
-                  <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
-                      Редактировать сервис
-                    </button>
-                    <button className={classes.manageBtn} type="button">
-                      + Добавить услугу
-                    </button>
-                  </div>
+            <main className={classes.servicesContainer}>
+              <div className={classes.managementBtnsArea}>
+                <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                <div className={classes.twoBtnsManage}>
+                  <button className={classes.manageBtn} type="button">
+                    Редактировать сервис
+                  </button>
+                  <button className={classes.manageBtn} type="button">
+                    + Добавить услугу
+                  </button>
+                </div>
+              </div>
+
+              <div className={classes.serviceItemsBox}>
+                <div className={classes.multiHeadingServices}>
+                  <span className={classes.servicesHeading}>Название</span>
+                  <span className={classes.servicesHeading}>Цена</span>
+                  <span className={classes.servicesHeading}>Описание</span>
                 </div>
               </div>
             </main>

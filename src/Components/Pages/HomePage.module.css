@@ -156,6 +156,35 @@
   width: 100%;
 }
 
+.servicesContainer {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  padding: 2rem 2.6rem;
+}
+
+.serviceItemsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+}
+
+.multiHeadingServices {
+  background-color: #252631;
+  padding: 2rem 2.4rem;
+  gap: 16rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.servicesHeading {
+  font-weight: 400;
+  font-size: 1.3rem;
+  color: #fff;
+}
+
 .managementBtnsArea {
   display: flex;
   padding-bottom: 2rem;
