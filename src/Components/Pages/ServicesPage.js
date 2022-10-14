@@ -1,7 +1,9 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import AddServiceItem from "../UI-Components/AddServiceItem";
 import classes from "./HomePage.module.css";
+import editIcon from "../Icons/Edit.svg";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -14,6 +16,11 @@ const ServicesPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+
+  const showAddItemService = useSelector(
+    (state) => state.controler.show_add_service_items
+  );
+
   const userServiceItems = useSelector(
     (state) => state.controler.user_service_items
   );
@@ -22,28 +29,14 @@ const ServicesPage = () => {
     (state) => state.controler.services_page_heading
   );
 
-  //   const activateOrDeactivateCategory = (menuID) => {
-  //     axios
-  //       .post(
-  //         `http://innomenu.ru/api/v1/menu/menu_active_or_deactivate/${menuID}`,
-  //         {},
-
-  //         {
-  //           auth: {
-  //             username: userEmail,
-  //             password: userPassword,
-  //           },
-  //         }
-  //       )
-  //       .then((response) => {
-  //         console.log(response);
-  //         navigate(0);
-  //       });
-  //   };
+  const showModalItem = () => {
+    dispatch(controlActions.toggleShowAddServiceItems());
+  };
 
   return (
     <React.Fragment>
       <section>
+        {showAddItemService && <AddServiceItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -55,7 +48,11 @@ const ServicesPage = () => {
                   <button className={classes.manageBtn} type="button">
                     Редактировать сервис
                   </button>
-                  <button className={classes.manageBtn} type="button">
+                  <button
+                    className={classes.manageBtn}
+                    type="button"
+                    onClick={showModalItem}
+                  >
                     + Добавить услугу
                   </button>
                 </div>
@@ -67,6 +64,33 @@ const ServicesPage = () => {
                   <span className={classes.servicesHeading}>Цена</span>
                   <span className={classes.servicesHeading}>Описание</span>
                 </div>
+                {userServiceItems.map((element) => (
+                  <div key={element.id} className={classes.wholeItemService}>
+                    <span className={classes.serviceName}>{element.name}</span>
+                    <span className={classes.servicePrice}>
+                      {element.price}
+                    </span>
+                    <span className={classes.serviceDescription}>
+                      {element.description}
+                    </span>
+                    <div className={classes.service2btnArea}>
+                      <button
+                        type="button"
+                        className={classes.serviceActiveBtn}
+                      >
+                        Активный
+                      </button>
+
+                      <button type="button" className={classes.editServiceBtn}>
+                        <img
+                          className={classes.editIcon}
+                          alt="icon"
+                          src={editIcon}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                ))}
               </div>
             </main>
           </div>

@@ -173,16 +173,83 @@
 .multiHeadingServices {
   background-color: #252631;
   padding: 2rem 2.4rem;
-  gap: 16rem;
+  gap: 18.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
+  border-radius: 5px;
 }
 
 .servicesHeading {
   font-weight: 400;
   font-size: 1.3rem;
   color: #fff;
+}
+
+.servicesHeading:nth-child(2) {
+  transform: translateX(1.2rem);
+}
+
+.wholeItemService {
+  background-color: #fff;
+  box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
+  border-radius: 5px;
+  padding: 2.6rem 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: relative;
+}
+
+.serviceName {
+  color: #27272a;
+  font-weight: 400;
+  font-size: 1.8rem;
+}
+
+.servicePrice {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #778ca2;
+  position: absolute;
+  transform: translateX(27rem);
+}
+
+.serviceDescription {
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #778ca2;
+  position: absolute;
+  transform: translateX(47rem);
+}
+
+.service2btnArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2.4rem;
+}
+
+.serviceActiveBtn {
+  border: none;
+  cursor: pointer;
+  font-family: inherit;
+  font-weight: 500;
+  font-size: 1.1rem;
+  padding: 0.4rem 1rem;
+  color: #fff;
+  background-color: #6dd230;
+  border-radius: 20px;
+}
+
+.editServiceBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.editIcon {
+  width: 2rem;
 }
 
 .managementBtnsArea {
