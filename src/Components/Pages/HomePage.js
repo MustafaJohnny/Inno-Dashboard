@@ -86,7 +86,7 @@ const HomePage = () => {
   const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
-        `http://innomenu.ru/api/v1/owner/rest_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/v1/owner/rest_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -105,7 +105,7 @@ const HomePage = () => {
   const activateOrDeactivateService = (menuID) => {
     axios
       .post(
-        `http://innomenu.ru/api/v1/owner/service_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/v1/owner/service_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -152,7 +152,7 @@ const HomePage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserMenus(request.data));
-        navigate("/restaurants", {
+        navigate("/menus", {
           replace: false,
         });
       }

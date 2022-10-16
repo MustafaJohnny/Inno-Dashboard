@@ -4,11 +4,12 @@ import UpNavigation from "../UI-Components/UpNavigation";
 import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
 import axios from "axios";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
-const RestaurantsPage = () => {
+const CategoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showAddMenu = useSelector((state) => state.controler.show_add_menu);
@@ -16,9 +17,36 @@ const RestaurantsPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userMenuID = useSelector((state) => state.controler.user_menu_ID);
   const userMenus = useSelector((state) => state.controler.user_menus);
 
   console.log(userMenus);
+
+  //Testing
+
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/rest_menu_list/${userMenuID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserMenus(request.data));
+      }
+    };
+    getData();
+  }, []);
+
+  //Testing
 
   const pageHeading = useSelector(
     (state) => state.controler.restaurant_page_heading
@@ -29,7 +57,7 @@ const RestaurantsPage = () => {
   const activateOrDeactivateCategory = (menuID) => {
     axios
       .post(
-        `http://innomenu.ru/api/v1/menu/menu_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/v1/menu/menu_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -113,4 +141,4 @@ const RestaurantsPage = () => {
   );
 };
 
-export default React.memo(RestaurantsPage);
+export default React.memo(CategoriesPage);

@@ -5,6 +5,7 @@ import AddServiceItem from "../UI-Components/AddServiceItem";
 import classes from "./HomePage.module.css";
 import editIcon from "../Icons/Edit.svg";
 import axios from "axios";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
@@ -12,10 +13,37 @@ import { controlActions } from "../Redux/ReduxStore";
 const ServicesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userServiceID = useSelector((state) => state.controler.user_service_ID);
+
+  // Testing
+
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/uslugi_list/${userServiceID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserServiceItems(request.data));
+      }
+    };
+    getData();
+  }, []);
+
+  //Testing
 
   const showAddItemService = useSelector(
     (state) => state.controler.show_add_service_items
