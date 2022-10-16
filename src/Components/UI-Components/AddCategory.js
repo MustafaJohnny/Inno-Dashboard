@@ -8,19 +8,18 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
 const AddCategory = () => {
-  const [menuImage, setMenuImage] = useState([]);
-  const [menuName, setMenuName] = useState("");
-  const [menuLanguage, setMenuLanguage] = useState("");
-  const [menuStartTime, setMenuStartTime] = useState("");
-  const [menuEndTime, setMenuEndTime] = useState("");
-  const [menuDescription, setMenudescription] = useState("");
-  const [menuAllHours, setMenuAllHours] = useState("");
+  const [categoryImage, setCategoryImage] = useState([]);
+  const [categoryName, setCategoryName] = useState("");
+  const [categoryLanguage, setCategoryLanguage] = useState("");
+  const [categoryDescription, setCategoryDescription] = useState("");
 
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const appLanguages = useSelector((state) => state.controler.app_languages);
-  const userMenuID = useSelector((state) => state.controler.user_menu_ID);
+  const userCategoryID = useSelector(
+    (state) => state.controler.user_category_ID
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,28 +28,29 @@ const AddCategory = () => {
     dispatch(controlActions.toggleAddCategories());
   };
 
-  const createNewRestaurant = () => {
+  const createNewCategory = () => {
     const serverParams = {
-      name: menuName,
-      description: menuDescription,
-      all_hours: menuAllHours,
-      //   menu_start: menuStartTime,
-      //   menu_end: menuEndTime,
-      ids: userMenuID,
+      name: categoryName,
+      description: categoryDescription,
+      menu_id: userCategoryID,
     };
 
     const formData = new FormData();
 
-    formData.append("in_file", menuImage, menuImage.name);
+    formData.append("in_file", categoryImage, categoryImage.name);
 
     axios
-      .post(`http://${serverAPI}/api/v1/menu/new/${menuLanguage}`, formData, {
-        params: serverParams,
-        auth: {
-          username: userEmail,
-          password: userPassword,
-        },
-      })
+      .post(
+        `http://${serverAPI}/api/v1/menu/newCategory/${categoryLanguage}`,
+        formData,
+        {
+          params: serverParams,
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
       .then((response) => {
         if (response.data) {
           hideAddCategory();
@@ -71,7 +71,7 @@ const AddCategory = () => {
               type="file"
               multiple
               accept="image/png, image/jpeg"
-              onChange={(event) => setMenuImage(event.target.files[0])}
+              onChange={(event) => setCategoryImage(event.target.files[0])}
               required
             />
           </div>
@@ -84,7 +84,7 @@ const AddCategory = () => {
                 type="text"
                 className={classes.modalBasicInput}
                 id="name"
-                onChange={(event) => setMenuName(event.target.value)}
+                onChange={(event) => setCategoryName(event.target.value)}
               />
             </div>
             <div className={classes.wholeModalInput}>
@@ -93,7 +93,7 @@ const AddCategory = () => {
               </label>
 
               <select
-                onChange={(event) => setMenuLanguage(event.target.value)}
+                onChange={(event) => setCategoryLanguage(event.target.value)}
                 id="lang"
                 className={classes.modalBasicInput}
               >
@@ -106,61 +106,21 @@ const AddCategory = () => {
                 ))}
               </select>
             </div>
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
-              </label>
-              <input
-                onChange={(event) => setMenudescription(event.target.value)}
-                type="text"
-                className={classes.modalBasicInput}
-                id="address"
-              />
-            </div>
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Действует без ограничения времени
-              </label>
-
-              <select
-                onChange={(event) => setMenuAllHours(event.target.value)}
-                className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                <option value={true}>Да</option>
-                <option value={false}>Нет</option>
-              </select>
-            </div>
           </div>
-          <div className={classes.modalInputsContaine2}>
-            <div className={classes.twoInputsArea}>
-              <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="start">
-                  Начало работы
-                </label>
-                <input
-                  onChange={(event) => setMenuStartTime(event.target.value)}
-                  type="time"
-                  className={classes.modalBasicInput}
-                  id="start"
-                />
-              </div>
-              <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="end">
-                  Конец работы
-                </label>
-                <input
-                  onChange={(event) => setMenuEndTime(event.target.value)}
-                  type="time"
-                  className={classes.modalBasicInput}
-                  id="end"
-                />
-              </div>
-            </div>
+          <div className={classes.wholeModalInput}>
+            <label className={classes.modalBasicLable} htmlFor="address">
+              Описание
+            </label>
+            <input
+              onChange={(event) => setCategoryDescription(event.target.value)}
+              type="text"
+              className={classes.modalBasicInput}
+              id="address"
+            />
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewRestaurant} className={classes.controlBtn}>
+          <button onClick={createNewCategory} className={classes.controlBtn}>
             ДОБАВИТЬ
           </button>
           <button
