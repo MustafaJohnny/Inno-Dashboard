@@ -18,6 +18,8 @@ const RestaurantsPage = () => {
   const userPassword = useSelector((state) => state.controler.user_password);
   const userMenus = useSelector((state) => state.controler.user_menus);
 
+  console.log(userMenus);
+
   const pageHeading = useSelector(
     (state) => state.controler.restaurant_page_heading
   );

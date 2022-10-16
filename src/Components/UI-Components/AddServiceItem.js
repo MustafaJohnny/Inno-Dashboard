@@ -34,14 +34,10 @@ const AddServiceItem = () => {
       description: ItemServiceDescription,
     };
 
-    // const formData = new FormData();
-
-    // formData.append("in_file", menuImage, menuImage.name);
-
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/new/${ItemServiceLanguage}`,
-
+        `http://${serverAPI}/api/v1/service/uslugi_new/${ItemServiceLanguage}`,
+        {},
         {
           params: serverParams,
           auth: {
@@ -57,7 +53,6 @@ const AddServiceItem = () => {
         }
       });
   };
-
   return (
     <React.Fragment>
       <Overlay />
