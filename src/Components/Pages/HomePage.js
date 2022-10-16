@@ -129,7 +129,7 @@ const HomePage = () => {
     dispatch(controlActions.toggleAddService());
   };
 
-  const getClickedMenu = (event) => {
+  const getClickedRestaurant = (event) => {
     const clickedMenuID = userRestaurants[event.target.id].id;
     const clickedMenuHeading = userRestaurants[event.target.id].name_rest;
 
@@ -228,7 +228,7 @@ const HomePage = () => {
                 <div className={classes.managementRestaurents}>
                   {userRestaurants.map((ele, index) => (
                     <div
-                      onClick={getClickedMenu}
+                      onClick={getClickedRestaurant}
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,
                       }}

@@ -1,7 +1,7 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
-import AddMenu from "../UI-Components/AddMenu";
+import AddCategory from "../UI-Components/AddCategory";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -13,22 +13,33 @@ const CategoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const showAddMenu = useSelector((state) => state.controler.show_add_menu);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const userMenuID = useSelector((state) => state.controler.user_menu_ID);
-  const userMenus = useSelector((state) => state.controler.user_menus);
 
-  //Testing
+  const showAddCategory = useSelector(
+    (state) => state.controler.show_add_categories
+  );
+
+  const userCategoryID = useSelector(
+    (state) => state.controler.user_category_ID
+  );
+
+  const pageHeading = useSelector(
+    (state) => state.controler.categories_page_heading
+  );
+
+  const userCategories = useSelector(
+    (state) => state.controler.user_categories
+  );
 
   useEffect(() => {
     let mounted = true;
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/rest_menu_list/${userMenuID}`,
+        `http://${serverAPI}/api/dash/category_list/${userCategoryID}`,
         {
           auth: {
             username: userEmail,
@@ -39,24 +50,18 @@ const CategoriesPage = () => {
       );
 
       if (mounted) {
-        dispatch(controlActions.getUserMenus(request.data));
+        dispatch(controlActions.getUserCategories(request.data.categorymenu));
       }
     };
     getData();
   }, []);
-
-  //Testing
-
-  const pageHeading = useSelector(
-    (state) => state.controler.restaurant_page_heading
-  );
 
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateCategory = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/menu_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/v1/menu/category_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -72,14 +77,14 @@ const CategoriesPage = () => {
       });
   };
 
-  const unHideAddMenu = () => {
-    dispatch(controlActions.toggleAddMenu());
+  const unHideAddCategory = () => {
+    dispatch(controlActions.toggleAddCategories());
   };
 
   return (
     <React.Fragment>
       <section>
-        {showAddMenu && <AddMenu />}
+        {showAddCategory && <AddCategory />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -93,7 +98,7 @@ const CategoriesPage = () => {
                       Редактировать меню
                     </button>
                     <button
-                      onClick={unHideAddMenu}
+                      onClick={unHideAddCategory}
                       className={classes.manageBtn}
                       type="button"
                     >
@@ -103,7 +108,7 @@ const CategoriesPage = () => {
                 </div>
 
                 <div className={classes.managementRestaurents}>
-                  {userMenus.map((ele, index) => (
+                  {userCategories.map((ele, index) => (
                     <div
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,

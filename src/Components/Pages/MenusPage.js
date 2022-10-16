@@ -20,10 +20,6 @@ const MenusPage = () => {
   const userMenuID = useSelector((state) => state.controler.user_menu_ID);
   const userMenus = useSelector((state) => state.controler.user_menus);
 
-  console.log(userMenus);
-
-  //Testing
-
   useEffect(() => {
     let mounted = true;
 
@@ -46,15 +42,13 @@ const MenusPage = () => {
     getData();
   }, []);
 
-  //Testing
-
   const pageHeading = useSelector(
     (state) => state.controler.restaurant_page_heading
   );
 
   const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
 
-  const activateOrDeactivateCategory = (menuID) => {
+  const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
         `http://${serverAPI}/api/v1/menu/menu_active_or_deactivate/${menuID}`,
@@ -75,6 +69,38 @@ const MenusPage = () => {
 
   const unHideAddMenu = () => {
     dispatch(controlActions.toggleAddMenu());
+  };
+
+  const getClickedMenu = (event) => {
+    const clickedCategoryID = userMenus[event.target.id].id;
+    const clickedCategoryHeading = userMenus[event.target.id].name;
+
+    dispatch(controlActions.setCategoriesPageHeading(clickedCategoryHeading));
+    dispatch(controlActions.getUserCategoryID(clickedCategoryID));
+
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/category_list/${clickedCategoryID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserCategories(request.data.categorymenu));
+        console.log(request.data.categorymenu);
+        navigate("/categories", {
+          replace: false,
+        });
+      }
+    };
+    getData();
   };
 
   return (
@@ -106,6 +132,7 @@ const MenusPage = () => {
                 <div className={classes.managementRestaurents}>
                   {userMenus.map((ele, index) => (
                     <div
+                      onClick={getClickedMenu}
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,
                       }}
@@ -114,7 +141,7 @@ const MenusPage = () => {
                       className={classes.itemRestaurent}
                     >
                       <button
-                        onClick={() => activateOrDeactivateCategory(ele.id)}
+                        onClick={() => activateOrDeactivateMenu(ele.id)}
                         className={
                           ele.is_active
                             ? classes.activeMenu
