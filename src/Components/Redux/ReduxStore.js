@@ -13,6 +13,7 @@ const initialState = {
   /* Owner Product States */
   user_service_items: [],
   user_restaurants: [],
+  user_categories: [],
   user_services: [],
   user_menus: [],
   user_menu_ID: "",

@@ -12,6 +12,7 @@ import { controlActions } from "../Redux/ReduxStore";
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
   const showAddMenu = useSelector((state) => state.controler.show_add_menu);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
@@ -19,8 +20,6 @@ const CategoriesPage = () => {
   const userPassword = useSelector((state) => state.controler.user_password);
   const userMenuID = useSelector((state) => state.controler.user_menu_ID);
   const userMenus = useSelector((state) => state.controler.user_menus);
-
-  console.log(userMenus);
 
   //Testing
 
@@ -91,14 +90,14 @@ const CategoriesPage = () => {
                   <h1 className={classes.managementHeading}>{pageHeading}</h1>
                   <div className={classes.twoBtnsManage}>
                     <button className={classes.manageBtn} type="button">
-                      Редактировать ресторан
+                      Редактировать меню
                     </button>
                     <button
                       onClick={unHideAddMenu}
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить меню
+                      + Добавить категорию
                     </button>
                   </div>
                 </div>
