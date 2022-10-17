@@ -1,7 +1,7 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
-import AddCategory from "../UI-Components/AddCategory";
+import AddItem from "../UI-Components/AddItem";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -77,7 +77,7 @@ const ItemsPage = () => {
   return (
     <React.Fragment>
       <section>
-        {/* {showAddItem && <AddCategory />} */}
+        {showAddItem && <AddItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
