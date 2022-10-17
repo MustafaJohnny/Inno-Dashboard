@@ -130,17 +130,17 @@ const HomePage = () => {
   };
 
   const getClickedRestaurant = (event) => {
-    const clickedMenuID = userRestaurants[event.target.id].id;
-    const clickedMenuHeading = userRestaurants[event.target.id].name_rest;
+    const clickedRestaurantID = userRestaurants[event.target.id].id;
+    const clickedRestaurantHeading = userRestaurants[event.target.id].name_rest;
 
-    dispatch(controlActions.setRestaurantPageHeading(clickedMenuHeading));
-    dispatch(controlActions.getUserMenuID(clickedMenuID));
+    dispatch(controlActions.setRestaurantPageHeading(clickedRestaurantHeading));
+    dispatch(controlActions.getUserMenuID(clickedRestaurantID));
 
     let mounted = true;
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/rest_menu_list/${clickedMenuID}`,
+        `http://${serverAPI}/api/dash/rest_menu_list/${clickedRestaurantID}`,
         {
           auth: {
             username: userEmail,

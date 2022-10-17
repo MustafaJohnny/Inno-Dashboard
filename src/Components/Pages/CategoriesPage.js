@@ -81,6 +81,37 @@ const CategoriesPage = () => {
     dispatch(controlActions.toggleAddCategories());
   };
 
+  const getClickedCategory = (event) => {
+    const clickedCategoryID = userCategories[event.target.id].id;
+    const clickedCategoryHeading = userCategories[event.target.id].name;
+
+    dispatch(controlActions.setItemsPageHeading(clickedCategoryHeading));
+    dispatch(controlActions.getUserItemID(clickedCategoryID));
+
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/product_list/${clickedCategoryID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        dispatch(controlActions.getUserItems(request.data.product));
+        navigate("/Items", {
+          replace: false,
+        });
+      }
+    };
+    getData();
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -110,6 +141,7 @@ const CategoriesPage = () => {
                 <div className={classes.managementRestaurents}>
                   {userCategories.map((ele, index) => (
                     <div
+                      onClick={getClickedCategory}
                       style={{
                         backgroundImage: `url("${URL}/${ele.image}")`,
                       }}

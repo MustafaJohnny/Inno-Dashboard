@@ -72,17 +72,17 @@ const MenusPage = () => {
   };
 
   const getClickedMenu = (event) => {
-    const clickedCategoryID = userMenus[event.target.id].id;
-    const clickedCategoryHeading = userMenus[event.target.id].name;
+    const clickedMenuID = userMenus[event.target.id].id;
+    const clickedMenuHeading = userMenus[event.target.id].name;
 
-    dispatch(controlActions.setCategoriesPageHeading(clickedCategoryHeading));
-    dispatch(controlActions.getUserCategoryID(clickedCategoryID));
+    dispatch(controlActions.setCategoriesPageHeading(clickedMenuHeading));
+    dispatch(controlActions.getUserCategoryID(clickedMenuID));
 
     let mounted = true;
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/category_list/${clickedCategoryID}`,
+        `http://${serverAPI}/api/dash/category_list/${clickedMenuID}`,
         {
           auth: {
             username: userEmail,
@@ -94,7 +94,6 @@ const MenusPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserCategories(request.data.categorymenu));
-        console.log(request.data.categorymenu);
         navigate("/categories", {
           replace: false,
         });

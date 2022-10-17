@@ -374,3 +374,84 @@
 .notActiveMenu:hover {
   transform: translateY(-2px);
 }
+
+.justItemsContainer {
+  display: grid;
+  row-gap: 2.4rem;
+  column-gap: 3rem;
+  padding-top: 1rem;
+  grid-template-columns: 1fr 1fr;
+}
+
+.wholeItemElement {
+  display: flex;
+  border-radius: 5px;
+  align-items: flex-start;
+  background-color: #fff;
+  box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.itemImgBox {
+  padding: 8rem;
+  border-radius: 5px;
+  display: inline-block;
+  background-size: cover;
+  background-color: #e4e4e7;
+  background-position: center;
+  margin: 1.6rem 1rem 1.6rem 1.6rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.itemContentBox {
+  padding: 1.6rem 1rem 1rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: space-between;
+  width: 100%;
+  height: 100%;
+}
+
+.itemHeading {
+  font-weight: 600;
+  font-size: 1.6rem;
+  color: #32324d;
+  margin-bottom: 0.8rem;
+  width: 90%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.itemSize {
+  font-weight: 400;
+  color: #4b5563;
+  font-size: 1.4rem;
+}
+
+.itemDescription {
+  margin-top: 1.2rem;
+  font-weight: 300;
+  font-size: 1.5rem;
+  color: #52525b;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.itemPriceActiveArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.itemPrice {
+  font-weight: 600;
+  font-size: 1.7rem;
+  color: #404040;
+}

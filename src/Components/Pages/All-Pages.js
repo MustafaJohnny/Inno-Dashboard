@@ -6,6 +6,7 @@ import { Suspense } from "react";
 const Login_Page = React.lazy(() => import("./LoginPage"));
 const Home_Page = React.lazy(() => import("./HomePage"));
 const Menus_Page = React.lazy(() => import("./MenusPage"));
+const Items_Page = React.lazy(() => import("./ItemsPage"));
 const Categories_Page = React.lazy(() => import("./CategoriesPage"));
 const Services_Page = React.lazy(() => import("./ServicesPage"));
 
@@ -21,6 +22,7 @@ const All_Pages = () => {
           <Route path="/home" element={<Home_Page />} />
           <Route path="/menus" element={<Menus_Page />} />
           <Route path="/categories" element={<Categories_Page />} />
+          <Route path="/Items" element={<Items_Page />} />
           <Route path="/services" element={<Services_Page />} />
         </Routes>
       </Suspense>

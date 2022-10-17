@@ -14,11 +14,13 @@ const initialState = {
   user_service_items: [],
   user_restaurants: [],
   user_categories: [],
+  user_Items: [],
   user_services: [],
   user_menus: [],
   user_menu_ID: "",
   user_service_ID: "",
   user_category_ID: "",
+  user_item_ID: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
@@ -27,6 +29,7 @@ const initialState = {
   show_add_service_items: false,
   show_add_categories: false,
   show_add_restaurant: false,
+  show_add_item: false,
   show_add_service: false,
   show_add_menu: false,
   /* The App States */
@@ -34,6 +37,7 @@ const initialState = {
   restaurant_page_heading: "",
   services_page_heading: "",
   categories_page_heading: "",
+  items_page_heading: "",
   serverAPI: "innomenu.ru",
   app_languages: [],
 };
@@ -83,6 +87,10 @@ const controlSlice = createSlice({
       state.user_categories = action.payload;
     },
 
+    getUserItems(state, action) {
+      state.user_Items = action.payload;
+    },
+
     getUserServiceItems(state, action) {
       state.user_service_items = action.payload;
     },
@@ -93,6 +101,10 @@ const controlSlice = createSlice({
 
     getUserCategoryID(state, action) {
       state.user_category_ID = action.payload;
+    },
+
+    getUserItemID(state, action) {
+      state.user_item_ID = action.payload;
     },
 
     getUserServiceID(state, action) {
@@ -110,6 +122,10 @@ const controlSlice = createSlice({
 
     setCategoriesPageHeading(state, action) {
       state.categories_page_heading = action.payload;
+    },
+
+    setItemsPageHeading(state, action) {
+      state.items_page_heading = action.payload;
     },
 
     setServicesPageHeading(state, action) {
@@ -131,6 +147,10 @@ const controlSlice = createSlice({
 
     toggleAddCategories(state) {
       state.show_add_categories = !state.show_add_categories;
+    },
+
+    toggleAddItem(state) {
+      state.show_add_item = !state.show_add_item;
     },
 
     toggleShowAddServiceItems(state) {
