@@ -18,6 +18,7 @@ const initialState = {
   user_services: [],
   user_menus: [],
   user_QR_Codes: [],
+  user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
   user_category_ID: "",
@@ -37,6 +38,7 @@ const initialState = {
   show_add_menu: false,
   show_add_table_QR: false,
   show_add_tables: false,
+  show_modal_QR_Img: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -124,6 +126,10 @@ const controlSlice = createSlice({
       state.user_QR_ID = action.payload;
     },
 
+    getUserBigImgQR(state, action) {
+      state.user_QR_big_img = action.payload;
+    },
+
     /* controling the app functions */
     setRestaurantPageHeading(state, action) {
       state.restaurant_page_heading = action.payload;
@@ -172,6 +178,10 @@ const controlSlice = createSlice({
 
     toggleAddTables(state) {
       state.show_add_tables = !state.show_add_tables;
+    },
+
+    toggleModalImgQR(state) {
+      state.show_modal_QR_Img = !state.show_modal_QR_Img;
     },
 
     toggleShowAddServiceItems(state) {

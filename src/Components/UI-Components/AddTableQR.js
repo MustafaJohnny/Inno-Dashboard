@@ -67,7 +67,7 @@ const AddTableQR = () => {
                 Описание
               </label>
               <input
-                className={`${classes.modalBasicInput} ${classes.modalBasicInputService}`}
+                className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
                 onChange={(event) => setTableQRdescription(event.target.value)}
                 placeholder={clickedTableDescripValue}
                 type="text"

@@ -9,6 +9,7 @@ import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddTableQR from "../UI-Components/AddTableQR";
 import AddTables from "../UI-Components/AddTables";
+import ModalImgQR from "../UI-Components/ModaImgQR";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -24,7 +25,7 @@ const QRcodesPage = () => {
   const userQRCodes = useSelector((state) => state.controler.user_QR_Codes);
   const showTableQR = useSelector((state) => state.controler.show_add_table_QR);
   const showTables = useSelector((state) => state.controler.show_add_tables);
-
+  const showModalQR = useSelector((state) => state.controler.show_modal_QR_Img);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
@@ -118,6 +119,11 @@ const QRcodesPage = () => {
     dispatch(controlActions.toggleAddTables());
   };
 
+  const displayModalImgQR = (clickedImgQR) => {
+    dispatch(controlActions.getUserBigImgQR(clickedImgQR));
+    dispatch(controlActions.toggleModalImgQR());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -126,6 +132,7 @@ const QRcodesPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showModalQR && <ModalImgQR />}
         {showTableQR && <AddTableQR />}
         {showTables && <AddTables />}
         <SideNavigation />
@@ -225,6 +232,7 @@ const QRcodesPage = () => {
                     ></div>
                     <div className={classes.actionQRArea}>
                       <img
+                        onClick={() => displayModalImgQR(ele.qr_code)}
                         src={eyeIcon}
                         alt="icon"
                         className={classes.actionQRicons}
