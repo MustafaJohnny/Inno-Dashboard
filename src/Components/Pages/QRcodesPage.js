@@ -8,6 +8,7 @@ import QRbtnIcon from "../Icons/QRbtn.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddTableQR from "../UI-Components/AddTableQR";
+import AddTables from "../UI-Components/AddTables";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -22,6 +23,7 @@ const QRcodesPage = () => {
   const userPassword = useSelector((state) => state.controler.user_password);
   const userQRCodes = useSelector((state) => state.controler.user_QR_Codes);
   const showTableQR = useSelector((state) => state.controler.show_add_table_QR);
+  const showTables = useSelector((state) => state.controler.show_add_tables);
 
   const userDomain = useSelector((state) => state.controler.user_domain);
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
@@ -112,6 +114,10 @@ const QRcodesPage = () => {
     dispatch(controlActions.toggleAddTableQR());
   };
 
+  const displayAddTables = () => {
+    dispatch(controlActions.toggleAddTables());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -121,6 +127,7 @@ const QRcodesPage = () => {
     <React.Fragment>
       <section>
         {showTableQR && <AddTableQR />}
+        {showTables && <AddTables />}
         <SideNavigation />
         <UpNavigation />
         <main className={classes.mainContiner}>
@@ -134,7 +141,11 @@ const QRcodesPage = () => {
               />
               <h1 className={classes.settingsHeading}>QR коды</h1>
             </div>
-            <button type="button" className={classes.addTableBtn}>
+            <button
+              onClick={displayAddTables}
+              type="button"
+              className={classes.addTableBtn}
+            >
               <img src={QRbtnIcon} alt="btn" className={classes.qrBtnIcon} />
               Добавить столы
             </button>

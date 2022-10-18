@@ -36,6 +36,7 @@ const initialState = {
   show_add_service: false,
   show_add_menu: false,
   show_add_table_QR: false,
+  show_add_tables: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -167,6 +168,10 @@ const controlSlice = createSlice({
 
     toggleAddTableQR(state) {
       state.show_add_table_QR = !state.show_add_table_QR;
+    },
+
+    toggleAddTables(state) {
+      state.show_add_tables = !state.show_add_tables;
     },
 
     toggleShowAddServiceItems(state) {
