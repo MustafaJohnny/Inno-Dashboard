@@ -49,6 +49,7 @@
   font-weight: 500;
   font-size: 1.7rem;
   margin-left: 4.5rem;
+  text-transform: capitalize;
 }
 
 .actionArea {

@@ -21,7 +21,9 @@ const initialState = {
   user_menu_ID: "",
   user_service_ID: "",
   user_category_ID: "",
+  user_QR_ID: "",
   user_item_ID: "",
+  user_table_QR_descrip_value: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
@@ -33,6 +35,7 @@ const initialState = {
   show_add_item: false,
   show_add_service: false,
   show_add_menu: false,
+  show_add_table_QR: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -116,6 +119,10 @@ const controlSlice = createSlice({
       state.user_service_ID = action.payload;
     },
 
+    getUserIdQR(state, action) {
+      state.user_QR_ID = action.payload;
+    },
+
     /* controling the app functions */
     setRestaurantPageHeading(state, action) {
       state.restaurant_page_heading = action.payload;
@@ -131,6 +138,10 @@ const controlSlice = createSlice({
 
     setServicesPageHeading(state, action) {
       state.services_page_heading = action.payload;
+    },
+
+    setTableDescriptionValue(state, action) {
+      state.user_table_QR_descrip_value = action.payload;
     },
 
     /* toggling app functions */
@@ -152,6 +163,10 @@ const controlSlice = createSlice({
 
     toggleAddItem(state) {
       state.show_add_item = !state.show_add_item;
+    },
+
+    toggleAddTableQR(state) {
+      state.show_add_table_QR = !state.show_add_table_QR;
     },
 
     toggleShowAddServiceItems(state) {

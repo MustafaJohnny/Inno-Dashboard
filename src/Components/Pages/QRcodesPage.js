@@ -7,6 +7,7 @@ import downlodIcon from "../Icons/downlodIcon.svg";
 import QRbtnIcon from "../Icons/QRbtn.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import AddTableQR from "../UI-Components/AddTableQR";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -20,6 +21,8 @@ const QRcodesPage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userQRCodes = useSelector((state) => state.controler.user_QR_Codes);
+  const showTableQR = useSelector((state) => state.controler.show_add_table_QR);
+
   const userDomain = useSelector((state) => state.controler.user_domain);
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
@@ -40,7 +43,6 @@ const QRcodesPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserQRCodes(request.data));
-        console.log(request.data);
       }
     };
 
@@ -104,6 +106,12 @@ const QRcodesPage = () => {
       });
   };
 
+  const displayShowAddQR = (tableID, tableDescriptionValue) => {
+    dispatch(controlActions.setTableDescriptionValue(tableDescriptionValue));
+    dispatch(controlActions.getUserIdQR(tableID));
+    dispatch(controlActions.toggleAddTableQR());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -112,6 +120,7 @@ const QRcodesPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showTableQR && <AddTableQR />}
         <SideNavigation />
         <UpNavigation />
         <main className={classes.mainContiner}>
@@ -137,7 +146,10 @@ const QRcodesPage = () => {
                 <div className={classes.tableDescrioArea}>
                   <span className={classes.tableDescription}>
                     {ele.description}
-                    <button className={classes.editDescripBtn}>
+                    <button
+                      onClick={() => displayShowAddQR(ele.id, ele.description)}
+                      className={classes.editDescripBtn}
+                    >
                       <img
                         src={PenIcon}
                         alt="icon"
