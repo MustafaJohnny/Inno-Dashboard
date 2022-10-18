@@ -9,6 +9,8 @@ const Menus_Page = React.lazy(() => import("./MenusPage"));
 const Items_Page = React.lazy(() => import("./ItemsPage"));
 const Categories_Page = React.lazy(() => import("./CategoriesPage"));
 const Services_Page = React.lazy(() => import("./ServicesPage"));
+const Settings_Page = React.lazy(() => import("./SettingsPage"));
+const QR_Page = React.lazy(() => import("./QRcodesPage"));
 
 const All_Pages = () => {
   document.getElementsByTagName("META")[3].content = "";
@@ -24,6 +26,8 @@ const All_Pages = () => {
           <Route path="/categories" element={<Categories_Page />} />
           <Route path="/Items" element={<Items_Page />} />
           <Route path="/services" element={<Services_Page />} />
+          <Route path="/settings" element={<Settings_Page />} />
+          <Route path="/qr" element={<QR_Page />} />
         </Routes>
       </Suspense>
     </React.Fragment>

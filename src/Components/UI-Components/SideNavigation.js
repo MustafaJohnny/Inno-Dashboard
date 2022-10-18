@@ -1,8 +1,8 @@
+// import clinets from "../Icons/clinets.svg";
 import React from "react";
 import classes from "../Pages/HomePage.module.css";
 import arrowR from "../Icons/arrowR.svg";
 import mangeIcon from "../Icons/mange.svg";
-import clinets from "../Icons/clinets.svg";
 import delivery from "../Icons/delivery.svg";
 import menu from "../Icons/menu.svg";
 import order from "../Icons/order.svg";
@@ -10,6 +10,7 @@ import review from "../Icons/review.svg";
 import Settings from "../Icons/Settings.svg";
 import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
+import QRIcon from "../Icons/QRcodeIcon.svg";
 import user from "../Icons/user.svg";
 import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
@@ -56,7 +57,8 @@ const SideNavigation = () => {
         <div className={classes.actionArea}>
           <h2 className={classes.actionHeading}>Ресторан</h2>
           <div className={classes.actionBox}>
-            <div
+            <Link
+              to="/home"
               onClick={goHomeforNow}
               className={`${classes.wholeAction} ${classes.first}`}
             >
@@ -70,7 +72,7 @@ const SideNavigation = () => {
                 <span className={classes.actionText}>Менеджмент</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </Link>
 
             <div className={classes.wholeAction}>
               <div className={classes.iconTextArea}>
@@ -99,14 +101,14 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </div>
 
-            <div className={classes.wholeAction}>
+            <Link to="/qr" className={classes.wholeAction}>
               <div className={classes.iconTextArea}>
-                <img alt="icon" src={clinets} className={classes.actionIcon} />
+                <img alt="icon" src={QRIcon} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Клиенты</span>
+                <span className={classes.actionText}>QR коды</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </Link>
 
             <div className={classes.wholeAction}>
               <div className={classes.iconTextArea}>
@@ -126,14 +128,14 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </div>
 
-            <div className={classes.wholeAction}>
+            <Link to="/settings" className={classes.wholeAction}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={Settings} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Настройки</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </Link>
           </div>
           <h2 className={classes.actionHeading}>Аккаунт</h2>
           <div className={classes.actionBox}>

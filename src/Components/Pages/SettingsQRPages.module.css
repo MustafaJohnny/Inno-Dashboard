@@ -1,0 +1,200 @@
+.mainContiner {
+  width: 100%;
+  position: relative;
+  padding: 3rem 4rem 3rem 18vw;
+}
+
+.arrowBack {
+  width: 0.8rem;
+  cursor: pointer;
+}
+
+.settingsHeading {
+  color: #18181b;
+  font-weight: 500;
+  font-size: 1.8rem;
+}
+
+.headingBackArea {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.settingsBox {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 3.4rem 2rem;
+  gap: 3rem;
+  width: 100%;
+}
+
+.wholeSetting {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding-bottom: 1.6rem;
+  border-bottom: 2px solid rgba(133, 127, 127, 0.093);
+}
+
+.wholeSettingHeading {
+  font-size: 1.6rem;
+  font-weight: 500;
+  color: #182135;
+}
+
+.settingBtn {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.settingIcon {
+  width: 2rem;
+}
+
+.activeMenu {
+  border: none;
+  font-family: inherit;
+  color: #fff;
+  background-color: #4d7cfe;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.activeMenu:hover {
+  transform: translateY(-2px);
+}
+
+.notActiveMenu {
+  border: none;
+  font-family: inherit;
+  color: #71717a;
+  background-color: #e8ecef;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.notActiveMenu:hover {
+  transform: translateY(-2px);
+}
+
+.headingBtnArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.addTableBtn {
+  border: none;
+  cursor: pointer;
+  color: #fff;
+  background-color: #4d7cfe;
+  border-radius: 5px;
+  font-family: inherit;
+  font-weight: 400;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  padding: 1rem 2rem;
+}
+
+.qrBtnIcon {
+  width: 1.8rem;
+}
+
+.qrBigBox {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  column-gap: 3.2rem;
+  row-gap: 3rem;
+  padding-top: 2.6rem;
+}
+
+.wholeQR {
+  background-color: #fff;
+  border-radius: 5px;
+  display: inline-block;
+  width: 100%;
+  height: 22rem;
+  box-shadow: 0 1px 2px rgb(0 0 0 / 10%);
+  padding: 1.2rem 3rem 1.2rem 2.4rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.8rem;
+}
+
+.tableDescrioArea {
+  padding-bottom: 1.2rem;
+  border-bottom: 1px solid rgba(133, 127, 127, 0.244);
+}
+
+.tableDescription {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #252631;
+  line-height: 2.4rem;
+}
+
+.editDescripBtn {
+  border: none;
+  background: none;
+  margin-left: 1.2rem;
+}
+
+.penIcon {
+  width: 1.5rem;
+}
+
+.optionsQRArea {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.optionsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.wholeOption {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8rem;
+}
+
+.optionText {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #778ca2;
+}
+
+.justAreaQR {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.actionQRArea {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.actionQRicons {
+  width: 2rem;
+}
