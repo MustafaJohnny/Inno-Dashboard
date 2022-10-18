@@ -17,6 +17,7 @@ const initialState = {
   user_Items: [],
   user_services: [],
   user_menus: [],
+  user_QR_Codes: [],
   user_menu_ID: "",
   user_service_ID: "",
   user_category_ID: "",
@@ -38,7 +39,7 @@ const initialState = {
   services_page_heading: "",
   categories_page_heading: "",
   items_page_heading: "",
-  serverAPI: "innomenu.ru",
+  serverAPI: "inme.su",
   app_languages: [],
 };
 
@@ -93,6 +94,10 @@ const controlSlice = createSlice({
 
     getUserServiceItems(state, action) {
       state.user_service_items = action.payload;
+    },
+
+    getUserQRCodes(state, action) {
+      state.user_QR_Codes = action.payload;
     },
 
     getUserMenuID(state, action) {
