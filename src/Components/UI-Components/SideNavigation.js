@@ -11,7 +11,7 @@ import Settings from "../Icons/Settings.svg";
 import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import user from "../Icons/user.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -40,7 +40,7 @@ const SideNavigation = () => {
   return (
     <React.Fragment>
       <div className={classes.sideNavBox}>
-        <div className={classes.logoArea}>
+        <Link to="/home" className={classes.logoArea}>
           {waitLogo && (
             <div
               className={classes.logoImg}
@@ -51,12 +51,15 @@ const SideNavigation = () => {
           )}
 
           <p className={classes.logoText}>{userLogoText}</p>
-        </div>
+        </Link>
 
         <div className={classes.actionArea}>
           <h2 className={classes.actionHeading}>Ресторан</h2>
           <div className={classes.actionBox}>
-            <div onClick={goHomeforNow} className={classes.wholeAction}>
+            <div
+              onClick={goHomeforNow}
+              className={`${classes.wholeAction} ${classes.first}`}
+            >
               <div className={classes.iconTextArea}>
                 <img
                   alt="icon"

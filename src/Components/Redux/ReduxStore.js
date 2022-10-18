@@ -33,7 +33,7 @@ const initialState = {
   show_add_service: false,
   show_add_menu: false,
   /* The App States */
-  up_navigation_heading: "Менеджмент",
+  active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
   services_page_heading: "",
   categories_page_heading: "",
@@ -112,10 +112,6 @@ const controlSlice = createSlice({
     },
 
     /* controling the app functions */
-    setUpNavHeading(state, action) {
-      state.up_navigation_heading = action.payload;
-    },
-
     setRestaurantPageHeading(state, action) {
       state.restaurant_page_heading = action.payload;
     },

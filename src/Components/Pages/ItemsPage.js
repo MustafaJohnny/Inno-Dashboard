@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddItem from "../UI-Components/AddItem";
@@ -6,7 +7,7 @@ import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const ItemsPage = () => {
@@ -24,6 +25,14 @@ const ItemsPage = () => {
 
   const pageHeading = useSelector(
     (state) => state.controler.items_page_heading
+  );
+
+  const restaurantPageHeading = useSelector(
+    (state) => state.controler.restaurant_page_heading
+  );
+
+  const categoriesPageHeading = useSelector(
+    (state) => state.controler.categories_page_heading
   );
 
   useEffect(() => {
@@ -74,6 +83,12 @@ const ItemsPage = () => {
     dispatch(controlActions.toggleAddItem());
   };
 
+  const goPageBack = () => {
+    navigate(-1, {
+      replace: false,
+    });
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -85,7 +100,33 @@ const ItemsPage = () => {
             <main className={classes.changeContentBox}>
               <div className={classes.managmentContent}>
                 <div className={classes.managementBtnsArea}>
-                  <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                  <div className={classes.headingHeadingInner}>
+                    <div className={classes.headArrowArea}>
+                      <img
+                        onClick={goPageBack}
+                        src={ArrowBack}
+                        alt="icon"
+                        className={classes.arrowBack}
+                      />
+                      <h1 className={classes.managementHeading}>
+                        {pageHeading}
+                      </h1>
+                    </div>
+                    <div className={classes.pathAddressArea}>
+                      <Link className={classes.pathAddress} to="/home">
+                        Менеджмент /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/menus">
+                        {restaurantPageHeading} /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/categories">
+                        {categoriesPageHeading} /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/Items">
+                        {pageHeading}
+                      </Link>
+                    </div>
+                  </div>
                   <div className={classes.twoBtnsManage}>
                     <button className={classes.manageBtn} type="button">
                       Редактировать категорию
@@ -101,7 +142,7 @@ const ItemsPage = () => {
                 </div>
                 <div className={classes.justItemsContainer}>
                   {userItems.map((ele) => (
-                    <div className={classes.wholeItemElement}>
+                    <div key={ele.id} className={classes.wholeItemElement}>
                       <div
                         style={{
                           backgroundImage: `url("${URL}/${ele.image}")`,

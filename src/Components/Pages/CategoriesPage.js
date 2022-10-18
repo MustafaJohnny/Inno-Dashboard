@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddCategory from "../UI-Components/AddCategory";
@@ -6,7 +7,7 @@ import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const CategoriesPage = () => {
@@ -24,6 +25,10 @@ const CategoriesPage = () => {
 
   const userCategoryID = useSelector(
     (state) => state.controler.user_category_ID
+  );
+
+  const restaurantPageHeading = useSelector(
+    (state) => state.controler.restaurant_page_heading
   );
 
   const pageHeading = useSelector(
@@ -112,6 +117,12 @@ const CategoriesPage = () => {
     getData();
   };
 
+  const goPageBack = () => {
+    navigate(-1, {
+      replace: false,
+    });
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -123,7 +134,30 @@ const CategoriesPage = () => {
             <main className={classes.changeContentBox}>
               <div className={classes.managmentContent}>
                 <div className={classes.managementBtnsArea}>
-                  <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                  <div className={classes.headingHeadingInner}>
+                    <div className={classes.headArrowArea}>
+                      <img
+                        onClick={goPageBack}
+                        src={ArrowBack}
+                        alt="icon"
+                        className={classes.arrowBack}
+                      />
+                      <h1 className={classes.managementHeading}>
+                        {pageHeading}
+                      </h1>
+                    </div>
+                    <div className={classes.pathAddressArea}>
+                      <Link className={classes.pathAddress} to="/home">
+                        Менеджмент /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/menus">
+                        {restaurantPageHeading} /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/categories">
+                        {pageHeading}
+                      </Link>
+                    </div>
+                  </div>
                   <div className={classes.twoBtnsManage}>
                     <button className={classes.manageBtn} type="button">
                       Редактировать меню

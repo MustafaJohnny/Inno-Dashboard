@@ -1,12 +1,13 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
+import ArrowBack from "../Icons/ArrowBack.svg";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const MenusPage = () => {
@@ -102,6 +103,12 @@ const MenusPage = () => {
     getData();
   };
 
+  const goPageBack = () => {
+    navigate(-1, {
+      replace: false,
+    });
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -113,7 +120,27 @@ const MenusPage = () => {
             <main className={classes.changeContentBox}>
               <div className={classes.managmentContent}>
                 <div className={classes.managementBtnsArea}>
-                  <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                  <div className={classes.headingHeadingInner}>
+                    <div className={classes.headArrowArea}>
+                      <img
+                        onClick={goPageBack}
+                        src={ArrowBack}
+                        alt="icon"
+                        className={classes.arrowBack}
+                      />
+                      <h1 className={classes.managementHeading}>
+                        {pageHeading}
+                      </h1>
+                    </div>
+                    <div className={classes.pathAddressArea}>
+                      <Link className={classes.pathAddress} to="/home">
+                        Менеджмент /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/menus">
+                        {pageHeading}
+                      </Link>
+                    </div>
+                  </div>
                   <div className={classes.twoBtnsManage}>
                     <button className={classes.manageBtn} type="button">
                       Редактировать ресторан

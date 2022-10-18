@@ -1,4 +1,5 @@
 import React from "react";
+import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddServiceItem from "../UI-Components/AddServiceItem";
@@ -61,6 +62,12 @@ const ServicesPage = () => {
     dispatch(controlActions.toggleShowAddServiceItems());
   };
 
+  const goPageBack = () => {
+    navigate(-1, {
+      replace: false,
+    });
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -71,7 +78,15 @@ const ServicesPage = () => {
             <UpNavigation />
             <main className={classes.servicesContainer}>
               <div className={classes.managementBtnsArea}>
-                <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                <div className={classes.headArrowArea}>
+                  <img
+                    onClick={goPageBack}
+                    src={ArrowBack}
+                    alt="icon"
+                    className={classes.arrowBack}
+                  />
+                  <h1 className={classes.managementHeading}>{pageHeading}</h1>
+                </div>
                 <div className={classes.twoBtnsManage}>
                   <button className={classes.manageBtn} type="button">
                     Редактировать сервис

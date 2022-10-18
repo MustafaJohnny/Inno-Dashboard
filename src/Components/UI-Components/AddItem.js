@@ -9,17 +9,20 @@ import { useState } from "react";
 
 const AddItem = () => {
   const [itemImage, setItemImage] = useState([]);
-  const [ItemName, setItemName] = useState("");
   const [itemLanguage, setItemLanguage] = useState("");
+  const [ItemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
-  const [itemSize, setItemSize] = useState("");
+  const [itemMeasurementType, setItemMeasurementType] = useState("");
+  const [itemMeasurementParameter, setItemMeasurementParameter] = useState("");
   const [itemPrice, setItemPrice] = useState("");
+  const [itemAlchole, setItemAlchole] = useState("");
+  const [itemDelivery, setItemDelivery] = useState("");
 
+  const userItemID = useSelector((state) => state.controler.user_item_ID);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const appLanguages = useSelector((state) => state.controler.app_languages);
-  const userItemID = useSelector((state) => state.controler.user_item_ID);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -29,21 +32,46 @@ const AddItem = () => {
   };
 
   const createNewItem = () => {
-    const serverParams = {};
+    let data = JSON.stringify({
+      prod: {
+        name: ItemName,
+        description: itemDescription,
+        price: itemPrice,
+        is_alcohol: itemAlchole,
+        delivery: itemDelivery,
+        tax: 0,
+        categorymenu_id: userItemID,
+      },
+      mod: {
+        name: itemMeasurementType,
+        description: "",
+      },
+      datamod: {
+        name: itemMeasurementParameter,
+        description: "",
+      },
+    });
+
+    // const serverParams = {};
 
     const formData = new FormData();
 
     formData.append("in_file", itemImage, itemImage.name);
+    formData.append("base", data);
 
     axios
       .post(
         `http://${serverAPI}/api/v1/menu/newProduct/${itemLanguage}`,
         formData,
         {
-          params: serverParams,
+          // params: serverParams,
           auth: {
             username: userEmail,
             password: userPassword,
+          },
+
+          headers: {
+            "content-type": "multipart/form-data",
           },
         }
       )
@@ -115,26 +143,69 @@ const AddItem = () => {
             </div>
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable} htmlFor="address">
-                Объем
+                Тип Измерения
               </label>
               <input
-                onChange={(event) => setItemSize(event.target.value)}
+                onChange={(event) => setItemMeasurementType(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
               />
             </div>
-          </div>
-          <div className={classes.wholeModalInput}>
-            <label className={classes.modalBasicLable} htmlFor="address">
-              Цена
-            </label>
-            <input
-              onChange={(event) => setItemPrice(event.target.value)}
-              type="text"
-              className={classes.modalBasicInput}
-              id="address"
-            />
+            <div className={classes.wholeModalInput}>
+              <label className={classes.modalBasicLable} htmlFor="address">
+                Параметр Измерения
+              </label>
+              <input
+                onChange={(event) =>
+                  setItemMeasurementParameter(event.target.value)
+                }
+                type="text"
+                className={classes.modalBasicInput}
+                id="address"
+              />
+            </div>
+            <div className={classes.wholeModalInput}>
+              <label className={classes.modalBasicLable} htmlFor="address">
+                Цена
+              </label>
+              <input
+                onChange={(event) => setItemPrice(event.target.value)}
+                type="text"
+                className={classes.modalBasicInput}
+                id="address"
+              />
+            </div>
+
+            <div className={classes.wholeModalInput}>
+              <label className={classes.modalBasicLable} htmlFor="lang">
+                Алкоголь?
+              </label>
+
+              <select
+                onChange={(event) => setItemAlchole(event.target.value)}
+                className={classes.modalBasicInput}
+              >
+                <option value=""></option>
+                <option value={true}>Да</option>
+                <option value={false}>Нет</option>
+              </select>
+            </div>
+
+            <div className={classes.wholeModalInput}>
+              <label className={classes.modalBasicLable} htmlFor="lang">
+                Доставка
+              </label>
+
+              <select
+                onChange={(event) => setItemDelivery(event.target.value)}
+                className={classes.modalBasicInput}
+              >
+                <option value=""></option>
+                <option value={true}>Да</option>
+                <option value={false}>Нет</option>
+              </select>
+            </div>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>

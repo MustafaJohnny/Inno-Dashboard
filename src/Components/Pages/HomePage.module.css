@@ -25,11 +25,14 @@
   gap: 1rem;
   width: 100%;
   padding-left: 24rem;
+  padding-left: 15.5vw;
 }
 
 .logoArea {
   display: flex;
+  cursor: pointer;
   align-items: center;
+  text-decoration: none;
   padding: 3rem 0rem 0rem 3rem;
 }
 
@@ -80,6 +83,10 @@
   align-items: center;
   justify-content: space-between;
   /* background-color: #363741; */
+}
+
+.first {
+  background-color: #363741;
 }
 
 .iconTextArea {
@@ -454,4 +461,39 @@
   font-weight: 600;
   font-size: 1.7rem;
   color: #404040;
+}
+
+.headArrowArea {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.arrowBack {
+  width: 0.8rem;
+  cursor: pointer;
+}
+
+.headingHeadingInner {
+  gap: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.pathAddress {
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #8c8888;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.pathAddressArea {
+  gap: 0.5rem;
+  display: flex;
+  padding-left: 2rem;
+  align-items: center;
+  justify-content: center;
 }

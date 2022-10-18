@@ -24,7 +24,7 @@ const UpNavigation = () => {
   return (
     <React.Fragment>
       <header className={classes.upHeader}>
-        <h2 className={classes.headerHeading}>{navigationHeading}</h2>
+        <div></div>
         <div className={classes.logingArea}>
           <div className={classes.nameRoleArea}>
             <span className={classes.userName}>{userName}</span>
