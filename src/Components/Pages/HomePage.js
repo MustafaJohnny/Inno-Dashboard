@@ -60,9 +60,7 @@ const HomePage = () => {
     let mounted = true;
 
     const getData = async () => {
-      const request = await axios.get(
-        `http://${serverAPI}:8000/api/v1/dict/lang`
-      );
+      const request = await axios.get(`http://${serverAPI}/api/v1/dict/lang`);
 
       if (mounted) {
         // Converting the received objects {key: valye} to an array of [key, valye].

@@ -25,13 +25,8 @@ const AddTableQR = () => {
   };
 
   const createNewTableQR = () => {
-    const serverParams = {
-      description: tableQRdescription,
-      id: clickedTableIdQR,
-    };
-
     axios
-      .post("http://inme.su:8000/api/v1/table/table_description", "", {
+      .post(`http://${serverAPI}/api/v1/table/table_description`, "", {
         params: {
           description: tableQRdescription,
           id: clickedTableIdQR,

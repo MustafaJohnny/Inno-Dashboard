@@ -4,7 +4,6 @@ import classes from "../Pages/HomePage.module.css";
 import arrowR from "../Icons/arrowR.svg";
 import mangeIcon from "../Icons/mange.svg";
 import delivery from "../Icons/delivery.svg";
-import menu from "../Icons/menu.svg";
 import order from "../Icons/order.svg";
 import review from "../Icons/review.svg";
 import Settings from "../Icons/Settings.svg";
@@ -12,7 +11,7 @@ import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import QRIcon from "../Icons/QRcodeIcon.svg";
 import user from "../Icons/user.svg";
-import { useNavigate, Link } from "react-router-dom";
+import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
@@ -57,10 +56,14 @@ const SideNavigation = () => {
         <div className={classes.actionArea}>
           <h2 className={classes.actionHeading}>Ресторан</h2>
           <div className={classes.actionBox}>
-            <Link
+            <NavLink
               to="/home"
               onClick={goHomeforNow}
-              className={`${classes.wholeAction} ${classes.first}`}
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
             >
               <div className={classes.iconTextArea}>
                 <img
@@ -72,89 +75,95 @@ const SideNavigation = () => {
                 <span className={classes.actionText}>Менеджмент</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </Link>
+            </NavLink>
 
-            <div className={classes.wholeAction}>
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={order} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Заказы</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </a>
 
-            <div className={classes.wholeAction}>
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={user} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Сотрудники</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </a>
 
-            <div className={classes.wholeAction}>
-              <div className={classes.iconTextArea}>
-                <img alt="icon" src={menu} className={classes.actionIcon} />
-
-                <span className={classes.actionText}>Меню</span>
-              </div>
-              <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
-
-            <Link to="/qr" className={classes.wholeAction}>
+            <NavLink
+              to="/qr"
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
+            >
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={QRIcon} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>QR коды</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </Link>
+            </NavLink>
 
-            <div className={classes.wholeAction}>
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={review} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Отчеты</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </a>
 
-            <div className={classes.wholeAction}>
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={delivery} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Доставка</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </a>
 
-            <Link to="/settings" className={classes.wholeAction}>
+            <NavLink
+              to="/settings"
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
+            >
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={Settings} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Настройки</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </Link>
+            </NavLink>
           </div>
           <h2 className={classes.actionHeading}>Аккаунт</h2>
           <div className={classes.actionBox}>
-            <div className={classes.wholeAction}>
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={tarrif} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Тарифы</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
-            <div className={classes.wholeAction}>
+            </a>
+
+            <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={statica} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Статистика</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </div>
+            </a>
           </div>
         </div>
       </div>

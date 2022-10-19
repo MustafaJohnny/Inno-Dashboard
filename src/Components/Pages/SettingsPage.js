@@ -1,21 +1,25 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
+import ChangeClientName from "../UI-Components/ChangeClientName";
 import EditIcon from "../Icons/Edit.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { useEffect } from "react";
-// import { controlActions } from "../Redux/ReduxStore";
+import { useSelector, useDispatch } from "react-redux";
+import { controlActions } from "../Redux/ReduxStore";
 
 const SettingsPage = () => {
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-  //   const serverAPI = useSelector((state) => state.controler.serverAPI);
-  //   const userDomain = useSelector((state) => state.controler.user_domain);
-  //   const userEmail = useSelector((state) => state.controler.user_email);
-  //   const userPassword = useSelector((state) => state.controler.user_password);
+  const dispatch = useDispatch();
+
+  const showChangeClient = useSelector(
+    (state) => state.controler.show_change_client_name
+  );
+
+  const displayChangeClientName = () => {
+    dispatch(controlActions.toggleChangeClientName());
+  };
 
   const goPageBack = () => {
     navigate(-1, {
@@ -25,6 +29,7 @@ const SettingsPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showChangeClient && <ChangeClientName />}
         <SideNavigation />
         <UpNavigation />
         <main className={classes.mainContiner}>
@@ -42,7 +47,11 @@ const SettingsPage = () => {
               <h2 className={classes.wholeSettingHeading}>
                 Название заведения
               </h2>
-              <button type="button" className={classes.settingBtn}>
+              <button
+                onClick={displayChangeClientName}
+                type="button"
+                className={classes.settingBtn}
+              >
                 <img
                   src={EditIcon}
                   alt="icon"

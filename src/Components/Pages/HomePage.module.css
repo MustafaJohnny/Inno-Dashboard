@@ -76,19 +76,32 @@
   width: 100%;
 }
 
-.wholeAction {
+.notActiveSideLink {
   width: 100%;
-  padding: 1rem 2rem 1rem 3rem;
   display: flex;
   cursor: pointer;
   align-items: center;
-  justify-content: space-between;
   text-decoration: none;
-  /* background-color: #363741; */
+  padding: 1rem 2rem 1rem 3rem;
+  justify-content: space-between;
+  transition: all 0.3s ease-in-out;
 }
 
-.first {
+.notActiveSideLink:hover {
   background-color: #363741;
+}
+
+.activeSideLink {
+  width: 100%;
+  display: flex;
+  cursor: pointer;
+  align-items: center;
+  text-decoration: none;
+  background-color: #363741;
+  padding: 1rem 2rem 1rem 2.7rem;
+  justify-content: space-between;
+  transition: all 0.3s ease-in-out;
+  border-left: 3px solid #0079c2;
 }
 
 .iconTextArea {

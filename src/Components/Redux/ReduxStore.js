@@ -25,6 +25,7 @@ const initialState = {
   user_QR_ID: "",
   user_item_ID: "",
   user_table_QR_descrip_value: "",
+  user_first_language: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
@@ -39,6 +40,7 @@ const initialState = {
   show_add_table_QR: false,
   show_add_tables: false,
   show_modal_QR_Img: false,
+  show_change_client_name: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -73,12 +75,13 @@ const controlSlice = createSlice({
 
     /* owner product function */
     getUserDataAfterLogin(state, action) {
-      state.user_logo = action.payload.logo;
+      state.user_first_language = action.payload.first_language;
       state.user_logo_text = action.payload.owner_name;
-      state.user_currency = action.payload.money;
       state.user_restaurants = action.payload.rest;
       state.user_services = action.payload.service;
+      state.user_currency = action.payload.money;
       state.user_domain = action.payload.domain;
+      state.user_logo = action.payload.logo;
       state.all_data = action.payload;
     },
 
@@ -186,6 +189,10 @@ const controlSlice = createSlice({
 
     toggleShowAddServiceItems(state) {
       state.show_add_service_items = !state.show_add_service_items;
+    },
+
+    toggleChangeClientName(state) {
+      state.show_change_client_name = !state.show_change_client_name;
     },
   },
 });

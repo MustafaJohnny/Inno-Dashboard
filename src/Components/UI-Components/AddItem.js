@@ -52,8 +52,6 @@ const AddItem = () => {
       },
     });
 
-    // const serverParams = {};
-
     const formData = new FormData();
 
     formData.append("in_file", itemImage, itemImage.name);
@@ -64,7 +62,6 @@ const AddItem = () => {
         `http://${serverAPI}/api/v1/menu/newProduct/${itemLanguage}`,
         formData,
         {
-          // params: serverParams,
           auth: {
             username: userEmail,
             password: userPassword,

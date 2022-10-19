@@ -1,17 +1,15 @@
 import React from "react";
-import classes from "../Pages/HomePage.module.css";
 import LogOut from "../Icons/LogOut.svg";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import classes from "../Pages/HomePage.module.css";
 
 const UpNavigation = () => {
   const navigate = useNavigate();
 
   const userName = useSelector((state) => state.controler.user_name);
+
   const userRole = useSelector((state) => state.controler.user_role);
-  const navigationHeading = useSelector(
-    (state) => state.controler.up_navigation_heading
-  );
 
   const logOutAndReset = () => {
     window.localStorage.clear();

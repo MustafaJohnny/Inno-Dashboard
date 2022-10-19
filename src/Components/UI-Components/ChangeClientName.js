@@ -4,55 +4,48 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "../UI-Components/Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const AddService = () => {
-  const [serviceName, setServiceName] = useState("");
-  const [serviceImage, setServiceImage] = useState([]);
+const ChangeClientName = () => {
+  const [clientName, setClientName] = useState("");
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const clientOldName = useSelector((state) => state.controler.user_logo_text);
 
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
 
   const dispatch = useDispatch();
-  const navigate = useNavigate();
 
-  const hideAddService = () => {
-    dispatch(controlActions.toggleAddService());
+  const hideChangeClinet = () => {
+    dispatch(controlActions.toggleChangeClientName());
   };
 
-  const createNewService = () => {
-    const serverParams = {
-      name_service: serviceName,
-    };
-
-    if (!serviceName) return;
-    if (!serviceImage) return;
-
-    const formData = new FormData();
-
-    formData.append("in_file", serviceImage, serviceImage.name);
-
+  const addNewClientName = () => {
     axios
-      .post(
-        `http://${serverAPI}/api/v1/owner/service_new/${userLanguage}`,
-        formData,
+      .patch(
+        `http://${serverAPI}/api/dash/nameClientChange/${userLanguage}`,
+        "",
         {
-          params: serverParams,
+          params: {
+            new_name: clientName,
+          },
           auth: {
             username: userEmail,
             password: userPassword,
           },
+          headers: {
+            accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddService();
-          navigate(0);
+        if ((response.status = "200")) {
+          dispatch(controlActions.getUserDataAfterLogin(response.data));
+          hideChangeClinet();
         }
       });
   };
@@ -61,29 +54,20 @@ const AddService = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить сервис</h1>
+        <h1 className={classes.modalHeading}>Название заведения</h1>
         <form className={classes.modalForm}>
-          <div className={classes.inputImgArea}>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg"
-              onChange={(event) => setServiceImage(event.target.files[0])}
-              required
-            />
-          </div>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable} htmlFor="name">
-                Название
+                Новое название
               </label>
               <input
-                onChange={(event) => setServiceName(event.target.value)}
+                className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
+                onChange={(event) => setClientName(event.target.value)}
+                placeholder={clientOldName}
                 type="text"
-                className={`${classes.modalBasicInput} ${classes.modalBasicInputService}`}
                 id="name"
                 required
               />
@@ -91,17 +75,17 @@ const AddService = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewService} className={classes.controlBtn}>
+          <button onClick={addNewClientName} className={classes.controlBtn}>
             ДОБАВИТЬ
           </button>
           <button
-            onClick={hideAddService}
+            onClick={hideChangeClinet}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
             Отменить
           </button>
         </div>
-        <button onClick={hideAddService} className={classes.btnCloseModal}>
+        <button onClick={hideChangeClinet} className={classes.btnCloseModal}>
           &times;
         </button>
       </div>
@@ -109,4 +93,4 @@ const AddService = () => {
   );
 };
 
-export default AddService;
+export default ChangeClientName;

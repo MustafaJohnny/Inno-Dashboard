@@ -13,7 +13,6 @@ import { controlActions } from "../Redux/ReduxStore";
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
@@ -61,7 +60,7 @@ const CategoriesPage = () => {
     getData();
   }, []);
 
-  const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateCategory = (menuID) => {
     axios
