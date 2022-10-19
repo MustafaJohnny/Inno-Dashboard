@@ -79,7 +79,7 @@ const HomePage = () => {
     };
   }, []);
 
-  const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateMenu = (menuID) => {
     axios

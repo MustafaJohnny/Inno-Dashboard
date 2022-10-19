@@ -1,16 +1,15 @@
 import React from "react";
-import ArrowBack from "../Icons/ArrowBack.svg";
-import SideNavigation from "../UI-Components/SideNavigation";
-import UpNavigation from "../UI-Components/UpNavigation";
-import AddItem from "../UI-Components/AddItem";
-import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import classes from "./HomePage.module.css";
+import ArrowBack from "../Icons/ArrowBack.svg";
 import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
+import { useSelector, useDispatch } from "react-redux";
+import UpNavigation from "../UI-Components/UpNavigation";
+import SideNavigation from "../UI-Components/SideNavigation";
 
-const ItemsPage = () => {
+const CurrentItemsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -19,9 +18,6 @@ const ItemsPage = () => {
   const userCurrency = useSelector((state) => state.controler.user_currency);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const showAddItem = useSelector((state) => state.controler.show_add_item);
-  const userItemID = useSelector((state) => state.controler.user_item_ID);
-  const userItems = useSelector((state) => state.controler.user_Items);
 
   const pageHeading = useSelector(
     (state) => state.controler.items_page_heading
@@ -92,7 +88,6 @@ const ItemsPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showAddItem && <AddItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -190,4 +185,4 @@ const ItemsPage = () => {
   );
 };
 
-export default React.memo(ItemsPage);
+export default React.memo(CurrentItemsPage);

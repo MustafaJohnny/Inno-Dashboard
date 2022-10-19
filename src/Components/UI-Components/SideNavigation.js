@@ -21,7 +21,7 @@ const SideNavigation = () => {
   const userLogoText = useSelector((state) => state.controler.user_logo_text);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
-  const URL = `http://${serverAPI}:8000/api/v1/client/fileimage/${userDomain}`;
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
 
   const navigate = useNavigate();
 
