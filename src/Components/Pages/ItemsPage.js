@@ -83,6 +83,16 @@ const ItemsPage = () => {
     dispatch(controlActions.toggleAddItem());
   };
 
+  const getClickedItemData = (clickedItemID) => {
+    const clickedItem = userItems[clickedItemID];
+    dispatch(controlActions.setCurrentItemPageHeading(clickedItem.name));
+    dispatch(controlActions.getUserCurrentItem(clickedItem));
+
+    navigate("/currentItem", {
+      replace: false,
+    });
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -141,9 +151,14 @@ const ItemsPage = () => {
                   </div>
                 </div>
                 <div className={classes.justItemsContainer}>
-                  {userItems.map((ele) => (
-                    <div key={ele.id} className={classes.wholeItemElement}>
+                  {userItems.map((ele, index) => (
+                    <div
+                      id={index}
+                      key={ele.id}
+                      className={classes.wholeItemElement}
+                    >
                       <div
+                        onClick={() => getClickedItemData(index)}
                         style={{
                           backgroundImage: `url("${URL}/${ele.image}")`,
                         }}

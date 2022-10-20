@@ -18,18 +18,22 @@ const initialState = {
   user_services: [],
   user_menus: [],
   user_QR_Codes: [],
+  user_current_item: [],
   user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
   user_category_ID: "",
   user_QR_ID: "",
   user_item_ID: "",
-  user_table_QR_descrip_value: "",
   user_first_language: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
   user_logo: "",
+  /* Old Values */
+  user_table_QR_descrip_value: "",
+  item_name_value: "",
+  item_current_ID: "",
   /* App Toggling States */
   show_add_service_items: false,
   show_add_categories: false,
@@ -41,12 +45,14 @@ const initialState = {
   show_add_tables: false,
   show_modal_QR_Img: false,
   show_change_client_name: false,
+  show_change_item_name: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
   services_page_heading: "",
   categories_page_heading: "",
   items_page_heading: "",
+  current_item_page_heading: "",
   serverAPI: "inme.su",
   app_languages: [],
 };
@@ -133,6 +139,10 @@ const controlSlice = createSlice({
       state.user_QR_big_img = action.payload;
     },
 
+    getUserCurrentItem(state, action) {
+      state.user_current_item = action.payload;
+    },
+
     /* controling the app functions */
     setRestaurantPageHeading(state, action) {
       state.restaurant_page_heading = action.payload;
@@ -146,12 +156,24 @@ const controlSlice = createSlice({
       state.items_page_heading = action.payload;
     },
 
+    setCurrentItemPageHeading(state, action) {
+      state.current_item_page_heading = action.payload;
+    },
+
     setServicesPageHeading(state, action) {
       state.services_page_heading = action.payload;
     },
 
     setTableDescriptionValue(state, action) {
       state.user_table_QR_descrip_value = action.payload;
+    },
+
+    setItemNameValue(state, action) {
+      state.item_name_value = action.payload;
+    },
+
+    setCurrentItemID(state, action) {
+      state.item_current_ID = action.payload;
     },
 
     /* toggling app functions */
@@ -193,6 +215,10 @@ const controlSlice = createSlice({
 
     toggleChangeClientName(state) {
       state.show_change_client_name = !state.show_change_client_name;
+    },
+
+    toggleChangeItemName(state) {
+      state.show_change_item_name = !state.show_change_item_name;
     },
   },
 });

@@ -1,6 +1,5 @@
 import React from "react";
-import axios from "axios";
-import { useEffect } from "react";
+import PenIcon from "../Icons/Pen.svg";
 import classes from "./HomePage.module.css";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import { useNavigate, Link } from "react-router-dom";
@@ -8,6 +7,7 @@ import { controlActions } from "../Redux/ReduxStore";
 import { useSelector, useDispatch } from "react-redux";
 import UpNavigation from "../UI-Components/UpNavigation";
 import SideNavigation from "../UI-Components/SideNavigation";
+import ChangeItemName from "../UI-Components/ChangeItemName";
 
 const CurrentItemsPage = () => {
   const dispatch = useDispatch();
@@ -19,8 +19,10 @@ const CurrentItemsPage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
-  const pageHeading = useSelector(
-    (state) => state.controler.items_page_heading
+  const currentItem = useSelector((state) => state.controler.user_current_item);
+
+  const showChangeItemName = useSelector(
+    (state) => state.controler.show_change_item_name
   );
 
   const restaurantPageHeading = useSelector(
@@ -31,52 +33,20 @@ const CurrentItemsPage = () => {
     (state) => state.controler.categories_page_heading
   );
 
-  useEffect(() => {
-    let mounted = true;
+  const ItemspageHeading = useSelector(
+    (state) => state.controler.items_page_heading
+  );
 
-    const getData = async () => {
-      const request = await axios.get(
-        `http://${serverAPI}/api/dash/product_list/${userItemID}`,
-        {
-          auth: {
-            username: userEmail,
-            password: userPassword,
-          },
-          headers: { accept: "application/json" },
-        }
-      );
-
-      if (mounted) {
-        dispatch(controlActions.getUserItems(request.data.product));
-      }
-    };
-
-    getData();
-  }, []);
+  const pageHeading = useSelector(
+    (state) => state.controler.current_item_page_heading
+  );
 
   const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
 
-  const activateOrDeactivateItem = (menuID) => {
-    axios
-      .post(
-        `http://${serverAPI}/api/v1/menu/product_active_or_deactivate/${menuID}`,
-        {},
-
-        {
-          auth: {
-            username: userEmail,
-            password: userPassword,
-          },
-        }
-      )
-      .then((response) => {
-        console.log(response);
-        navigate(0);
-      });
-  };
-
-  const unHideAddItem = () => {
-    dispatch(controlActions.toggleAddItem());
+  const displayChangeItemName = (itemOldName, itemID) => {
+    dispatch(controlActions.toggleChangeItemName());
+    dispatch(controlActions.setItemNameValue(itemOldName));
+    dispatch(controlActions.setCurrentItemID(itemID));
   };
 
   const goPageBack = () => {
@@ -88,6 +58,7 @@ const CurrentItemsPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showChangeItemName && <ChangeItemName />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -118,63 +89,125 @@ const CurrentItemsPage = () => {
                         {categoriesPageHeading} /
                       </Link>
                       <Link className={classes.pathAddress} to="/Items">
+                        {ItemspageHeading} /
+                      </Link>
+                      <Link className={classes.pathAddress} to="/currentItem">
                         {pageHeading}
                       </Link>
                     </div>
                   </div>
                   <div className={classes.twoBtnsManage}>
                     <button className={classes.manageBtn} type="button">
-                      Редактировать категорию
-                    </button>
-                    <button
-                      onClick={unHideAddItem}
-                      className={classes.manageBtn}
-                      type="button"
-                    >
-                      + Добавить блюдо
+                      + Добавить модификатор
                     </button>
                   </div>
                 </div>
-                <div className={classes.justItemsContainer}>
-                  {userItems.map((ele) => (
-                    <div key={ele.id} className={classes.wholeItemElement}>
-                      <div
-                        style={{
-                          backgroundImage: `url("${URL}/${ele.image}")`,
-                        }}
-                        className={classes.itemImgBox}
-                      ></div>
-                      <div className={classes.itemContentBox}>
-                        <div className={classes.innerItem}>
-                          <span className={classes.itemHeading}>
-                            {ele.name}
-                          </span>
-                          <span className={classes.itemSize}>
-                            {ele.modifex[0].datamodifex[0].name}
-                          </span>
-                          <span className={classes.itemDescription}>
-                            {ele.description}
-                          </span>
+                <div className={classes.currentItemBox}>
+                  <div
+                    style={{
+                      backgroundImage: `url("${URL}/${currentItem.image}")`,
+                    }}
+                    className={classes.itemBigImgBox}
+                  ></div>
+                  <div className={classes.itemInputsBox}>
+                    <div className={classes.wholeCurrentItemInput}>
+                      <label
+                        htmlFor="name"
+                        className={classes.currentItemLable}
+                      >
+                        Название
+                      </label>
+                      <div className={classes.inputAndEditArea}>
+                        <input
+                          className={classes.currentItemInput}
+                          type="text"
+                          id="name"
+                          value={currentItem.name}
+                          readOnly
+                        />
+                        <img
+                          onClick={() =>
+                            displayChangeItemName(
+                              currentItem.name,
+                              currentItem.id
+                            )
+                          }
+                          src={PenIcon}
+                          alt="icon"
+                          className={classes.penIconCurrent}
+                        />
+                      </div>
+                    </div>
+
+                    <div className={classes.wholeCurrentItemInput}>
+                      <label
+                        htmlFor="descrip"
+                        className={classes.currentItemLable}
+                      >
+                        Описание
+                      </label>
+                      <div className={classes.inputAndEditArea}>
+                        <input
+                          className={classes.currentItemInput}
+                          readOnly
+                          type="text"
+                          id="descrip"
+                          value={currentItem.description}
+                        />
+                        <img
+                          src={PenIcon}
+                          alt="icon"
+                          className={classes.penIconCurrent}
+                        />
+                      </div>
+                    </div>
+                    <div className={classes.twoWholeCurrentInputArea}>
+                      <div className={classes.wholeCurrentItemInput}>
+                        <label
+                          htmlFor="price"
+                          className={classes.currentItemLable}
+                        >
+                          Цена
+                        </label>
+                        <div className={classes.inputAndEditArea}>
+                          <input
+                            readOnly
+                            className={classes.currentItemInput}
+                            type="text"
+                            id="price"
+                            value={`${currentItem.price} ${userCurrency}`}
+                          />
+                          <img
+                            src={PenIcon}
+                            alt="icon"
+                            className={classes.penIconCurrent}
+                          />
                         </div>
-                        <div className={classes.itemPriceActiveArea}>
-                          <span
-                            className={classes.itemPrice}
-                          >{`${ele.price} ${userCurrency}`}</span>
-                          <button
-                            onClick={() => activateOrDeactivateItem(ele.id)}
-                            className={
-                              ele.is_active
-                                ? classes.activeMenu
-                                : classes.notActiveMenu
-                            }
-                            type="button"
-                          >
-                            {ele.is_active ? "Активный" : "Неактивный"}
-                          </button>
+                      </div>
+                      <div className={classes.wholeCurrentItemInput}>
+                        <label
+                          htmlFor="size"
+                          className={classes.currentItemLable}
+                        >
+                          Вес
+                        </label>
+                        <div className={classes.inputAndEditArea}>
+                          <input
+                            readOnly
+                            className={classes.currentItemInput}
+                            type="text"
+                            id="size"
+                            value={currentItem.modifex[0].datamodifex[0].name}
+                          />
+                          <img
+                            src={PenIcon}
+                            alt="icon"
+                            className={classes.penIconCurrent}
+                          />
                         </div>
                       </div>
                     </div>
-                  ))}
+                  </div>
                 </div>
               </div>
             </main>

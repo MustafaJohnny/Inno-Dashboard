@@ -407,10 +407,12 @@
 
 .wholeItemElement {
   display: flex;
+  cursor: pointer;
   border-radius: 5px;
   align-items: flex-start;
   background-color: #fff;
   box-shadow: 0 1px 1px rgb(0 0 0 / 5%);
+  position: relative;
 }
 
 .itemImgBox {
@@ -511,4 +513,80 @@
   padding-left: 2rem;
   align-items: center;
   justify-content: center;
+}
+
+.currentItemBox {
+  display: grid;
+  border-radius: 5px;
+  background-color: #fff;
+  grid-template-columns: 40fr 60fr;
+  padding: 2.4rem 2.4rem 14rem 2.4rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.itemBigImgBox {
+  width: 44rem;
+  height: 38rem;
+  border-radius: 5px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.itemInputsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 2.4rem;
+  align-items: flex-start;
+}
+
+.wholeCurrentItemInput {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.currentItemLable {
+  font-weight: 300;
+  font-size: 1.4rem;
+  color: #252631;
+}
+
+.currentItemInput {
+  width: 100%;
+  border: none;
+  background: none;
+  color: #252631;
+  font-weight: 500;
+  font-size: 1.6rem;
+  font-family: inherit;
+  padding-bottom: 1.2rem;
+  padding-right: 2.2rem;
+  transition: all 0.3s;
+  border-bottom: 1px solid #cdcdcd;
+}
+
+.currentItemInput:focus {
+  outline: none;
+  border-bottom: 1px solid #4d7cfe;
+}
+
+.penIconCurrent {
+  transform: translateX(-1.4rem);
+  cursor: pointer;
+}
+
+.inputAndEditArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.twoWholeCurrentInputArea {
+  width: 100%;
+  gap: 2.6rem;
+  display: flex;
+  align-items: center;
 }
