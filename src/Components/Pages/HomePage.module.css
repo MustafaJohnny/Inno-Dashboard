@@ -441,7 +441,6 @@
   font-size: 1.6rem;
   color: #32324d;
   margin-bottom: 0.8rem;
-  width: 90%;
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
@@ -576,6 +575,7 @@
 .penIconCurrent {
   transform: translateX(-1.4rem);
   cursor: pointer;
+  width: 1.6rem;
 }
 
 .inputAndEditArea {

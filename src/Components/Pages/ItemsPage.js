@@ -13,7 +13,6 @@ import { controlActions } from "../Redux/ReduxStore";
 const ItemsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userCurrency = useSelector((state) => state.controler.user_currency);
@@ -74,8 +73,7 @@ const ItemsPage = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-        navigate(0);
+        if (response) navigate(0);
       });
   };
 
@@ -83,14 +81,18 @@ const ItemsPage = () => {
     dispatch(controlActions.toggleAddItem());
   };
 
-  const getClickedItemData = (clickedItemID) => {
+  const getClickedItemData = (event) => {
+    const clickedItemID = event.target.id;
     const clickedItem = userItems[clickedItemID];
-    dispatch(controlActions.setCurrentItemPageHeading(clickedItem.name));
+    dispatch(controlActions.setCurrentItemID(""));
     dispatch(controlActions.getUserCurrentItem(clickedItem));
+    dispatch(controlActions.setCurrentItemPageHeading(clickedItem.name));
 
-    navigate("/currentItem", {
-      replace: false,
-    });
+    if (clickedItemID) {
+      navigate("/currentItem", {
+        replace: false,
+      });
+    }
   };
 
   const goPageBack = () => {
@@ -153,31 +155,33 @@ const ItemsPage = () => {
                 <div className={classes.justItemsContainer}>
                   {userItems.map((ele, index) => (
                     <div
+                      onClick={getClickedItemData}
                       id={index}
                       key={ele.id}
                       className={classes.wholeItemElement}
                     >
                       <div
-                        onClick={() => getClickedItemData(index)}
+                        id={index}
                         style={{
                           backgroundImage: `url("${URL}/${ele.image}")`,
                         }}
                         className={classes.itemImgBox}
                       ></div>
-                      <div className={classes.itemContentBox}>
-                        <div className={classes.innerItem}>
-                          <span className={classes.itemHeading}>
+                      <div id={index} className={classes.itemContentBox}>
+                        <div id={index} className={classes.innerItem}>
+                          <span id={index} className={classes.itemHeading}>
                             {ele.name}
                           </span>
-                          <span className={classes.itemSize}>
+                          <span id={index} className={classes.itemSize}>
                             {ele.modifex[0].datamodifex[0].name}
                           </span>
-                          <span className={classes.itemDescription}>
+                          <span id={index} className={classes.itemDescription}>
                             {ele.description}
                           </span>
                         </div>
-                        <div className={classes.itemPriceActiveArea}>
+                        <div id={index} className={classes.itemPriceActiveArea}>
                           <span
+                            id={index}
                             className={classes.itemPrice}
                           >{`${ele.price} ${userCurrency}`}</span>
                           <button

@@ -1,28 +1,67 @@
 import React from "react";
+import axios from "axios";
 import PenIcon from "../Icons/Pen.svg";
 import classes from "./HomePage.module.css";
 import ArrowBack from "../Icons/ArrowBack.svg";
+import { useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 import { useSelector, useDispatch } from "react-redux";
 import UpNavigation from "../UI-Components/UpNavigation";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ChangeItemName from "../UI-Components/ChangeItemName";
+import ChangeItemDesc from "../UI-Components/ChangeItemDesc";
 
 const CurrentItemsPage = () => {
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userDomain = useSelector((state) => state.controler.user_domain);
+  const userPassword = useSelector((state) => state.controler.user_password);
+  const itemCurrentID = useSelector((state) => state.controler.item_current_ID);
+  const currentCategoryID = useSelector(
+    (state) => state.controler.user_item_ID
+  );
+
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/product_list/${currentCategoryID}`,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        const updatedCurrentItem = request.data.product.filter(
+          (ele) => ele.id === itemCurrentID
+        );
+
+        if (updatedCurrentItem.length !== 0) {
+          dispatch(controlActions.getUserCurrentItem(updatedCurrentItem[0]));
+        }
+      }
+    };
+
+    getData();
+  }, []);
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
-  const userDomain = useSelector((state) => state.controler.user_domain);
   const userCurrency = useSelector((state) => state.controler.user_currency);
-  const userEmail = useSelector((state) => state.controler.user_email);
-  const userPassword = useSelector((state) => state.controler.user_password);
-
   const currentItem = useSelector((state) => state.controler.user_current_item);
 
   const showChangeItemName = useSelector(
     (state) => state.controler.show_change_item_name
+  );
+
+  const showChangeItemDesc = useSelector(
+    (state) => state.controler.show_change_item_desc
   );
 
   const restaurantPageHeading = useSelector(
@@ -49,6 +88,12 @@ const CurrentItemsPage = () => {
     dispatch(controlActions.setCurrentItemID(itemID));
   };
 
+  const displayChangeItemDesc = (itemOldDesc, itemID) => {
+    dispatch(controlActions.toggleChangeItemDesc());
+    dispatch(controlActions.setItemDescValue(itemOldDesc));
+    dispatch(controlActions.setCurrentItemID(itemID));
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -59,6 +104,7 @@ const CurrentItemsPage = () => {
     <React.Fragment>
       <section>
         {showChangeItemName && <ChangeItemName />}
+        {showChangeItemDesc && <ChangeItemDesc />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -155,6 +201,12 @@ const CurrentItemsPage = () => {
                           value={currentItem.description}
                         />
                         <img
+                          onClick={() =>
+                            displayChangeItemDesc(
+                              currentItem.description,
+                              currentItem.id
+                            )
+                          }
                           src={PenIcon}
                           alt="icon"
                           className={classes.penIconCurrent}

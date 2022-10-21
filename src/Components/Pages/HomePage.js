@@ -37,7 +37,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/restandservice_list?lang=RU`,
+        `http://${serverAPI}/api/dash/restandservice_list`,
         {
           auth: {
             username: userEmail,

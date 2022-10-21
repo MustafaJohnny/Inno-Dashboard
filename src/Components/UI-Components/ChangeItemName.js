@@ -5,20 +5,22 @@ import Overlay from "../UI-Components/Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const ChangeItemName = () => {
   const [ItemName, setItemName] = useState("");
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const itemID = useSelector((state) => state.controler.item_current_ID);
   const itemOldName = useSelector((state) => state.controler.item_name_value);
+  const currentItemID = useSelector((state) => state.controler.item_current_ID);
 
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const hideChangeItemName = () => {
     dispatch(controlActions.toggleChangeItemName());
@@ -27,12 +29,10 @@ const ChangeItemName = () => {
   const addNewItemName = () => {
     axios
       .patch(
-        `http://${serverAPI}/api/v1/menu/product_name_change/${userLanguage}/{name}/${itemID}`,
+        `http://${serverAPI}/api/v1/menu/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
         "",
         {
-          params: {
-            name: ItemName,
-          },
+          params: {},
           auth: {
             username: userEmail,
             password: userPassword,
@@ -45,8 +45,8 @@ const ChangeItemName = () => {
       )
       .then((response) => {
         if ((response.status = "200")) {
-          dispatch(controlActions.getUserDataAfterLogin(response.data));
           hideChangeItemName();
+          navigate(0);
         }
       });
   };
@@ -55,7 +55,7 @@ const ChangeItemName = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Название заведения</h1>
+        <h1 className={classes.modalHeading}>Изменить название</h1>
         <form className={classes.modalForm}>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}

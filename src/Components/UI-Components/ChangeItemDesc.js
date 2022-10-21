@@ -4,35 +4,35 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "../UI-Components/Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const ChangeItemName = () => {
-  const [ItemName, setItemName] = useState("");
+const ChangeItemDesc = () => {
+  const [ItemDesc, setItemDesc] = useState("");
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const itemID = useSelector((state) => state.controler.item_current_ID);
-  const itemOldName = useSelector((state) => state.controler.item_name_value);
+  const itemOldDesc = useSelector((state) => state.controler.item_desc_value);
 
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const hideChangeItemName = () => {
-    dispatch(controlActions.toggleChangeItemName());
+  const hideChangeItemDesc = () => {
+    dispatch(controlActions.toggleChangeItemDesc());
   };
 
-  const addNewItemName = () => {
+  const addNewItemDesc = () => {
     axios
       .patch(
-        `http://${serverAPI}/api/v1/menu/product_name_change/${userLanguage}/{name}/${itemID}`,
+        `http://${serverAPI}/api/v1/menu/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
         "",
         {
-          params: {
-            name: ItemName,
-          },
+          params: {},
           auth: {
             username: userEmail,
             password: userPassword,
@@ -45,8 +45,8 @@ const ChangeItemName = () => {
       )
       .then((response) => {
         if ((response.status = "200")) {
-          dispatch(controlActions.getUserDataAfterLogin(response.data));
-          hideChangeItemName();
+          hideChangeItemDesc();
+          navigate(0);
         }
       });
   };
@@ -55,19 +55,19 @@ const ChangeItemName = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Название заведения</h1>
+        <h1 className={classes.modalHeading}>Изменить описание</h1>
         <form className={classes.modalForm}>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable} htmlFor="name">
-                Новое название
+                Новое Описание
               </label>
               <input
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
-                onChange={(event) => setItemName(event.target.value)}
-                placeholder={itemOldName}
+                onChange={(event) => setItemDesc(event.target.value)}
+                placeholder={itemOldDesc}
                 type="text"
                 id="name"
                 required
@@ -76,17 +76,17 @@ const ChangeItemName = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewItemName} className={classes.controlBtn}>
+          <button onClick={addNewItemDesc} className={classes.controlBtn}>
             ДОБАВИТЬ
           </button>
           <button
-            onClick={hideChangeItemName}
+            onClick={hideChangeItemDesc}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
             Отменить
           </button>
         </div>
-        <button onClick={hideChangeItemName} className={classes.btnCloseModal}>
+        <button onClick={hideChangeItemDesc} className={classes.btnCloseModal}>
           &times;
         </button>
       </div>
@@ -94,4 +94,4 @@ const ChangeItemName = () => {
   );
 };
 
-export default ChangeItemName;
+export default ChangeItemDesc;
