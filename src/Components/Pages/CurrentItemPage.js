@@ -164,13 +164,10 @@ const CurrentItemsPage = () => {
                         Название
                       </label>
                       <div className={classes.inputAndEditArea}>
-                        <input
-                          className={classes.currentItemInput}
-                          type="text"
-                          id="name"
-                          value={currentItem.name}
-                          readOnly
-                        />
+                        <p className={classes.currentItemInput}>
+                          {currentItem.name}
+                        </p>
+
                         <img
                           onClick={() =>
                             displayChangeItemName(
@@ -193,13 +190,9 @@ const CurrentItemsPage = () => {
                         Описание
                       </label>
                       <div className={classes.inputAndEditArea}>
-                        <input
-                          className={classes.currentItemInput}
-                          readOnly
-                          type="text"
-                          id="descrip"
-                          value={currentItem.description}
-                        />
+                        <p className={classes.currentItemInput}>
+                          {currentItem.description}
+                        </p>
                         <img
                           onClick={() =>
                             displayChangeItemDesc(
@@ -222,13 +215,10 @@ const CurrentItemsPage = () => {
                           Цена
                         </label>
                         <div className={classes.inputAndEditArea}>
-                          <input
-                            readOnly
-                            className={classes.currentItemInput}
-                            type="text"
-                            id="price"
-                            value={`${currentItem.price} ${userCurrency}`}
-                          />
+                          <p className={classes.currentItemInput}>
+                            {`${currentItem.price} ${userCurrency}`}
+                          </p>
+
                           <img
                             src={PenIcon}
                             alt="icon"
@@ -244,13 +234,10 @@ const CurrentItemsPage = () => {
                           Вес
                         </label>
                         <div className={classes.inputAndEditArea}>
-                          <input
-                            readOnly
-                            className={classes.currentItemInput}
-                            type="text"
-                            id="size"
-                            value={currentItem.modifex[0].datamodifex[0].name}
-                          />
+                          <p className={classes.currentItemInput}>
+                            {currentItem.modifex[0].datamodifex[0].name}
+                          </p>
+
                           <img
                             src={PenIcon}
                             alt="icon"
