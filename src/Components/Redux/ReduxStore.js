@@ -35,6 +35,8 @@ const initialState = {
   item_current_ID: "",
   item_name_value: "",
   item_desc_value: "",
+  item_price_value: "",
+  item_img_value: "",
   /* App Toggling States */
   show_add_service_items: false,
   show_add_categories: false,
@@ -48,6 +50,8 @@ const initialState = {
   show_change_client_name: false,
   show_change_item_name: false,
   show_change_item_desc: false,
+  show_change_item_price: false,
+  show_change_item_img: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -178,6 +182,14 @@ const controlSlice = createSlice({
       state.item_desc_value = action.payload;
     },
 
+    setItemPriceValue(state, action) {
+      state.item_price_value = action.payload;
+    },
+
+    setItemImgValue(state, action) {
+      state.item_img_value = action.payload;
+    },
+
     setCurrentItemID(state, action) {
       state.item_current_ID = action.payload;
     },
@@ -229,6 +241,14 @@ const controlSlice = createSlice({
 
     toggleChangeItemDesc(state) {
       state.show_change_item_desc = !state.show_change_item_desc;
+    },
+
+    toggleChangeItemPrice(state) {
+      state.show_change_item_price = !state.show_change_item_price;
+    },
+
+    toggleChangeItemImg(state) {
+      state.show_change_item_img = !state.show_change_item_img;
     },
   },
 });

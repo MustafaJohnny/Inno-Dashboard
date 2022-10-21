@@ -39,9 +39,6 @@ const AddRestaurant = () => {
       timezone: restTimeZone,
     };
 
-    // if (!serviceName) return;
-    // if (!serviceImage) return;
-
     const formData = new FormData();
 
     formData.append("in_file", restImage, restImage.name);

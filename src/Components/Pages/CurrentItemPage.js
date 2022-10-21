@@ -11,6 +11,8 @@ import UpNavigation from "../UI-Components/UpNavigation";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ChangeItemName from "../UI-Components/ChangeItemName";
 import ChangeItemDesc from "../UI-Components/ChangeItemDesc";
+import ChangeItemPrice from "../UI-Components/ChangeItemPrice";
+import ChangeItemImg from "../UI-Components/ChangeItemImg";
 
 const CurrentItemsPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
@@ -64,6 +66,14 @@ const CurrentItemsPage = () => {
     (state) => state.controler.show_change_item_desc
   );
 
+  const showChangeItemPrice = useSelector(
+    (state) => state.controler.show_change_item_price
+  );
+
+  const showChangeItemImg = useSelector(
+    (state) => state.controler.show_change_item_img
+  );
+
   const restaurantPageHeading = useSelector(
     (state) => state.controler.restaurant_page_heading
   );
@@ -94,6 +104,17 @@ const CurrentItemsPage = () => {
     dispatch(controlActions.setCurrentItemID(itemID));
   };
 
+  const displayChangeItemPrice = (itemOldPrice, itemID) => {
+    dispatch(controlActions.toggleChangeItemPrice());
+    dispatch(controlActions.setItemPriceValue(itemOldPrice));
+    dispatch(controlActions.setCurrentItemID(itemID));
+  };
+
+  const displayChangeItemImg = (itemID) => {
+    dispatch(controlActions.setCurrentItemID(itemID));
+    dispatch(controlActions.toggleChangeItemImg());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -105,6 +126,8 @@ const CurrentItemsPage = () => {
       <section>
         {showChangeItemName && <ChangeItemName />}
         {showChangeItemDesc && <ChangeItemDesc />}
+        {showChangeItemPrice && <ChangeItemPrice />}
+        {showChangeItemImg && <ChangeItemImg />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -154,7 +177,14 @@ const CurrentItemsPage = () => {
                       backgroundImage: `url("${URL}/${currentItem.image}")`,
                     }}
                     className={classes.itemBigImgBox}
-                  ></div>
+                  >
+                    <img
+                      onClick={() => displayChangeItemImg(currentItem.id)}
+                      src={PenIcon}
+                      alt="icon"
+                      className={classes.penIconCurrentImg}
+                    />
+                  </div>
                   <div className={classes.itemInputsBox}>
                     <div className={classes.wholeCurrentItemInput}>
                       <label
@@ -220,6 +250,12 @@ const CurrentItemsPage = () => {
                           </p>
 
                           <img
+                            onClick={() =>
+                              displayChangeItemPrice(
+                                currentItem.price,
+                                currentItem.id
+                              )
+                            }
                             src={PenIcon}
                             alt="icon"
                             className={classes.penIconCurrent}

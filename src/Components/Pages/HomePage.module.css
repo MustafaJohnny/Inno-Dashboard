@@ -524,11 +524,21 @@
 }
 
 .itemBigImgBox {
+  padding: 0.5rem;
   width: 44rem;
   height: 38rem;
   border-radius: 5px;
   background-size: cover;
   background-position: center;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 10%);
+}
+
+.penIconCurrentImg {
+  cursor: pointer;
+  width: 2.4rem;
+  padding: 0.3rem;
+  background-color: #fafafa;
+  border-radius: 5px;
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 10%);
 }
 
