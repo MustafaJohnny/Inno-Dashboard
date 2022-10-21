@@ -30,6 +30,8 @@ const initialState = {
   user_currency: "",
   user_domain: "",
   user_logo: "",
+  user_basket_menu_status: "",
+  user_garson_call_status: "",
   /* Old Values */
   user_table_QR_descrip_value: "",
   item_current_ID: "",
@@ -87,6 +89,8 @@ const controlSlice = createSlice({
 
     /* owner product function */
     getUserDataAfterLogin(state, action) {
+      state.user_garson_call_status = action.payload.garson_call;
+      state.user_basket_menu_status = action.payload.menu_order;
       state.user_first_language = action.payload.first_language;
       state.user_logo_text = action.payload.owner_name;
       state.user_restaurants = action.payload.rest;

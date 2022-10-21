@@ -13,8 +13,8 @@ import { controlActions } from "../Redux/ReduxStore";
 const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServices = useSelector((state) => state.controler.user_services);

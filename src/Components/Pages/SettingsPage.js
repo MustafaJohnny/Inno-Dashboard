@@ -1,4 +1,5 @@
 import React from "react";
+import axios from "axios";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import ChangeClientName from "../UI-Components/ChangeClientName";
 import EditIcon from "../Icons/Edit.svg";
@@ -12,13 +13,52 @@ import { controlActions } from "../Redux/ReduxStore";
 const SettingsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
 
   const showChangeClient = useSelector(
     (state) => state.controler.show_change_client_name
   );
 
+  const garsonCallState = useSelector(
+    (state) => state.controler.user_garson_call_status
+  );
+
+  const basketMenuState = useSelector(
+    (state) => state.controler.user_basket_menu_status
+  );
+
   const displayChangeClientName = () => {
     dispatch(controlActions.toggleChangeClientName());
+  };
+
+  const editSettingsAndSendPatch = (setting) => {
+    axios
+      .patch(`http://${serverAPI}/api/dash/${setting}ClientChange`, "", {
+        params: {},
+        auth: {
+          username: userEmail,
+          password: userPassword,
+        },
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
+      .then((response) => {
+        if ((response.status = "200")) {
+          dispatch(controlActions.getUserDataAfterLogin(response.data));
+        }
+      });
+  };
+
+  const activateOrDeactivateWaiter = () => {
+    editSettingsAndSendPatch("garson");
+  };
+
+  const activateOrDeactivateOrderMenu = () => {
+    editSettingsAndSendPatch("order");
   };
 
   const goPageBack = () => {
@@ -71,8 +111,27 @@ const SettingsPage = () => {
             </div>
             <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Вызов официанта</h2>
-              <button className={classes.activeMenu} type="button">
-                Активный
+
+              <button
+                onClick={activateOrDeactivateWaiter}
+                className={
+                  garsonCallState ? classes.activeMenu : classes.notActiveMenu
+                }
+                type="button"
+              >
+                {garsonCallState ? "Активный" : "Неактивный"}
+              </button>
+            </div>
+            <div className={classes.wholeSetting}>
+              <h2 className={classes.wholeSettingHeading}>Корзина в меню</h2>
+              <button
+                onClick={activateOrDeactivateOrderMenu}
+                className={
+                  basketMenuState ? classes.activeMenu : classes.notActiveMenu
+                }
+                type="button"
+              >
+                {basketMenuState ? "Активный" : "Неактивный"}
               </button>
             </div>
             <div className={classes.wholeSetting}>
