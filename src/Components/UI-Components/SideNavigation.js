@@ -7,6 +7,7 @@ import delivery from "../Icons/delivery.svg";
 import order from "../Icons/order.svg";
 import review from "../Icons/review.svg";
 import Settings from "../Icons/Settings.svg";
+import BellSide from "../Icons/BellSide.svg";
 import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import QRIcon from "../Icons/QRcodeIcon.svg";
@@ -86,14 +87,22 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </a>
 
-            <a className={classes.notActiveSideLink}>
+            <NavLink
+              to="/waiter"
+              onClick={goHomeforNow}
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
+            >
               <div className={classes.iconTextArea}>
-                <img alt="icon" src={user} className={classes.actionIcon} />
+                <img alt="icon" src={BellSide} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Сотрудники</span>
+                <span className={classes.actionText}>Вызов официанта</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </a>
+            </NavLink>
 
             <NavLink
               to="/qr"

@@ -204,10 +204,25 @@
   border-radius: 5px;
 }
 
+.multiHeadingWaiter {
+  gap: 25rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-radius: 5px;
+  padding-left: 2.4rem;
+}
+
 .servicesHeading {
   font-weight: 400;
   font-size: 1.3rem;
   color: #fff;
+}
+
+.waiterHeading {
+  font-weight: 400;
+  font-size: 1.4rem;
+  color: #98a9bc;
 }
 
 .servicesHeading:nth-child(2) {
@@ -225,10 +240,29 @@
   position: relative;
 }
 
+.wholeItemWaiter {
+  background-color: #fff;
+  gap: 25rem;
+  box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
+  border-radius: 5px;
+  padding: 2.6rem 2.4rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
 .serviceName {
   color: #27272a;
   font-weight: 400;
   font-size: 1.8rem;
+}
+
+.waiterOption {
+  font-weight: 400;
+  font-size: 1.6rem;
+  line-height: 1.6rem;
+  color: #06152b;
 }
 
 .servicePrice {
@@ -599,4 +633,62 @@
   gap: 2.6rem;
   display: flex;
   align-items: center;
+}
+
+.headerIconsBox {
+  display: flex;
+  align-items: center;
+  gap: 2.4rem;
+}
+
+.headerIcon {
+  width: 1.8rem;
+}
+
+.iconHeaderBack1 {
+  background-color: #e4f1f9;
+  border-radius: 100%;
+  padding: 1.2rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+  position: relative;
+}
+
+.notifNum {
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 500;
+  width: 1.8rem;
+  height: 1.8rem;
+  border-radius: 100%;
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform: translate(1.3rem, -3.7rem);
+}
+
+.notifNum1 {
+  background-color: #0079c2;
+}
+
+.notifNum2 {
+  background-color: #edba39;
+}
+
+.notifNum3 {
+  background-color: #3ace7e;
+}
+
+.iconHeaderBack2 {
+  background-color: #fff2d2;
+  border-radius: 100%;
+  padding: 1.2rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.iconHeaderBack3 {
+  background-color: #dbffec;
+  border-radius: 100%;
+  padding: 1.2rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
 }
