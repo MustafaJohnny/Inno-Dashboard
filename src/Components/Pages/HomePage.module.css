@@ -692,3 +692,15 @@
   padding: 1.2rem;
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
 }
+
+.waiterOptionStatus {
+  color: #27272a;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  border-radius: 30px;
+  padding: 1.2rem;
+  background-color: #e6f6f5;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+  transform: translateX(-7rem);
+}

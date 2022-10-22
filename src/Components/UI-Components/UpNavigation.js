@@ -1,15 +1,45 @@
 import React from "react";
+import axios from "axios";
 import LogOut from "../Icons/LogOut.svg";
 import OrderNav from "../Icons/OrderNav.svg";
 import WaiterNav from "../Icons/WaiterNav.svg";
 import ServiceNav from "../Icons/ServiceNav.svg";
-import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "../Pages/HomePage.module.css";
 
 const UpNavigation = () => {
-  const navigate = useNavigate();
+  // useEffect(() => {
+  //   setInterval(() => {
+  //     let mounted = true;
 
+  //     const getData = async () => {
+  //       const request = await axios.get(
+  //         `http://${serverAPI}/api/dash/client_data`,
+  //         {
+  //           auth: {
+  //             username: userEmail,
+  //             password: userPassword,
+  //           },
+  //           headers: { accept: "application/json" },
+  //         }
+  //       );
+
+  //       if (mounted) {
+  //         console.log(request.data);
+  //       }
+  //     };
+
+  //     getData();
+  //   }, 5000);
+  // }, []);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
   const userName = useSelector((state) => state.controler.user_name);
 
   const userRole = useSelector((state) => state.controler.user_role);

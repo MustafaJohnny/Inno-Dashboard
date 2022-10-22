@@ -136,7 +136,9 @@ const QRcodesPage = () => {
         {showTableQR && <AddTableQR />}
         {showTables && <AddTables />}
         <SideNavigation />
-        <UpNavigation />
+        <div className={classes.contentBigBox}>
+          <UpNavigation />
+        </div>
         <main className={classes.mainContiner}>
           <div className={classes.headingBtnArea}>
             <div className={classes.headingBackArea}>

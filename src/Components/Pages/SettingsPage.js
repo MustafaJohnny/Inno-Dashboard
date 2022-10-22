@@ -71,7 +71,9 @@ const SettingsPage = () => {
       <section>
         {showChangeClient && <ChangeClientName />}
         <SideNavigation />
-        <UpNavigation />
+        <div className={classes.contentBigBox}>
+          <UpNavigation />
+        </div>
         <main className={classes.mainContiner}>
           <div className={classes.headingBackArea}>
             <img

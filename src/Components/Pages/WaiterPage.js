@@ -48,6 +48,7 @@ const WaiterPage = () => {
                   <span className={classes.waiterHeading}>Номер стола</span>
                   <span className={classes.waiterHeading}>Ресторан</span>
                   <span className={classes.waiterHeading}>Время</span>
+                  <span className={classes.waiterHeading}>Статус</span>
                 </div>
 
                 <div className={classes.wholeItemWaiter}>
@@ -55,6 +56,9 @@ const WaiterPage = () => {
                   <span className={classes.waiterOption}>89</span>
                   <span className={classes.waiterOption}>
                     very good service
+                  </span>
+                  <span className={classes.waiterOptionStatus}>
+                    В обработке
                   </span>
                 </div>
               </div>
