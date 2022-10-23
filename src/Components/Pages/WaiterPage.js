@@ -4,18 +4,44 @@ import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
-// import axios from "axios";
-// import { useEffect } from "react";
-// import { useSelector, useDispatch } from "react-redux";
-// import { controlActions } from "../Redux/ReduxStore";
+import axios from "axios";
+import { useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import { controlActions } from "../Redux/ReduxStore";
 
 const WaiterPage = () => {
+  useEffect(() => {
+    let mounted = true;
+
+    const getData = async () => {
+      const request = await axios.get(
+        `http://${serverAPI}/api/dash/client_garson`,
+        {
+          params: {
+            offset: "0",
+            limit: "100",
+          },
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+          headers: { accept: "application/json" },
+        }
+      );
+
+      if (mounted) {
+        console.log(request.data);
+      }
+    };
+
+    getData();
+  }, []);
+
   const navigate = useNavigate();
-  //   const dispatch = useDispatch();
-  //   const serverAPI = useSelector((state) => state.controler.serverAPI);
-  //   const userEmail = useSelector((state) => state.controler.user_email);
-  //   const userPassword = useSelector((state) => state.controler.user_password);
-  //   const userServiceID = useSelector((state) => state.controler.user_service_ID);
+  const dispatch = useDispatch();
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
 
   const goPageBack = () => {
     navigate(-1, {

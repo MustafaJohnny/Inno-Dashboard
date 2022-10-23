@@ -30,6 +30,9 @@ const initialState = {
   user_currency: "",
   user_domain: "",
   user_logo: "",
+  user_garson_notifi: "",
+  user_order_notifi: "",
+  user_service_notifi: "",
   user_basket_menu_status: "",
   user_garson_call_status: "",
   /* Old Values */
@@ -99,6 +102,12 @@ const controlSlice = createSlice({
       state.user_domain = action.payload.domain;
       state.user_logo = action.payload.logo;
       state.all_data = action.payload;
+    },
+
+    getUserNotificationStates(state, action) {
+      state.user_garson_notifi = action.payload.garson;
+      state.user_order_notifi = action.payload.order;
+      state.user_service_notifi = action.payload.uslugi;
     },
 
     getAppLanguages(state, action) {

@@ -8,32 +8,33 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "../Pages/HomePage.module.css";
+import { controlActions } from "../Redux/ReduxStore";
 
 const UpNavigation = () => {
-  // useEffect(() => {
-  //   setInterval(() => {
-  //     let mounted = true;
+  useEffect(() => {
+    setInterval(() => {
+      let mounted = true;
 
-  //     const getData = async () => {
-  //       const request = await axios.get(
-  //         `http://${serverAPI}/api/dash/client_data`,
-  //         {
-  //           auth: {
-  //             username: userEmail,
-  //             password: userPassword,
-  //           },
-  //           headers: { accept: "application/json" },
-  //         }
-  //       );
+      const getData = async () => {
+        const request = await axios.get(
+          `http://${serverAPI}/api/dash/client_data`,
+          {
+            auth: {
+              username: userEmail,
+              password: userPassword,
+            },
+            headers: { accept: "application/json" },
+          }
+        );
 
-  //       if (mounted) {
-  //         console.log(request.data);
-  //       }
-  //     };
+        if (mounted) {
+          dispatch(controlActions.getUserNotificationStates(request.data));
+        }
+      };
 
-  //     getData();
-  //   }, 5000);
-  // }, []);
+      getData();
+    }, 5000);
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -41,8 +42,16 @@ const UpNavigation = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userName = useSelector((state) => state.controler.user_name);
-
   const userRole = useSelector((state) => state.controler.user_role);
+
+  const orderNotif = useSelector((state) => state.controler.user_order_notifi);
+
+  const garsonNotif = useSelector(
+    (state) => state.controler.user_garson_notifi
+  );
+  const serviceNotif = useSelector(
+    (state) => state.controler.user_service_notifi
+  );
 
   const logOutAndReset = () => {
     window.localStorage.clear();
@@ -58,21 +67,33 @@ const UpNavigation = () => {
         <div className={classes.headerIconsBox}>
           <div className={classes.iconHeaderBack1}>
             <img alt="icon" className={classes.headerIcon} src={OrderNav} />
-            <span className={`${classes.notifNum} ${classes.notifNum1}`}>
-              2
-            </span>
+            {orderNotif === 0 ? (
+              ""
+            ) : (
+              <span className={`${classes.notifNum} ${classes.notifNum1}`}>
+                {orderNotif}
+              </span>
+            )}
           </div>
           <div className={classes.iconHeaderBack2}>
             <img alt="icon" className={classes.headerIcon} src={WaiterNav} />
-            <span className={`${classes.notifNum} ${classes.notifNum2}`}>
-              5
-            </span>
+            {garsonNotif === 0 ? (
+              ""
+            ) : (
+              <span className={`${classes.notifNum} ${classes.notifNum2}`}>
+                {garsonNotif}
+              </span>
+            )}
           </div>
           <div className={classes.iconHeaderBack3}>
             <img alt="icon" className={classes.headerIcon} src={ServiceNav} />
-            <span className={`${classes.notifNum} ${classes.notifNum3}`}>
-              7
-            </span>
+            {serviceNotif === 0 ? (
+              ""
+            ) : (
+              <span className={`${classes.notifNum} ${classes.notifNum3}`}>
+                {serviceNotif}
+              </span>
+            )}
           </div>
         </div>
         <div className={classes.logingArea}>
