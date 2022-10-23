@@ -1,17 +1,17 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import ReactPaginate from "react-paginate";
-import classes from "./ModalStyle.module.css";
+import classes from "../Pages/HomePage.module.css";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const Pagination = () => {
   const WaiterData = useSelector((state) => state.controler.user_waitor_data);
-  const [currentItems, setCurrentItems] = useState(null);
+  const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 5;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -26,7 +26,15 @@ const Pagination = () => {
 
   return (
     <React.Fragment>
+      {currentItems.map((ele) => (
+        <div className={classes.wholeItemWaiter} key={ele.id}>
+          <span className={classes.waiterOption}>{ele.table_name}</span>
+          <span className={classes.waiterOption}>very good service</span>
+          <span className={classes.waiterOptionStatus}>В обработке</span>
+        </div>
+      ))}
       <ReactPaginate
+        className={classes.pagination}
         breakLabel="..."
         nextLabel=">"
         onPageChange={handlePageClick}

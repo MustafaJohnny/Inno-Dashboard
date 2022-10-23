@@ -2,6 +2,7 @@ import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import Pagination from "../UI-Components/Pagination";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -78,11 +79,12 @@ const WaiterPage = () => {
               <div className={classes.serviceItemsBox}>
                 <div className={classes.multiHeadingWaiter}>
                   <span className={classes.waiterHeading}>Номер стола</span>
-                  <span className={classes.waiterHeading}>Ресторан</span>
                   <span className={classes.waiterHeading}>Время</span>
                   <span className={classes.waiterHeading}>Статус</span>
                 </div>
 
+                <Pagination />
+                {/* 
                 <div className={classes.wholeItemWaiter}>
                   <span className={classes.waiterOption}>room cleaing</span>
                   <span className={classes.waiterOption}>89</span>
@@ -92,7 +94,7 @@ const WaiterPage = () => {
                   <span className={classes.waiterOptionStatus}>
                     В обработке
                   </span>
-                </div>
+                </div> */}
               </div>
             </main>
           </div>
