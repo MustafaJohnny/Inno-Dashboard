@@ -205,7 +205,7 @@
 }
 
 .multiHeadingWaiter {
-  gap: 25rem;
+  gap: 32rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -242,10 +242,10 @@
 
 .wholeItemWaiter {
   background-color: #fff;
-  gap: 25rem;
+  gap: 32rem;
   box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
   border-radius: 5px;
-  padding: 2.6rem 2.4rem;
+  padding: 2.2rem 2.4rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -263,6 +263,25 @@
   font-size: 1.6rem;
   line-height: 1.6rem;
   color: #06152b;
+}
+
+.waiterOption2 {
+  position: absolute;
+  transform: translateX(23em);
+}
+
+.waiterOptionStatus {
+  color: #27272a;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  border-radius: 30px;
+  padding: 0.6rem 1.2rem;
+  background-color: #e6f6f5;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+  position: absolute;
+  position: absolute;
+  transform: translateX(77rem);
 }
 
 .servicePrice {
@@ -693,17 +712,28 @@
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
 }
 
-.waiterOptionStatus {
-  color: #27272a;
-  font-weight: 500;
-  font-size: 1.2rem;
-  line-height: 1.4rem;
-  border-radius: 30px;
-  padding: 1.2rem;
-  background-color: #e6f6f5;
-  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
-  transform: translateX(-7rem);
+.pagination {
+  margin-top: 1.4rem;
+  font-family: inherit;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3.6rem;
+  font-size: 1.6rem;
+  font-weight: 400;
+  color: #778ca2;
+  transition: all 0.3s;
 }
 
-.pagination {
+.activePagin {
+  color: #4d7cfe;
+}
+
+.paginLink {
+  cursor: pointer;
+}
+
+.paginLink:hover {
+  color: #4d7cfe;
 }

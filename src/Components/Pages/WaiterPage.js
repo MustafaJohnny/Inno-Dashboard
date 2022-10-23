@@ -48,8 +48,6 @@ const WaiterPage = () => {
     (state) => state.controler.user_waitor_data
   );
 
-  console.log(userWaiterData);
-
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
