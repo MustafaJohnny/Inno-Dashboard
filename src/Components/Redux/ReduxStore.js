@@ -19,6 +19,7 @@ const initialState = {
   user_menus: [],
   user_QR_Codes: [],
   user_current_item: [],
+  user_waitor_data: [],
   user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
@@ -108,6 +109,10 @@ const controlSlice = createSlice({
       state.user_garson_notifi = action.payload.garson;
       state.user_order_notifi = action.payload.order;
       state.user_service_notifi = action.payload.uslugi;
+    },
+
+    getUserWaiterData(state, action) {
+      state.user_waitor_data = action.payload;
     },
 
     getAppLanguages(state, action) {

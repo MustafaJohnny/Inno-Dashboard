@@ -30,7 +30,7 @@ const WaiterPage = () => {
       );
 
       if (mounted) {
-        console.log(request.data);
+        dispatch(controlActions.getUserWaiterData(request.data));
       }
     };
 
@@ -42,6 +42,12 @@ const WaiterPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+
+  const userWaiterData = useSelector(
+    (state) => state.controler.user_waitor_data
+  );
+
+  console.log(userWaiterData);
 
   const goPageBack = () => {
     navigate(-1, {
