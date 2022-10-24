@@ -2,7 +2,7 @@ import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
-import PaginationWaiter from "../UI-Components/PaginationWaiter";
+import PaginationServices from "../UI-Components/PaginationServices";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -16,7 +16,7 @@ const OrderServicePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/client_garson`,
+        `http://${serverAPI}/api/dash/client_uslugi`,
         {
           params: {
             offset: "0",
@@ -31,7 +31,7 @@ const OrderServicePage = () => {
       );
 
       if (mounted) {
-        dispatch(controlActions.getUserWaiterData(request.data));
+        dispatch(controlActions.getUserOrdersServices(request.data));
       }
     };
 
@@ -66,18 +66,21 @@ const OrderServicePage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>Вызов официанта</h1>
+                  <h1 className={classes.managementHeading}>Заказ услуг</h1>
                 </div>
               </div>
 
               <div className={classes.serviceItemsBox}>
-                <div className={classes.multiHeadingWaiter}>
+                <div
+                  className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
+                >
                   <span className={classes.waiterHeading}>Номер стола</span>
                   <span className={classes.waiterHeading}>Время</span>
+                  <span className={classes.waiterHeading}>Сумма</span>
                   <span className={classes.waiterHeading}>Статус</span>
                 </div>
 
-                <PaginationWaiter />
+                <PaginationServices />
               </div>
             </main>
           </div>

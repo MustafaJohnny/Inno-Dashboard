@@ -213,6 +213,10 @@
   padding-left: 2.4rem;
 }
 
+.multiHeadingWaiter2 {
+  gap: 22rem !important;
+}
+
 .servicesHeading {
   font-weight: 400;
   font-size: 1.3rem;
@@ -267,7 +271,17 @@
 
 .waiterOption2 {
   position: absolute;
-  transform: translateX(23em);
+  transform: translateX(23rem);
+}
+
+.ServicesOptionTime {
+  position: absolute;
+  transform: translateX(26rem);
+}
+
+.ServicesOptionPrice {
+  position: absolute;
+  transform: translateX(58rem);
 }
 
 .waiterOptionStatus {
@@ -280,8 +294,17 @@
   background-color: #e6f6f5;
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
   position: absolute;
-  position: absolute;
   transform: translateX(77rem);
+}
+
+.waiterOptionServics {
+  position: absolute;
+  transform: translateX(83.5rem);
+}
+
+.waiterOptionTime {
+  position: absolute;
+  transform: translateX(35rem);
 }
 
 .servicePrice {
