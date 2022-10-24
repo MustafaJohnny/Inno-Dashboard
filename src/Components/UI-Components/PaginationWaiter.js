@@ -6,7 +6,7 @@ import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-const Pagination = () => {
+const PaginationWaiter = () => {
   const WaiterData = useSelector((state) => state.controler.user_waitor_data);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
@@ -55,4 +55,4 @@ const Pagination = () => {
   );
 };
 
-export default Pagination;
+export default PaginationWaiter;

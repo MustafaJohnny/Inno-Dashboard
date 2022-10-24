@@ -10,7 +10,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
-const WaiterPage = () => {
+const OrderServicePage = () => {
   useEffect(() => {
     let mounted = true;
 
@@ -87,4 +87,4 @@ const WaiterPage = () => {
   );
 };
 
-export default React.memo(WaiterPage);
+export default React.memo(OrderServicePage);

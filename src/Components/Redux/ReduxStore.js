@@ -20,6 +20,7 @@ const initialState = {
   user_QR_Codes: [],
   user_current_item: [],
   user_waitor_data: [],
+  user_orders_services: [],
   user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
@@ -113,6 +114,10 @@ const controlSlice = createSlice({
 
     getUserWaiterData(state, action) {
       state.user_waitor_data = action.payload;
+    },
+
+    getUserOrdersServices(state, action) {
+      state.user_orders_services = action.payload;
     },
 
     getAppLanguages(state, action) {

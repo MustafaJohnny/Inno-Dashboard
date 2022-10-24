@@ -11,7 +11,7 @@ import BellSide from "../Icons/BellSide.svg";
 import statica from "../Icons/static.svg";
 import tarrif from "../Icons/tarrif.svg";
 import QRIcon from "../Icons/QRcodeIcon.svg";
-import user from "../Icons/user.svg";
+import orderService from "../Icons/orderServicee.svg";
 import { useNavigate, Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
@@ -104,6 +104,19 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
 
+            <a className={classes.notActiveSideLink}>
+              <div className={classes.iconTextArea}>
+                <img
+                  alt="icon"
+                  src={orderService}
+                  className={classes.actionIcon}
+                />
+
+                <span className={classes.actionText}>Заказ услуг</span>
+              </div>
+              <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
+            </a>
+
             <NavLink
               to="/qr"
               className={(navData) =>
@@ -119,15 +132,6 @@ const SideNavigation = () => {
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
-
-            <a className={classes.notActiveSideLink}>
-              <div className={classes.iconTextArea}>
-                <img alt="icon" src={review} className={classes.actionIcon} />
-
-                <span className={classes.actionText}>Отчеты</span>
-              </div>
-              <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </a>
 
             <a className={classes.notActiveSideLink}>
               <div className={classes.iconTextArea}>
