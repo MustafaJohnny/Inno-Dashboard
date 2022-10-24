@@ -40,7 +40,7 @@ const PaginationWaiter = () => {
         </div>
       ))}
 
-      {currentItems.length <= 6 ? (
+      {WaiterData.length <= 6 ? (
         ""
       ) : (
         <ReactPaginate

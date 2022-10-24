@@ -54,7 +54,8 @@ const PaginationServices = () => {
           </span>
         </div>
       ))}
-      {currentItems.length <= 6 ? (
+
+      {ordersServices.length <= 6 ? (
         ""
       ) : (
         <ReactPaginate

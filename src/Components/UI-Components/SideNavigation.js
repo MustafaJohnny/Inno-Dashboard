@@ -3,9 +3,8 @@ import React from "react";
 import classes from "../Pages/HomePage.module.css";
 import arrowR from "../Icons/arrowR.svg";
 import mangeIcon from "../Icons/mange.svg";
-import delivery from "../Icons/delivery.svg";
+import designIcon from "../Icons/Desgin.svg";
 import order from "../Icons/order.svg";
-import review from "../Icons/review.svg";
 import Settings from "../Icons/Settings.svg";
 import BellSide from "../Icons/BellSide.svg";
 import statica from "../Icons/static.svg";
@@ -139,14 +138,25 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
 
-            <a className={classes.notActiveSideLink}>
+            <NavLink
+              to="/design-menu"
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
+            >
               <div className={classes.iconTextArea}>
-                <img alt="icon" src={delivery} className={classes.actionIcon} />
+                <img
+                  alt="icon"
+                  src={designIcon}
+                  className={classes.actionIcon}
+                />
 
-                <span className={classes.actionText}>Доставка</span>
+                <span className={classes.actionText}>Дизайн меню</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </a>
+            </NavLink>
 
             <NavLink
               to="/settings"
