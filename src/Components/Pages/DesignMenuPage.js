@@ -1,28 +1,38 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
-import SideNavigation from "../UI-Components/SideNavigation";
 import FirstMenu1 from "../Images/FirstMenu1.png";
 import FirstMenu2 from "../Images/FirstMenu2.png";
 import FirstMenu3 from "../Images/FirstMenu3.png";
 import SecondMenu1 from "../Images/SecondMenu1.png";
 import SecondMenu2 from "../Images/SecondMenu2.png";
 import SecondMenu3 from "../Images/SecondMenu3.png";
+import SideNavigation from "../UI-Components/SideNavigation";
+import ConfirmDesign from "../UI-Components/ConfirmDesign";
 import UpNavigation from "../UI-Components/UpNavigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
-// import { useSelector, useDispatch } from "react-redux";
-// import { useEffect } from "react";
-// import { controlActions } from "../Redux/ReduxStore";
+import { useSelector, useDispatch } from "react-redux";
+import { controlActions } from "../Redux/ReduxStore";
 
 const DesignMenuPage = () => {
   const navigate = useNavigate();
-  // const dispatch = useDispatch();
-  // const serverAPI = useSelector((state) => state.controler.serverAPI);
-  // const userEmail = useSelector((state) => state.controler.user_email);
-  // const userPassword = useSelector((state) => state.controler.user_password);
-  // const userServiceID = useSelector((state) => state.controler.user_service_ID);
+  const dispatch = useDispatch();
+
+  const showConfirmDesign = useSelector(
+    (state) => state.controler.show_confirm_design
+  );
+
+  const currentDesignNum = useSelector(
+    (state) => state.controler.user_design_number
+  );
+
+  const getDesignNumber = (event) => {
+    const designNumber = event.target.value;
+    dispatch(controlActions.setWantedDesignNumber(designNumber));
+    dispatch(controlActions.toggleConfirmDesign());
+  };
 
   const goPageBack = () => {
     navigate(-1, {
@@ -33,6 +43,7 @@ const DesignMenuPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showConfirmDesign && <ConfirmDesign />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -47,7 +58,7 @@ const DesignMenuPage = () => {
                     className={classes.arrowBack}
                   />
                   <h1 className={classes.managementHeading}>
-                    ВАШЕ АКТИВНОЕ МЕНЮ: МЕНЮ 1
+                    ВАШЕ АКТИВНОЕ МЕНЮ: МЕНЮ {currentDesignNum}
                   </h1>
                 </div>
               </div>
@@ -58,6 +69,7 @@ const DesignMenuPage = () => {
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
+                      onChange={getDesignNumber}
                       name="Design"
                       value="1"
                       type="radio"
@@ -106,6 +118,7 @@ const DesignMenuPage = () => {
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
+                      onChange={getDesignNumber}
                       name="Design"
                       value="2"
                       type="radio"

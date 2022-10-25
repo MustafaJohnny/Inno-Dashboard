@@ -800,15 +800,15 @@
 }
 
 .lablesDesigns {
-  color: #252631;
-  font-weight: 400;
+  color: #27272a;
+  font-weight: 500;
   font-size: 1.4rem;
 }
 
 .selectInputArea {
   display: flex;
   align-items: center;
-  gap: 1.6rem;
+  gap: 1.4rem;
 }
 
 .desginMenuHeading {

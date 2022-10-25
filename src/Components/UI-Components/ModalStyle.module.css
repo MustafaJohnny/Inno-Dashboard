@@ -204,3 +204,16 @@
 .modalQRinput::placeholder {
   color: #27272a;
 }
+
+.confirmDesignArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0rem;
+}
+
+.confirmDesignHeading {
+  color: #27272a;
+  font-size: 2rem;
+  font-weight: 500;
+}

@@ -28,6 +28,7 @@ const initialState = {
   user_QR_ID: "",
   user_item_ID: "",
   user_first_language: "",
+  user_design_number: "",
   user_logo_text: "",
   user_currency: "",
   user_domain: "",
@@ -44,6 +45,7 @@ const initialState = {
   item_desc_value: "",
   item_price_value: "",
   item_img_value: "",
+  selected_design_num: "",
   /* App Toggling States */
   show_add_service_items: false,
   show_add_categories: false,
@@ -59,6 +61,7 @@ const initialState = {
   show_change_item_desc: false,
   show_change_item_price: false,
   show_change_item_img: false,
+  show_confirm_design: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -97,6 +100,7 @@ const controlSlice = createSlice({
       state.user_garson_call_status = action.payload.garson_call;
       state.user_basket_menu_status = action.payload.menu_order;
       state.user_first_language = action.payload.first_language;
+      state.user_design_number = action.payload.design_start;
       state.user_logo_text = action.payload.owner_name;
       state.user_restaurants = action.payload.rest;
       state.user_services = action.payload.service;
@@ -217,6 +221,10 @@ const controlSlice = createSlice({
       state.item_current_ID = action.payload;
     },
 
+    setWantedDesignNumber(state, action) {
+      state.selected_design_num = action.payload;
+    },
+
     /* toggling app functions */
     toggleAddRestaurant(state) {
       state.show_add_restaurant = !state.show_add_restaurant;
@@ -272,6 +280,10 @@ const controlSlice = createSlice({
 
     toggleChangeItemImg(state) {
       state.show_change_item_img = !state.show_change_item_img;
+    },
+
+    toggleConfirmDesign(state) {
+      state.show_confirm_design = !state.show_confirm_design;
     },
   },
 });
