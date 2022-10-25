@@ -616,6 +616,12 @@
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 10%);
 }
 
+.itemInputsBigBox {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+
 .penIconCurrentImg {
   cursor: pointer;
   width: 2.4rem;
@@ -626,10 +632,14 @@
 }
 
 .itemInputsBox {
+  gap: 2.4rem;
   display: flex;
   flex-direction: column;
-  gap: 2.4rem;
   align-items: flex-start;
+  border: 1px solid #e8ecef;
+  border-radius: 5px;
+  padding: 2.4rem;
+  width: 100%;
 }
 
 .wholeCurrentItemInput {
@@ -832,4 +842,152 @@
 
 .designImg {
   width: 100%;
+}
+
+.modifierHeadingArea {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.modifierHeading {
+  font-weight: 600;
+  font-size: 2rem;
+  color: #252631;
+}
+
+.modifierBtn {
+  padding: 1.2rem 1.6rem;
+  font-size: 1.4rem;
+}
+
+.modifierInputsBox {
+  gap: 3.4rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  border: 1px solid #e8ecef;
+  border-radius: 5px;
+  padding: 2.4rem;
+  width: 100%;
+}
+
+.wholeCurrentModifierEl {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  align-items: flex-start;
+  align-items: center;
+  width: 100%;
+}
+
+.wholeModiferSelector {
+  background-color: #fafafa;
+  border: 1px solid #e8ecef;
+  border-radius: 5px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 1rem;
+  margin-top: 1.2rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+}
+
+.modiferInputValue {
+  font-family: inherit;
+  border-radius: 5px;
+  background-color: #ffffff;
+  border: 1px solid #e8ecef;
+  padding: 1rem 4rem;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
+  font-weight: 400;
+  font-size: 1.5rem;
+  color: #2e2e2e;
+  padding-left: 1.4rem;
+}
+
+.modiferPricingArea {
+  display: flex;
+  align-items: center;
+}
+
+.modifierPrice {
+  font-weight: 500;
+  font-size: 1.4rem;
+  color: #252631;
+  background-color: #fff;
+  border: 1px solid #e8ecef;
+  border-radius: 5px;
+  padding: 1rem;
+}
+
+.modifierPrice1 {
+  border-top-right-radius: 0px !important;
+  border-bottom-right-radius: 0px !important;
+}
+
+.modifierPrice2 {
+  border-top-left-radius: 0px !important;
+  border-bottom-left-radius: 0px !important;
+}
+
+.activeMenuModi {
+  border: none;
+  font-family: inherit;
+  color: #fff;
+  background-color: #4d7cfe;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.5s;
+  margin-right: 1rem;
+}
+
+.activeMenuModi:hover {
+  transform: translateY(-2px);
+}
+
+.notActiveMenuModi {
+  border: none;
+  font-family: inherit;
+  color: #71717a;
+  background-color: #e8ecef;
+  border-radius: 20px;
+  font-weight: 500;
+  font-size: 1.2rem;
+  padding: 0.5rem 0.8rem;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.notActiveMenuModi:hover {
+  transform: translateY(-2px);
+}
+
+.modifierActionArea {
+  display: flex;
+  align-items: center;
+  gap: 1.6rem;
+}
+
+.modiferAddOption {
+  margin-top: 1rem;
+  font-weight: 600;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  color: #4d7cfe;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.LableModi {
+  font-weight: 400;
+  font-size: 1.2rem;
+  color: #9e9e9e;
+  transform: translateX(-22.3rem);
 }

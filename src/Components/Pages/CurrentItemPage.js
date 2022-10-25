@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PenIcon from "../Icons/Pen.svg";
+import DeleteIcon from "../Icons/Delete.svg";
 import classes from "./HomePage.module.css";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import { useEffect } from "react";
@@ -165,11 +166,6 @@ const CurrentItemsPage = () => {
                       </Link>
                     </div>
                   </div>
-                  <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
-                      + Добавить модификатор
-                    </button>
-                  </div>
                 </div>
                 <div className={classes.currentItemBox}>
                   <div
@@ -185,74 +181,24 @@ const CurrentItemsPage = () => {
                       className={classes.penIconCurrentImg}
                     />
                   </div>
-                  <div className={classes.itemInputsBox}>
-                    <div className={classes.wholeCurrentItemInput}>
-                      <label
-                        htmlFor="name"
-                        className={classes.currentItemLable}
-                      >
-                        Название
-                      </label>
-                      <div className={classes.inputAndEditArea}>
-                        <p className={classes.currentItemInput}>
-                          {currentItem.name}
-                        </p>
-
-                        <img
-                          onClick={() =>
-                            displayChangeItemName(
-                              currentItem.name,
-                              currentItem.id
-                            )
-                          }
-                          src={PenIcon}
-                          alt="icon"
-                          className={classes.penIconCurrent}
-                        />
-                      </div>
-                    </div>
-
-                    <div className={classes.wholeCurrentItemInput}>
-                      <label
-                        htmlFor="descrip"
-                        className={classes.currentItemLable}
-                      >
-                        Описание
-                      </label>
-                      <div className={classes.inputAndEditArea}>
-                        <p className={classes.currentItemInput}>
-                          {currentItem.description}
-                        </p>
-                        <img
-                          onClick={() =>
-                            displayChangeItemDesc(
-                              currentItem.description,
-                              currentItem.id
-                            )
-                          }
-                          src={PenIcon}
-                          alt="icon"
-                          className={classes.penIconCurrent}
-                        />
-                      </div>
-                    </div>
-                    <div className={classes.twoWholeCurrentInputArea}>
+                  <div className={classes.itemInputsBigBox}>
+                    <div className={classes.itemInputsBox}>
                       <div className={classes.wholeCurrentItemInput}>
                         <label
-                          htmlFor="price"
+                          htmlFor="name"
                           className={classes.currentItemLable}
                         >
-                          Цена
+                          Название
                         </label>
                         <div className={classes.inputAndEditArea}>
                           <p className={classes.currentItemInput}>
-                            {`${currentItem.price} ${userCurrency}`}
+                            {currentItem.name}
                           </p>
 
                           <img
                             onClick={() =>
-                              displayChangeItemPrice(
-                                currentItem.price,
+                              displayChangeItemName(
+                                currentItem.name,
                                 currentItem.id
                               )
                             }
@@ -262,17 +208,82 @@ const CurrentItemsPage = () => {
                           />
                         </div>
                       </div>
+
                       <div className={classes.wholeCurrentItemInput}>
                         <label
-                          htmlFor="size"
+                          htmlFor="descrip"
                           className={classes.currentItemLable}
                         >
-                          Вес
+                          Описание
                         </label>
                         <div className={classes.inputAndEditArea}>
                           <p className={classes.currentItemInput}>
-                            {currentItem.modifex[0].datamodifex[0].name}
+                            {currentItem.description}
                           </p>
+                          <img
+                            onClick={() =>
+                              displayChangeItemDesc(
+                                currentItem.description,
+                                currentItem.id
+                              )
+                            }
+                            src={PenIcon}
+                            alt="icon"
+                            className={classes.penIconCurrent}
+                          />
+                        </div>
+                      </div>
+                      <div className={classes.twoWholeCurrentInputArea}>
+                        <div className={classes.wholeCurrentItemInput}>
+                          <label
+                            htmlFor="price"
+                            className={classes.currentItemLable}
+                          >
+                            Цена
+                          </label>
+                          <div className={classes.inputAndEditArea}>
+                            <p className={classes.currentItemInput}>
+                              {`${currentItem.price} ${userCurrency}`}
+                            </p>
+
+                            <img
+                              onClick={() =>
+                                displayChangeItemPrice(
+                                  currentItem.price,
+                                  currentItem.id
+                                )
+                              }
+                              src={PenIcon}
+                              alt="icon"
+                              className={classes.penIconCurrent}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    {/* {currentItem.modifex[0].datamodifex[0].name} */}
+
+                    <div className={classes.modifierInputsBox}>
+                      <div className={classes.modifierHeadingArea}>
+                        <h1 className={classes.modifierHeading}>
+                          Исключающие модификаторы
+                        </h1>
+
+                        <button
+                          className={`${classes.manageBtn} ${classes.modifierBtn}`}
+                          type="button"
+                        >
+                          + Добавить модификатор
+                        </button>
+                      </div>
+
+                      <div className={classes.wholeCurrentModifierEl}>
+                        <label htmlFor="size" className={classes.LableModi}>
+                          Название группы модификаторов
+                        </label>
+                        <div className={classes.inputAndEditArea}>
+                          <p className={classes.currentItemInput}>Вес</p>
 
                           <img
                             src={PenIcon}
@@ -280,6 +291,53 @@ const CurrentItemsPage = () => {
                             className={classes.penIconCurrent}
                           />
                         </div>
+                        <div className={classes.wholeModiferSelector}>
+                          <input
+                            type="text"
+                            className={classes.modiferInputValue}
+                            value="600 гр"
+                            readOnly
+                          />
+
+                          <div className={classes.modiferPricingArea}>
+                            <span
+                              className={`${classes.modifierPrice} ${classes.modifierPrice1}`}
+                            >
+                              + 50
+                            </span>
+                            <span
+                              className={`${classes.modifierPrice} ${classes.modifierPrice2}`}
+                            >
+                              РУБ
+                            </span>
+                          </div>
+
+                          <div className={classes.modifierActionArea}>
+                            <button
+                              className={classes.activeMenuModi}
+                              type="button"
+                            >
+                              Активный
+                            </button>
+                            <img
+                              src={PenIcon}
+                              alt="icon"
+                              className={classes.penIconCurrent}
+                            />
+
+                            <img
+                              src={DeleteIcon}
+                              alt="icon"
+                              className={classes.penIconCurrent}
+                            />
+                          </div>
+                        </div>
+                        <button
+                          type="button"
+                          className={classes.modiferAddOption}
+                        >
+                          + Добавить вариант
+                        </button>
                       </div>
                     </div>
                   </div>

@@ -30,6 +30,7 @@ const UpNavigation = () => {
 
           if (mounted) {
             dispatch(controlActions.getUserNotificationStates(request.data));
+            console.log(request.data);
           }
         };
 
@@ -53,6 +54,7 @@ const UpNavigation = () => {
   const garsonNotif = useSelector(
     (state) => state.controler.user_garson_notifi
   );
+
   const serviceNotif = useSelector(
     (state) => state.controler.user_service_notifi
   );

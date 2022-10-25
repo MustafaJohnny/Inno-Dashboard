@@ -11,6 +11,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
 const WaiterPage = () => {
+  const garsonNotif = useSelector(
+    (state) => state.controler.user_garson_notifi
+  );
+
   useEffect(() => {
     let mounted = true;
 
@@ -32,11 +36,12 @@ const WaiterPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserWaiterData(request.data));
+        console.log(request.data);
       }
     };
 
     getData();
-  }, []);
+  }, [garsonNotif]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();

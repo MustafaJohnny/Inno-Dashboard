@@ -7,9 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 const ConfirmDesign = () => {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
@@ -20,6 +19,7 @@ const ConfirmDesign = () => {
 
   const hideConfirmDesign = () => {
     dispatch(controlActions.toggleConfirmDesign());
+    navigate(0);
   };
 
   const changeDesignNumber = () => {
@@ -39,10 +39,9 @@ const ConfirmDesign = () => {
         }
       )
       .then((response) => {
-        console.log(response);
         if ((response.status = "200")) {
+          dispatch(controlActions.getUserDataAfterLogin(response.data));
           hideConfirmDesign();
-          navigate(0);
         }
       });
   };
@@ -50,7 +49,7 @@ const ConfirmDesign = () => {
   return (
     <React.Fragment>
       <Overlay />
-      <div className={classes.modal}>
+      <div className={`${classes.modal} ${classes.modalDesign}`}>
         <h1 className={classes.modalHeading}>Выбрать дизайн меню</h1>
         <form className={classes.modalForm}>
           <div className={classes.confirmDesignArea}>
@@ -61,7 +60,7 @@ const ConfirmDesign = () => {
         </form>
         <div className={classes.modalControlBtnsArea}>
           <button onClick={changeDesignNumber} className={classes.controlBtn}>
-            Да
+            Выбрать
           </button>
           <button
             onClick={hideConfirmDesign}

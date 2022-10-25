@@ -11,6 +11,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
 const OrderServicePage = () => {
+  const serviceNotif = useSelector(
+    (state) => state.controler.user_service_notifi
+  );
+
   useEffect(() => {
     let mounted = true;
 
@@ -36,7 +40,7 @@ const OrderServicePage = () => {
     };
 
     getData();
-  }, []);
+  }, [serviceNotif]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
