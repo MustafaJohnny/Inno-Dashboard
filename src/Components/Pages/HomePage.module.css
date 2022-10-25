@@ -757,7 +757,7 @@
 }
 
 .activePagin {
-  color: #4d7cfe;
+  color: #0369a1;
 }
 
 .paginLink {
@@ -770,10 +770,11 @@
 
 .designMenusContainer {
   gap: 6.4rem;
+  width: 100%;
   display: flex;
+  padding-bottom: 3.2rem;
   flex-direction: column;
   align-items: flex-start;
-  width: 100%;
 }
 
 .wholeDesginMenuBox {

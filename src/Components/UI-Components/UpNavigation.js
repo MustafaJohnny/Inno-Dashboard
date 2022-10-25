@@ -4,37 +4,44 @@ import LogOut from "../Icons/LogOut.svg";
 import OrderNav from "../Icons/OrderNav.svg";
 import WaiterNav from "../Icons/WaiterNav.svg";
 import ServiceNav from "../Icons/ServiceNav.svg";
-import { useEffect } from "react";
+import { useEffect, useCallback } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "../Pages/HomePage.module.css";
 import { controlActions } from "../Redux/ReduxStore";
 
 const UpNavigation = () => {
-  useEffect(() => {
-    setInterval(() => {
-      let mounted = true;
+  // useEffect(() => {
+  // }, []);
 
-      const getData = async () => {
-        const request = await axios.get(
-          `http://${serverAPI}/api/dash/client_data`,
-          {
-            auth: {
-              username: userEmail,
-              password: userPassword,
-            },
-            headers: { accept: "application/json" },
+  const updatesNotification = useCallback(
+    () =>
+      setInterval(() => {
+        let mounted = true;
+
+        const getData = async () => {
+          const request = await axios.get(
+            `http://${serverAPI}/api/dash/client_data`,
+            {
+              auth: {
+                username: userEmail,
+                password: userPassword,
+              },
+              headers: { accept: "application/json" },
+            }
+          );
+
+          if (mounted) {
+            dispatch(controlActions.getUserNotificationStates(request.data));
           }
-        );
+        };
 
-        if (mounted) {
-          dispatch(controlActions.getUserNotificationStates(request.data));
-        }
-      };
+        getData();
+      }, 6000),
+    []
+  );
 
-      getData();
-    }, 5000);
-  }, []);
+  updatesNotification();
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -110,4 +117,4 @@ const UpNavigation = () => {
   );
 };
 
-export default UpNavigation;
+export default React.memo(UpNavigation);
