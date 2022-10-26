@@ -30,6 +30,9 @@ const AddRestaurant = () => {
   };
 
   const createNewRestaurant = () => {
+    hideAddRestaurent();
+    dispatch(controlActions.toggleSpinner());
+
     const serverParams = {
       name_rest: restName,
       addr_rest: restAddress,
@@ -56,10 +59,12 @@ const AddRestaurant = () => {
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddRestaurent();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 

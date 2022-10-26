@@ -28,6 +28,7 @@ const QRcodesPage = () => {
   const showTables = useSelector((state) => state.controler.show_add_tables);
   const showModalQR = useSelector((state) => state.controler.show_modal_QR_Img);
   const userDomain = useSelector((state) => state.controler.user_domain);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
   useEffect(() => {

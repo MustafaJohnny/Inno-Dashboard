@@ -29,6 +29,9 @@ const AddCategory = () => {
   };
 
   const createNewCategory = () => {
+    hideAddCategory();
+    dispatch(controlActions.toggleSpinner());
+
     const serverParams = {
       name: categoryName,
       description: categoryDescription,
@@ -52,10 +55,12 @@ const AddCategory = () => {
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddCategory();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 

@@ -19,6 +19,7 @@ const ServicesPage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
   // Testing
 

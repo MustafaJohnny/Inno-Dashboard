@@ -59,6 +59,7 @@ const CurrentItemsPage = () => {
   const navigate = useNavigate();
   const userCurrency = useSelector((state) => state.controler.user_currency);
   const currentItem = useSelector((state) => state.controler.user_current_item);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
   const showChangeItemName = useSelector(
     (state) => state.controler.show_change_item_name

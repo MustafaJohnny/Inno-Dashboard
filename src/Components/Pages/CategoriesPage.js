@@ -18,6 +18,7 @@ const CategoriesPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
   const showAddCategory = useSelector(
     (state) => state.controler.show_add_categories

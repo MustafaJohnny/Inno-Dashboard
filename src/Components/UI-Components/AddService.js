@@ -26,6 +26,9 @@ const AddService = () => {
   };
 
   const createNewService = () => {
+    dispatch(controlActions.toggleSpinner());
+    hideAddService();
+
     const serverParams = {
       name_service: serviceName,
     };
@@ -50,10 +53,12 @@ const AddService = () => {
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddService();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 

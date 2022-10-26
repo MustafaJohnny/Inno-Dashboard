@@ -19,6 +19,7 @@ const HomePage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServices = useSelector((state) => state.controler.user_services);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
   const userRestaurants = useSelector(
     (state) => state.controler.user_restaurants

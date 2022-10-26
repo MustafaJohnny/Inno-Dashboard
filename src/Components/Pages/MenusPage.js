@@ -21,6 +21,7 @@ const MenusPage = () => {
   const userPassword = useSelector((state) => state.controler.user_password);
   const userMenuID = useSelector((state) => state.controler.user_menu_ID);
   const userMenus = useSelector((state) => state.controler.user_menus);
+  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
   useEffect(() => {
     let mounted = true;

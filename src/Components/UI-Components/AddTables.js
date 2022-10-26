@@ -23,6 +23,9 @@ const AddTables = () => {
   };
 
   const AddNewTables = () => {
+    hideAddTables();
+    dispatch(controlActions.toggleSpinner());
+
     axios
       .post(
         `http://${serverAPI}/api/v1/table/table_new/${tablesLanguages}`,
@@ -42,10 +45,12 @@ const AddTables = () => {
         }
       )
       .then((response) => {
-        if ((response.status = "200")) {
-          hideAddTables();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 

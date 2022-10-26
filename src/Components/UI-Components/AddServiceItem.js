@@ -27,6 +27,9 @@ const AddServiceItem = () => {
   };
 
   const createNewServiceItem = () => {
+    hideAddServiceItem();
+    dispatch(controlActions.toggleSpinner());
+
     const serverParams = {
       name: ItemServiceName,
       price: ItemServicePrice,
@@ -47,17 +50,19 @@ const AddServiceItem = () => {
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddServiceItem();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
   return (
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить меню</h1>
+        <h1 className={classes.modalHeading}>Добавить услугу</h1>
         <form className={classes.modalForm}>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>

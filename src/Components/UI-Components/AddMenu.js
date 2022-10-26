@@ -30,6 +30,9 @@ const AddMenu = () => {
   };
 
   const createNewRestaurant = () => {
+    hideAddMenu();
+    dispatch(controlActions.toggleSpinner());
+    
     const serverParams = {
       name: menuName,
       description: menuDescription,
@@ -52,10 +55,12 @@ const AddMenu = () => {
         },
       })
       .then((response) => {
-        if (response.data) {
-          hideAddMenu();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 
