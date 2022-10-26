@@ -104,8 +104,8 @@ const ItemsPage = () => {
 
   return (
     <React.Fragment>
-      <LoadingSpinner />
       <section>
+        <LoadingSpinner />
         {showAddItem && <AddItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />

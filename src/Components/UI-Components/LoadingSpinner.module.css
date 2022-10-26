@@ -1,22 +1,36 @@
+.spinnerBox {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(4px);
+  z-index: 100;
+  transition: all 1s;
+  z-index: 1000000000000000000000000000000000000000;
+}
+
 .lds-default {
   display: inline-block;
   position: relative;
   width: 10rem;
   height: 10rem;
-  margin: 45vh 47vw;
+  transform: translate(50vw, 20vw);
 }
 
 .message {
-  text-align: center;
-  transform: translateY(-65vh);
+  position: absolute;
+  transform: translate(62rem, 15rem);
   font-size: 2.6rem;
   font-weight: 500;
-  color: #27272a;
+  color: #fff;
+  z-index: 20;
 }
 
 .lds-default div {
   position: absolute;
-  border: 4px solid #ca8a04;
+  border: 4px solid #e4d8d8;
   opacity: 1;
   border-radius: 50%;
   animation: lds-ripple 1s cubic-bezier(0, 0.2, 0.8, 1) infinite;
