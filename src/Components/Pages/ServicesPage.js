@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 
 const ServicesPage = () => {
   const dispatch = useDispatch();
@@ -70,6 +71,7 @@ const ServicesPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showAddItemService && <AddServiceItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />

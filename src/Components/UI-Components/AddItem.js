@@ -32,8 +32,8 @@ const AddItem = () => {
   };
 
   const createNewItem = () => {
-    // hideAddItem();
-    // dispatch(controlActions.toggleSpinner());
+    hideAddItem();
+    dispatch(controlActions.toggleSpinner());
 
     let data = JSON.stringify({
       prod: {
@@ -75,14 +75,12 @@ const AddItem = () => {
         }
       )
       .then((response) => {
-        console.log("done");
-        navigate(0);
-        hideAddItem();
-        // setTimeout(() => {
-        //   if (response.data) {
-        //     dispatch(controlActions.toggleSpinner());
-        //   }
-        // }, 1000);
+        setTimeout(() => {
+          if (response.data) {
+            dispatch(controlActions.toggleSpinner());
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 

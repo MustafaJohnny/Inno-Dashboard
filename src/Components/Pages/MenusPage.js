@@ -2,6 +2,7 @@ import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import UpNavigation from "../UI-Components/UpNavigation";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
 import axios from "axios";
@@ -112,6 +113,7 @@ const MenusPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showAddMenu && <AddMenu />}
         <main className={classes.mainContiner}>
           <SideNavigation />

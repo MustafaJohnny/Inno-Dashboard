@@ -10,6 +10,7 @@ import UpNavigation from "../UI-Components/UpNavigation";
 import AddTableQR from "../UI-Components/AddTableQR";
 import AddTables from "../UI-Components/AddTables";
 import ModalImgQR from "../UI-Components/ModaImgQR";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -132,6 +133,7 @@ const QRcodesPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showModalQR && <ModalImgQR />}
         {showTableQR && <AddTableQR />}
         {showTables && <AddTables />}

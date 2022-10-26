@@ -14,6 +14,7 @@ import ChangeItemName from "../UI-Components/ChangeItemName";
 import ChangeItemDesc from "../UI-Components/ChangeItemDesc";
 import ChangeItemPrice from "../UI-Components/ChangeItemPrice";
 import ChangeItemImg from "../UI-Components/ChangeItemImg";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 
 const CurrentItemsPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
@@ -125,6 +126,7 @@ const CurrentItemsPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showChangeItemName && <ChangeItemName />}
         {showChangeItemDesc && <ChangeItemDesc />}
         {showChangeItemPrice && <ChangeItemPrice />}

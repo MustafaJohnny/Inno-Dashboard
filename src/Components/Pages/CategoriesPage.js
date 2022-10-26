@@ -1,6 +1,7 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddCategory from "../UI-Components/AddCategory";
 import classes from "./HomePage.module.css";
@@ -125,6 +126,7 @@ const CategoriesPage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showAddCategory && <AddCategory />}
         <main className={classes.mainContiner}>
           <SideNavigation />

@@ -3,6 +3,7 @@ import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddRestaurant from "../UI-Components/AddRestaurant";
 import AddService from "../UI-Components/AddService";
+import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -195,6 +196,7 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <section>
+        {showSpinner && <LoadingSpinner2 />}
         {showAddRestaurant && <AddRestaurant />}
         {showAddService && <AddService />}
         <main className={classes.mainContiner}>
