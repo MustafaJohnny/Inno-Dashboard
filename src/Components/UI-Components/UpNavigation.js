@@ -30,7 +30,6 @@ const UpNavigation = () => {
 
           if (mounted) {
             dispatch(controlActions.getUserNotificationStates(request.data));
-            console.log(request.data);
           }
         };
 
@@ -59,6 +58,18 @@ const UpNavigation = () => {
     (state) => state.controler.user_service_notifi
   );
 
+  const goToWaiterPage = () => {
+    navigate("/waiter", {
+      replace: false,
+    });
+  };
+
+  const goToServiceOrdersPage = () => {
+    navigate("/ordersService", {
+      replace: false,
+    });
+  };
+
   const logOutAndReset = () => {
     window.localStorage.clear();
     window.localStorage.removeItem("persist:root");
@@ -81,7 +92,7 @@ const UpNavigation = () => {
               </span>
             )}
           </div>
-          <div className={classes.iconHeaderBack2}>
+          <div onClick={goToWaiterPage} className={classes.iconHeaderBack2}>
             <img alt="icon" className={classes.headerIcon} src={WaiterNav} />
             {garsonNotif === 0 ? (
               ""
@@ -91,7 +102,10 @@ const UpNavigation = () => {
               </span>
             )}
           </div>
-          <div className={classes.iconHeaderBack3}>
+          <div
+            onClick={goToServiceOrdersPage}
+            className={classes.iconHeaderBack3}
+          >
             <img alt="icon" className={classes.headerIcon} src={ServiceNav} />
             {serviceNotif === 0 ? (
               ""

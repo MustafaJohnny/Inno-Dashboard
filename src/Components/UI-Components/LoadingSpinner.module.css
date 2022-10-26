@@ -6,6 +6,14 @@
   margin: 45vh 47vw;
 }
 
+.message {
+  text-align: center;
+  transform: translateY(-65vh);
+  font-size: 2.6rem;
+  font-weight: 500;
+  color: #27272a;
+}
+
 .lds-default div {
   position: absolute;
   border: 4px solid #ca8a04;

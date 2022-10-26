@@ -30,13 +30,13 @@ const WaiterPage = () => {
             username: userEmail,
             password: userPassword,
           },
+
           headers: { accept: "application/json" },
         }
       );
 
       if (mounted) {
         dispatch(controlActions.getUserWaiterData(request.data));
-        console.log(request.data);
       }
     };
 

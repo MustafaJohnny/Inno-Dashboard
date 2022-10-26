@@ -66,17 +66,19 @@ const AddItem = () => {
             username: userEmail,
             password: userPassword,
           },
-
           headers: {
             "content-type": "multipart/form-data",
           },
         }
       )
       .then((response) => {
-        if (response.data) {
-          hideAddItem();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.data) {
+            hideAddItem();
+            console.log("test item");
+            navigate(0);
+          }
+        }, 4000);
       });
   };
 
