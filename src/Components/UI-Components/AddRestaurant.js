@@ -53,8 +53,6 @@ const AddRestaurant = () => {
             username: userEmail,
             password: userPassword,
           },
-
-          timeout: 5000,
         }
       )
       .then((response) => {

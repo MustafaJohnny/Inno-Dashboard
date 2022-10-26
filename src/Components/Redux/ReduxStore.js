@@ -63,7 +63,6 @@ const initialState = {
   show_change_item_img: false,
   show_confirm_design: false,
   show_spinner: false,
-  show_message_spinner: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -290,7 +289,6 @@ const controlSlice = createSlice({
 
     toggleSpinner(state) {
       state.show_spinner = !state.show_spinner;
-      state.show_message_spinner = !state.show_message_spinner;
     },
   },
 });

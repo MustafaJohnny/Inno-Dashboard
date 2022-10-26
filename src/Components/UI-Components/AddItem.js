@@ -32,6 +32,9 @@ const AddItem = () => {
   };
 
   const createNewItem = () => {
+    // hideAddItem();
+    // dispatch(controlActions.toggleSpinner());
+
     let data = JSON.stringify({
       prod: {
         name: ItemName,
@@ -72,13 +75,14 @@ const AddItem = () => {
         }
       )
       .then((response) => {
-        setTimeout(() => {
-          if (response.data) {
-            hideAddItem();
-            console.log("test item");
-            navigate(0);
-          }
-        }, 4000);
+        console.log("done");
+        navigate(0);
+        hideAddItem();
+        // setTimeout(() => {
+        //   if (response.data) {
+        //     dispatch(controlActions.toggleSpinner());
+        //   }
+        // }, 1000);
       });
   };
 
