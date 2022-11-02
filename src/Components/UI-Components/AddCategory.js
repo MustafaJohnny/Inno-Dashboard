@@ -75,7 +75,7 @@ const AddCategory = () => {
               className={classes.inputImgModal}
               type="file"
               multiple
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpeg image/jpg"
               onChange={(event) => setCategoryImage(event.target.files[0])}
               required
             />

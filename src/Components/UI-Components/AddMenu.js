@@ -32,7 +32,7 @@ const AddMenu = () => {
   const createNewRestaurant = () => {
     hideAddMenu();
     dispatch(controlActions.toggleSpinner());
-    
+
     const serverParams = {
       name: menuName,
       description: menuDescription,
@@ -75,7 +75,7 @@ const AddMenu = () => {
               className={classes.inputImgModal}
               type="file"
               multiple
-              accept="image/png, image/jpeg"
+              accept="image/png, image/jpeg image/jpg"
               onChange={(event) => setMenuImage(event.target.files[0])}
               required
             />
