@@ -60,7 +60,7 @@ const AddRestaurant = () => {
       )
       .then((response) => {
         setTimeout(() => {
-          if (response.data) {
+          if (response.status === 200) {
             dispatch(controlActions.toggleSpinner());
             navigate(0);
           }
