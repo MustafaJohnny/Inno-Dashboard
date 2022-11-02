@@ -25,9 +25,6 @@ const AddTableQR = () => {
   };
 
   const createNewTableQR = () => {
-    hideAddTableQR();
-    dispatch(controlActions.toggleSpinner());
-
     axios
       .post(`http://${serverAPI}/api/v1/table/table_description`, "", {
         params: {
@@ -44,12 +41,10 @@ const AddTableQR = () => {
         },
       })
       .then((response) => {
-        setTimeout(() => {
-          if (response.data) {
-            dispatch(controlActions.toggleSpinner());
-            navigate(0);
-          }
-        }, 4000);
+        if (response.status === 200) {
+          hideAddTableQR();
+          navigate(0);
+        }
       });
   };
 
