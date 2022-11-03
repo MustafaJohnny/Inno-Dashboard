@@ -42,7 +42,8 @@ const AddRestaurant = () => {
   };
 
   const createNewRestaurant = () => {
-    // dispatch(controlActions.toggleSpinner());
+    hideAddRestaurent();
+    dispatch(controlActions.toggleSpinnerHome());
 
     if (!formIsValid) {
       return;
@@ -77,14 +78,15 @@ const AddRestaurant = () => {
         }
       )
       .then((response) => {
-        // setTimeout(() => {
-        // }, 4000);
-        if (response.status === 200) {
-          // dispatch(controlActions.toggleSpinner());
-          console.log(response);
-          hideAddRestaurent();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerHome());
+            navigate(0);
+          } else {
+            dispatch(controlActions.toggleSpinnerHome());
+            console.log("error");
+          }
+        }, 3000);
       });
   };
 

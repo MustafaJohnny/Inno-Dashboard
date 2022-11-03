@@ -1,5 +1,6 @@
 import React from "react";
 import SideNavigation from "../UI-Components/SideNavigation";
+import FallMessage from "../UI-Components/FallMessage";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddRestaurant from "../UI-Components/AddRestaurant";
 import AddService from "../UI-Components/AddService";
@@ -19,7 +20,9 @@ const HomePage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServices = useSelector((state) => state.controler.user_services);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
+  const showSpinnerHome = useSelector(
+    (state) => state.controler.show_spinner_home
+  );
 
   const userRestaurants = useSelector(
     (state) => state.controler.user_restaurants
@@ -184,7 +187,6 @@ const HomePage = () => {
       );
 
       if (mounted) {
-        console.log(request.data);
         dispatch(controlActions.getUserServiceItems(request.data));
         navigate("/services", {
           replace: false,
@@ -197,7 +199,8 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {true && <FallMessage />}
+        {showSpinnerHome && <LoadingSpinner2 />}
         {showAddRestaurant && <AddRestaurant />}
         {showAddService && <AddService />}
         <main className={classes.mainContiner}>

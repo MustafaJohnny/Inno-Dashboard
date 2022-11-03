@@ -194,6 +194,13 @@
   padding: 2.4rem 1.8rem;
 }
 
+.modalControlBtttnsArea {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2.8rem 2.8rem;
+}
+
 .controlBtn {
   background: linear-gradient(90deg, #45cbd8 3.25%, #4d7cfe 89.92%);
   padding: 1rem 2rem;

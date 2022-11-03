@@ -5,11 +5,11 @@ const LoadingSpinner2 = () => {
   return (
     <React.Fragment>
       <div className={classes.spinnerBox}>
+        <h3 className={classes.message}>Пожалуйста Подождите...</h3>
         <div className={classes["lds-default"]}>
           <div></div>
           <div></div>
         </div>
-        <h3 className={classes.message}>Осуществляется перевод...</h3>
       </div>
     </React.Fragment>
   );

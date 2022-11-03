@@ -323,11 +323,17 @@
 }
 
 .serviceDescription {
+  width: 40%;
   font-weight: 400;
   font-size: 1.4rem;
   color: #778ca2;
   position: absolute;
   transform: translateX(47rem);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  -webkit-box-orient: vertical;
 }
 
 .service2btnArea {

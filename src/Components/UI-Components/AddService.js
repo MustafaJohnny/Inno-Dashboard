@@ -55,8 +55,7 @@ const AddService = () => {
         // setTimeout(() => {
         // }, 4000);
         if (response.status === 200) {
-          console.log(response);
-          dispatch(controlActions.toggleSpinner());
+          // dispatch(controlActions.toggleSpinner());
           hideAddService();
           navigate(0);
         }
