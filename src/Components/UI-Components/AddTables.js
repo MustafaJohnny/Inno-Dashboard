@@ -23,8 +23,7 @@ const AddTables = () => {
   };
 
   const AddNewTables = () => {
-    dispatch(controlActions.toggleSpinner());
-    hideAddTables();
+    // dispatch(controlActions.toggleSpinner());
 
     axios
       .post(
@@ -45,12 +44,12 @@ const AddTables = () => {
         }
       )
       .then((response) => {
-        setTimeout(() => {
-          if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
-            navigate(0);
-          }
-        }, 4000);
+        // setTimeout(() => {}, 4000);
+        if (response.status === 200) {
+          // dispatch(controlActions.toggleSpinner());
+          hideAddTables();
+          navigate(0);
+        }
       });
   };
 

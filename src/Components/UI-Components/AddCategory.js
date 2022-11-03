@@ -17,6 +17,11 @@ const AddCategory = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const appLanguages = useSelector((state) => state.controler.app_languages);
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
   const userCategoryID = useSelector(
     (state) => state.controler.user_category_ID
   );

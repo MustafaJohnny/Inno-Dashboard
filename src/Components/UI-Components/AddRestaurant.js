@@ -10,7 +10,6 @@ import { useState } from "react";
 const AddRestaurant = () => {
   const [restImage, setRestImage] = useState([]);
   const [restName, setRestName] = useState("");
-  const [restLanguage, setRestLanguage] = useState("");
   const [restAddress, setRestAddress] = useState("");
   const [restPhone, setRestPhone] = useState("");
   const [restStartTime, setRestStartTime] = useState("");
@@ -20,27 +19,46 @@ const AddRestaurant = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const appLanguages = useSelector((state) => state.controler.app_languages);
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let formIsValid = false;
+
+  if (restImage.size && restName && restAddress && restPhone && restTimeZone) {
+    formIsValid = true;
+  }
+
+  if (restImage.size >= 1000000 || !restImage) {
+    formIsValid = false;
+  }
 
   const hideAddRestaurent = () => {
     dispatch(controlActions.toggleAddRestaurant());
   };
 
   const createNewRestaurant = () => {
-    hideAddRestaurent();
-    dispatch(controlActions.toggleSpinner());
+    // dispatch(controlActions.toggleSpinner());
+
+    if (!formIsValid) {
+      return;
+    }
 
     const serverParams = {
       name_rest: restName,
       addr_rest: restAddress,
       tel_rest: restPhone,
-      // time_start: restStartTime,
-      // time_end: restEndTime,
+      time_start: restStartTime,
+      time_end: restEndTime,
       timezone: restTimeZone,
     };
+
+    if (!serverParams.time_start) delete serverParams.time_start;
+    if (!serverParams.time_end) delete serverParams.time_end;
 
     const formData = new FormData();
 
@@ -48,7 +66,7 @@ const AddRestaurant = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/owner/rest_new/${restLanguage}`,
+        `http://${serverAPI}/api/v1/owner/rest_new/${userLanguage}`,
         formData,
         {
           params: serverParams,
@@ -59,12 +77,14 @@ const AddRestaurant = () => {
         }
       )
       .then((response) => {
-        setTimeout(() => {
-          if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
-            navigate(0);
-          }
-        }, 4000);
+        // setTimeout(() => {
+        // }, 4000);
+        if (response.status === 200) {
+          // dispatch(controlActions.toggleSpinner());
+          console.log(response);
+          hideAddRestaurent();
+          navigate(0);
+        }
       });
   };
 
@@ -75,20 +95,30 @@ const AddRestaurant = () => {
         <h1 className={classes.modalHeading}>Добавить ресторан</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg image/jpg"
-              onChange={(event) => setRestImage(event.target.files[0])}
-              required
-            />
+            <div className={classes.requiredImgBox}>
+              <input
+                className={classes.inputImgModal}
+                type="file"
+                id="files"
+                multiple
+                accept="image/png, image/jpeg image/jpg"
+                onChange={(event) => setRestImage(event.target.files[0])}
+                required
+              />
+              <span className={classes.requiredImg}>*</span>
+            </div>
+            <span className={classes.requiredImgMess}>
+              Размер изображения должен быть меньше 1 мб
+            </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Название
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 type="text"
                 className={classes.modalBasicInput}
@@ -97,28 +127,26 @@ const AddRestaurant = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Язык
-              </label>
-
-              <select
-                onChange={(event) => setRestLanguage(event.target.value)}
-                id="lang"
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="phone">
+                  Телефон
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
+              <input
+                onChange={(event) => setRestPhone(event.target.value)}
+                type="text"
                 className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                {appLanguages.map((element, index) => (
-                  <option key={index} value={element[0]}>
-                    {" "}
-                    {element[1]}
-                  </option>
-                ))}
-              </select>
+                id="phone"
+              />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Адрес
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Адрес
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setRestAddress(event.target.value)}
                 type="text"
@@ -127,14 +155,18 @@ const AddRestaurant = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="phone">
-                Телефон
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="zone">
+                  Временная зона
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
+
               <input
-                onChange={(event) => setRestPhone(event.target.value)}
+                onChange={(event) => setRestTimeZone(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
-                id="phone"
+                id="address"
               />
             </div>
           </div>
@@ -163,21 +195,14 @@ const AddRestaurant = () => {
                 />
               </div>
             </div>
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="zone">
-                Временная зона
-              </label>
-              <input
-                onChange={(event) => setRestTimeZone(event.target.value)}
-                type="text"
-                className={classes.modalBasicInput}
-                id="address"
-              />
-            </div>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewRestaurant} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewRestaurant}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

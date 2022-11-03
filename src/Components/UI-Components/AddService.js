@@ -26,8 +26,7 @@ const AddService = () => {
   };
 
   const createNewService = () => {
-    dispatch(controlActions.toggleSpinner());
-    hideAddService();
+    // dispatch(controlActions.toggleSpinner());
 
     const serverParams = {
       name_service: serviceName,
@@ -53,12 +52,14 @@ const AddService = () => {
         }
       )
       .then((response) => {
-        setTimeout(() => {
-          if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
-            navigate(0);
-          }
-        }, 4000);
+        // setTimeout(() => {
+        // }, 4000);
+        if (response.status === 200) {
+          console.log(response);
+          dispatch(controlActions.toggleSpinner());
+          hideAddService();
+          navigate(0);
+        }
       });
   };
 
