@@ -63,6 +63,7 @@ const initialState = {
   show_change_item_img: false,
   show_confirm_design: false,
   show_spinner_home: false,
+  show_fall_home: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -289,6 +290,10 @@ const controlSlice = createSlice({
 
     toggleSpinnerHome(state) {
       state.show_spinner_home = !state.show_spinner_home;
+    },
+
+    toggleFallHome(state) {
+      state.show_fall_home = !state.show_fall_home;
     },
   },
 });

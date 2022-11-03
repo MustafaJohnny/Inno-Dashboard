@@ -58,8 +58,8 @@ const AddRestaurant = () => {
       timezone: restTimeZone,
     };
 
-    if (!serverParams.time_start) delete serverParams.time_start;
-    if (!serverParams.time_end) delete serverParams.time_end;
+    // if (!serverParams.time_start) delete serverParams.time_start;
+    // if (!serverParams.time_end) delete serverParams.time_end;
 
     const formData = new FormData();
 
@@ -82,11 +82,14 @@ const AddRestaurant = () => {
           if (response.status === 200) {
             dispatch(controlActions.toggleSpinnerHome());
             navigate(0);
-          } else {
-            dispatch(controlActions.toggleSpinnerHome());
-            console.log("error");
           }
         }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerHome());
+          dispatch(controlActions.toggleFallHome());
+        }
       });
   };
 

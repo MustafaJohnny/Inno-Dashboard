@@ -20,6 +20,7 @@ const HomePage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServices = useSelector((state) => state.controler.user_services);
+  const showFallHome = useSelector((state) => state.controler.show_fall_home);
   const showSpinnerHome = useSelector(
     (state) => state.controler.show_spinner_home
   );
@@ -199,7 +200,7 @@ const HomePage = () => {
   return (
     <React.Fragment>
       <section>
-        {true && <FallMessage />}
+        {showFallHome && <FallMessage />}
         {showSpinnerHome && <LoadingSpinner2 />}
         {showAddRestaurant && <AddRestaurant />}
         {showAddService && <AddService />}

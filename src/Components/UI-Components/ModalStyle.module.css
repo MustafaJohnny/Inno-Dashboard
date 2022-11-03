@@ -37,6 +37,10 @@
   width: 50rem;
 }
 
+.modalFall {
+  width: 65rem;
+}
+
 @keyframes openModall {
   0% {
     opacity: 0;
@@ -187,6 +191,13 @@
   gap: 1.6rem;
 }
 
+.fallBtn {
+  font-family: inherit;
+  font-size: 1.4rem !important;
+  font-weight: 400 !important;
+  text-transform: uppercase;
+}
+
 .modalControlBtnsArea {
   display: flex;
   align-items: center;
@@ -247,6 +258,14 @@
   font-size: 2rem;
   font-weight: 500;
   text-align: center;
+}
+
+.fallMessageHeading {
+  color: #27272a;
+  font-size: 2rem;
+  font-weight: 400;
+  text-align: center;
+  line-height: 3rem;
 }
 
 .lableRequiredArea {
