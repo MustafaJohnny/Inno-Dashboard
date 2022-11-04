@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
+import FallMessage from "../UI-Components/FallMessage";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 
 const ServicesPage = () => {
@@ -19,9 +20,14 @@ const ServicesPage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
 
-  // Testing
+  const spinnerServices = useSelector(
+    (state) => state.controler.show_spinner_service
+  );
+
+  const fallServices = useSelector(
+    (state) => state.controler.show_fall_services
+  );
 
   useEffect(() => {
     let mounted = true;
@@ -44,8 +50,6 @@ const ServicesPage = () => {
     };
     getData();
   }, []);
-
-  //Testing
 
   const showAddItemService = useSelector(
     (state) => state.controler.show_add_service_items
@@ -72,7 +76,8 @@ const ServicesPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {spinnerServices && <LoadingSpinner2 />}
+        {fallServices && <FallMessage />}
         {showAddItemService && <AddServiceItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />

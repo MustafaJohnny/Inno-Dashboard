@@ -3,6 +3,7 @@ import SideNavigation from "../UI-Components/SideNavigation";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import UpNavigation from "../UI-Components/UpNavigation";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import FallMessage from "../UI-Components/FallMessage";
 import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
 import axios from "axios";
@@ -21,7 +22,8 @@ const MenusPage = () => {
   const userPassword = useSelector((state) => state.controler.user_password);
   const userMenuID = useSelector((state) => state.controler.user_menu_ID);
   const userMenus = useSelector((state) => state.controler.user_menus);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
+  const spinnerMenu = useSelector((state) => state.controler.show_spinner_menu);
+  const fallMenu = useSelector((state) => state.controler.show_fall_menu);
 
   useEffect(() => {
     let mounted = true;
@@ -114,7 +116,8 @@ const MenusPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {fallMenu && <FallMessage />}
+        {spinnerMenu && <LoadingSpinner2 />}
         {showAddMenu && <AddMenu />}
         <main className={classes.mainContiner}>
           <SideNavigation />

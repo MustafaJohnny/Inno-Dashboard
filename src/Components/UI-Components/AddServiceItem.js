@@ -9,18 +9,26 @@ import { useState } from "react";
 
 const AddServiceItem = () => {
   const [ItemServiceName, setServiceItemName] = useState("");
-  const [ItemServiceLanguage, setServiceItemLanguage] = useState("");
   const [ItemServiceDescription, setServiceItemDescription] = useState("");
   const [ItemServicePrice, setServiceItemPrice] = useState("");
 
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const appLanguages = useSelector((state) => state.controler.app_languages);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let formIsValid = false;
+
+  if (ItemServiceName && ItemServiceDescription && ItemServicePrice) {
+    formIsValid = true;
+  }
 
   const hideAddServiceItem = () => {
     dispatch(controlActions.toggleShowAddServiceItems());
@@ -28,7 +36,11 @@ const AddServiceItem = () => {
 
   const createNewServiceItem = () => {
     hideAddServiceItem();
-    dispatch(controlActions.toggleSpinner());
+    dispatch(controlActions.toggleSpinnerServices());
+
+    if (!formIsValid) {
+      return;
+    }
 
     const serverParams = {
       name: ItemServiceName,
@@ -39,7 +51,7 @@ const AddServiceItem = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/service/uslugi_new/${ItemServiceLanguage}`,
+        `http://${serverAPI}/api/v1/service/uslugi_new/${userLanguage}`,
         {},
         {
           params: serverParams,
@@ -52,10 +64,16 @@ const AddServiceItem = () => {
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
+            dispatch(controlActions.toggleSpinnerServices());
             navigate(0);
           }
-        }, 4000);
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerServices());
+          dispatch(controlActions.toggleFallServices());
+        }
       });
   };
   return (
@@ -66,9 +84,12 @@ const AddServiceItem = () => {
         <form className={classes.modalForm}>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Название
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 type="text"
                 className={classes.modalBasicInput}
@@ -76,29 +97,14 @@ const AddServiceItem = () => {
                 onChange={(event) => setServiceItemName(event.target.value)}
               />
             </div>
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Язык
-              </label>
 
-              <select
-                onChange={(event) => setServiceItemLanguage(event.target.value)}
-                id="lang"
-                className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                {appLanguages.map((element, index) => (
-                  <option key={index} value={element[0]}>
-                    {" "}
-                    {element[1]}
-                  </option>
-                ))}
-              </select>
-            </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Описание
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) =>
                   setServiceItemDescription(event.target.value)
@@ -109,9 +115,12 @@ const AddServiceItem = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                цена
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  цена
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setServiceItemPrice(event.target.value)}
                 type="text"
@@ -122,7 +131,11 @@ const AddServiceItem = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewServiceItem} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewServiceItem}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button
