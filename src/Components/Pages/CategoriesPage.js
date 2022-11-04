@@ -1,6 +1,7 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
+import FallMessage from "../UI-Components/FallMessage";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddCategory from "../UI-Components/AddCategory";
@@ -18,7 +19,13 @@ const CategoriesPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
+  const spinnerCategories = useSelector(
+    (state) => state.controler.show_spinner_categories
+  );
+
+  const fallCategories = useSelector(
+    (state) => state.controler.show_fall_categories
+  );
 
   const showAddCategory = useSelector(
     (state) => state.controler.show_add_categories
@@ -127,7 +134,8 @@ const CategoriesPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {fallCategories && <FallMessage />}
+        {spinnerCategories && <LoadingSpinner2 />}
         {showAddCategory && <AddCategory />}
         <main className={classes.mainContiner}>
           <SideNavigation />

@@ -10,14 +10,11 @@ import { useState } from "react";
 const AddCategory = () => {
   const [categoryImage, setCategoryImage] = useState([]);
   const [categoryName, setCategoryName] = useState("");
-  const [categoryLanguage, setCategoryLanguage] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
 
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const appLanguages = useSelector((state) => state.controler.app_languages);
-
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
@@ -29,13 +26,27 @@ const AddCategory = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let formIsValid = false;
+
+  if (categoryImage.size && categoryName && categoryDescription) {
+    formIsValid = true;
+  }
+
+  if (categoryImage.size >= 1000000 || !categoryImage) {
+    formIsValid = false;
+  }
+
   const hideAddCategory = () => {
     dispatch(controlActions.toggleAddCategories());
   };
 
   const createNewCategory = () => {
     hideAddCategory();
-    dispatch(controlActions.toggleSpinner());
+    dispatch(controlActions.toggleSpinnerCategories());
+
+    if (!formIsValid) {
+      return;
+    }
 
     const serverParams = {
       name: categoryName,
@@ -49,7 +60,7 @@ const AddCategory = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/newCategory/${categoryLanguage}`,
+        `http://${serverAPI}/api/v1/menu/newCategory/${userLanguage}`,
         formData,
         {
           params: serverParams,
@@ -62,10 +73,16 @@ const AddCategory = () => {
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
+            dispatch(controlActions.toggleSpinnerCategories());
             navigate(0);
           }
-        }, 4000);
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerCategories());
+          dispatch(controlActions.toggleFallCategories());
+        }
       });
   };
 
@@ -76,20 +93,29 @@ const AddCategory = () => {
         <h1 className={classes.modalHeading}>Добавить категорию</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg image/jpg"
-              onChange={(event) => setCategoryImage(event.target.files[0])}
-              required
-            />
+            <div className={classes.requiredImgBox}>
+              <input
+                className={classes.inputImgModal}
+                type="file"
+                multiple
+                accept="image/png, image/jpeg image/jpg"
+                onChange={(event) => setCategoryImage(event.target.files[0])}
+                required
+              />
+              <span className={classes.requiredImg}>*</span>
+            </div>
+            <span className={classes.requiredImgMess}>
+              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+            </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Название
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 type="text"
                 className={classes.modalBasicInput}
@@ -98,39 +124,27 @@ const AddCategory = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Язык
-              </label>
-
-              <select
-                onChange={(event) => setCategoryLanguage(event.target.value)}
-                id="lang"
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Описание
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
+              <input
+                onChange={(event) => setCategoryDescription(event.target.value)}
+                type="text"
                 className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                {appLanguages.map((element, index) => (
-                  <option key={index} value={element[0]}>
-                    {" "}
-                    {element[1]}
-                  </option>
-                ))}
-              </select>
+                id="address"
+              />
             </div>
-          </div>
-          <div className={classes.wholeModalInput}>
-            <label className={classes.modalBasicLable} htmlFor="address">
-              Описание
-            </label>
-            <input
-              onChange={(event) => setCategoryDescription(event.target.value)}
-              type="text"
-              className={classes.modalBasicInput}
-              id="address"
-            />
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewCategory} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewCategory}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

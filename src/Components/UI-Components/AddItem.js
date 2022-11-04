@@ -9,7 +9,6 @@ import { useState } from "react";
 
 const AddItem = () => {
   const [itemImage, setItemImage] = useState([]);
-  const [itemLanguage, setItemLanguage] = useState("");
   const [ItemName, setItemName] = useState("");
   const [itemDescription, setItemDescription] = useState("");
   const [itemMeasurementType, setItemMeasurementType] = useState("");
@@ -22,7 +21,9 @@ const AddItem = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const appLanguages = useSelector((state) => state.controler.app_languages);
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -31,9 +32,32 @@ const AddItem = () => {
     dispatch(controlActions.toggleAddItem());
   };
 
+  let formIsValid = false;
+
+  if (
+    itemImage.size &&
+    ItemName &&
+    itemDescription &&
+    itemMeasurementType &&
+    itemMeasurementParameter &&
+    itemPrice &&
+    itemAlchole &&
+    itemDelivery
+  ) {
+    formIsValid = true;
+  }
+
+  if (itemImage.size >= 1000000 || !itemImage) {
+    formIsValid = false;
+  }
+
   const createNewItem = () => {
     hideAddItem();
-    dispatch(controlActions.toggleSpinner());
+    dispatch(controlActions.toggleSpinnerItems());
+
+    if (!formIsValid) {
+      return;
+    }
 
     let data = JSON.stringify({
       prod: {
@@ -62,7 +86,7 @@ const AddItem = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/newProduct/${itemLanguage}`,
+        `http://${serverAPI}/api/v1/menu/newProduct/${userLanguage}`,
         formData,
         {
           auth: {
@@ -77,10 +101,16 @@ const AddItem = () => {
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
-            dispatch(controlActions.toggleSpinner());
+            dispatch(controlActions.toggleSpinnerItems());
             navigate(0);
           }
-        }, 4000);
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerItems());
+          dispatch(controlActions.toggleFallItems());
+        }
       });
   };
 
@@ -91,20 +121,29 @@ const AddItem = () => {
         <h1 className={classes.modalHeading}>Добавить блюдо</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg image/jpg"
-              onChange={(event) => setItemImage(event.target.files[0])}
-              required
-            />
+            <div className={classes.requiredImgBox}>
+              <input
+                className={classes.inputImgModal}
+                type="file"
+                multiple
+                accept="image/png, image/jpeg image/jpg"
+                onChange={(event) => setItemImage(event.target.files[0])}
+                required
+              />
+              <span className={classes.requiredImg}>*</span>
+            </div>
+            <span className={classes.requiredImgMess}>
+              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+            </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Название
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 type="text"
                 className={classes.modalBasicInput}
@@ -112,29 +151,14 @@ const AddItem = () => {
                 onChange={(event) => setItemName(event.target.value)}
               />
             </div>
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Язык
-              </label>
 
-              <select
-                onChange={(event) => setItemLanguage(event.target.value)}
-                id="lang"
-                className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                {appLanguages.map((element, index) => (
-                  <option key={index} value={element[0]}>
-                    {" "}
-                    {element[1]}
-                  </option>
-                ))}
-              </select>
-            </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Описание
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setItemDescription(event.target.value)}
                 type="text"
@@ -143,9 +167,12 @@ const AddItem = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Тип Измерения
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Тип Измерения
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setItemMeasurementType(event.target.value)}
                 type="text"
@@ -154,9 +181,12 @@ const AddItem = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Параметр Измерения
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Параметр Измерения
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) =>
                   setItemMeasurementParameter(event.target.value)
@@ -167,9 +197,12 @@ const AddItem = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="address">
-                Цена
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="address">
+                  Цена
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setItemPrice(event.target.value)}
                 type="text"
@@ -179,9 +212,12 @@ const AddItem = () => {
             </div>
 
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Алкоголь?
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="lang">
+                  Алкоголь?
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
 
               <select
                 onChange={(event) => setItemAlchole(event.target.value)}
@@ -194,9 +230,12 @@ const AddItem = () => {
             </div>
 
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Доставка
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="lang">
+                  Доставка
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
 
               <select
                 onChange={(event) => setItemDelivery(event.target.value)}
@@ -210,7 +249,11 @@ const AddItem = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewItem} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewItem}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

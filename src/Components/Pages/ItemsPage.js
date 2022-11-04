@@ -3,6 +3,7 @@ import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import FallMessage from "../UI-Components/FallMessage";
 import AddItem from "../UI-Components/AddItem";
 import classes from "./HomePage.module.css";
 import axios from "axios";
@@ -22,7 +23,10 @@ const ItemsPage = () => {
   const showAddItem = useSelector((state) => state.controler.show_add_item);
   const userItemID = useSelector((state) => state.controler.user_item_ID);
   const userItems = useSelector((state) => state.controler.user_Items);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
+  const fallItems = useSelector((state) => state.controlershow_fall_items);
+  const spinnerItems = useSelector(
+    (state) => state.controler.show_spinner_items
+  );
 
   const pageHeading = useSelector(
     (state) => state.controler.items_page_heading
@@ -106,7 +110,8 @@ const ItemsPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {spinnerItems && <LoadingSpinner2 />}
+        {fallItems && <FallMessage />}
         {showAddItem && <AddItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />

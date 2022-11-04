@@ -65,9 +65,13 @@ const initialState = {
   show_spinner_home: false,
   show_spinner_service: false,
   show_spinner_menu: false,
+  show_spinner_categories: false,
+  show_spinner_items: false,
   show_fall_home: false,
   show_fall_services: false,
   show_fall_menu: false,
+  show_fall_categories: false,
+  show_fall_items: false,
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -300,20 +304,36 @@ const controlSlice = createSlice({
       state.show_spinner_service = !state.show_spinner_service;
     },
 
-    toggleFallHome(state) {
-      state.show_fall_home = !state.show_fall_home;
-    },
-
     toggleFallServices(state) {
       state.show_fall_services = !state.show_fall_services;
+    },
+
+    toggleSpinnerCategories(state) {
+      state.show_spinner_categories = !state.show_spinner_categories;
     },
 
     toggleSpinnerMenu(state) {
       state.show_spinner_menu = !state.show_spinner_menu;
     },
 
+    toggleSpinnerItems(state) {
+      state.show_spinner_items = !state.show_spinner_items;
+    },
+
+    toggleFallHome(state) {
+      state.show_fall_home = !state.show_fall_home;
+    },
+
     toggleFallMenu(state) {
       state.show_fall_menu = !state.show_fall_menu;
+    },
+
+    toggleFallCategories(state) {
+      state.show_fall_categories = !state.show_fall_categories;
+    },
+
+    toggleFallItems(state) {
+      state.show_fall_items = !state.show_fall_items;
     },
   },
 });
