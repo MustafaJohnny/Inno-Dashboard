@@ -58,8 +58,8 @@ const AddRestaurant = () => {
       timezone: restTimeZone,
     };
 
-    // if (!serverParams.time_start) delete serverParams.time_start;
-    // if (!serverParams.time_end) delete serverParams.time_end;
+    if (!serverParams.time_start) delete serverParams.time_start;
+    if (!serverParams.time_end) delete serverParams.time_end;
 
     const formData = new FormData();
 
@@ -113,7 +113,7 @@ const AddRestaurant = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              Размер изображения должен быть меньше 1 мб
+              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
             </span>
           </div>
           <div className={classes.modalInputsContainer}>

@@ -25,15 +25,27 @@ const AddService = () => {
     dispatch(controlActions.toggleAddService());
   };
 
+  let formIsValid = false;
+
+  if (serviceImage.size && serviceName) {
+    formIsValid = true;
+  }
+
+  if (serviceImage.size >= 1000000 || !serviceImage) {
+    formIsValid = false;
+  }
+
   const createNewService = () => {
-    // dispatch(controlActions.toggleSpinner());
+    dispatch(controlActions.toggleSpinnerHome());
+    hideAddService();
+
+    if (!formIsValid) {
+      return;
+    }
 
     const serverParams = {
       name_service: serviceName,
     };
-
-    if (!serviceName) return;
-    if (!serviceImage) return;
 
     const formData = new FormData();
 
@@ -52,12 +64,17 @@ const AddService = () => {
         }
       )
       .then((response) => {
-        // setTimeout(() => {
-        // }, 4000);
-        if (response.status === 200) {
-          // dispatch(controlActions.toggleSpinner());
-          hideAddService();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerHome());
+            navigate(0);
+          }
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerHome());
+          dispatch(controlActions.toggleFallHome());
         }
       });
   };
@@ -69,22 +86,32 @@ const AddService = () => {
         <h1 className={classes.modalHeading}>Добавить сервис</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg image/jpg"
-              onChange={(event) => setServiceImage(event.target.files[0])}
-              required
-            />
+            <div className={classes.requiredImgBox}>
+              <input
+                className={classes.inputImgModal}
+                type="file"
+                multiple
+                accept="image/png, image/jpeg image/jpg"
+                onChange={(event) => setServiceImage(event.target.files[0])}
+                required
+              />
+              <span className={classes.requiredImg}>*</span>
+            </div>
+            <span className={classes.requiredImgMess}>
+              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+            </span>
           </div>
+
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Название
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 onChange={(event) => setServiceName(event.target.value)}
                 type="text"
@@ -96,7 +123,11 @@ const AddService = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewService} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewService}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button
