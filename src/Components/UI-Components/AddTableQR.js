@@ -45,6 +45,11 @@ const AddTableQR = () => {
           hideAddTableQR();
           navigate(0);
         }
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleFallQR());
+        }
       });
   };
 

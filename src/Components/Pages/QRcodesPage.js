@@ -4,6 +4,7 @@ import PenIcon from "../Icons/Pen.svg";
 import axios from "axios";
 import eyeIcon from "../Icons/eyeIcon.svg";
 import downlodIcon from "../Icons/downlodIcon.svg";
+import FallMessage from "../UI-Components/FallMessage";
 import QRbtnIcon from "../Icons/QRbtn.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
@@ -28,7 +29,9 @@ const QRcodesPage = () => {
   const showTables = useSelector((state) => state.controler.show_add_tables);
   const showModalQR = useSelector((state) => state.controler.show_modal_QR_Img);
   const userDomain = useSelector((state) => state.controler.user_domain);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
+  const spinnerQR = useSelector((state) => state.controler.show_spinner_qr);
+  const fallQR = useSelector((state) => state.controler.show_fall_qr);
+
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
   useEffect(() => {
@@ -134,7 +137,8 @@ const QRcodesPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
+        {fallQR && <FallMessage />}
+        {spinnerQR && <LoadingSpinner2 />}
         {showModalQR && <ModalImgQR />}
         {showTableQR && <AddTableQR />}
         {showTables && <AddTables />}

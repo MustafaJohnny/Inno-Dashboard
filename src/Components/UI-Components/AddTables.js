@@ -9,46 +9,60 @@ import { useState } from "react";
 
 const AddTables = () => {
   const [numberOfTables, setNumberOfTables] = useState("");
-  const [tablesLanguages, setTablesLanguage] = useState("");
-  const appLanguages = useSelector((state) => state.controler.app_languages);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  let formIsValid = false;
+
+  if (numberOfTables) {
+    formIsValid = true;
+  }
 
   const hideAddTables = () => {
     dispatch(controlActions.toggleAddTables());
   };
 
   const AddNewTables = () => {
-    // dispatch(controlActions.toggleSpinner());
+    dispatch(controlActions.toggleSpinnerQR());
+    hideAddTables();
+
+    if (!formIsValid) {
+      return;
+    }
 
     axios
-      .post(
-        `http://${serverAPI}/api/v1/table/table_new/${tablesLanguages}`,
-        "",
-        {
-          params: {
-            table_pcs: numberOfTables,
-          },
-          auth: {
-            username: userEmail,
-            password: userPassword,
-          },
-          headers: {
-            accept: "application/json",
-            "Content-Type": "application/x-www-form-urlencoded",
-          },
-        }
-      )
+      .post(`http://${serverAPI}/api/v1/table/table_new/${userLanguage}`, "", {
+        params: {
+          table_pcs: numberOfTables,
+        },
+        auth: {
+          username: userEmail,
+          password: userPassword,
+        },
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+      })
       .then((response) => {
-        // setTimeout(() => {}, 4000);
-        if (response.status === 200) {
-          // dispatch(controlActions.toggleSpinner());
-          hideAddTables();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerQR());
+            navigate(0);
+          }
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerQR());
+          dispatch(controlActions.toggleFallQR());
         }
       });
   };
@@ -63,9 +77,12 @@ const AddTables = () => {
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Количество столы
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Количество столы
+                </label>
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService}`}
                 onChange={(event) => setNumberOfTables(event.target.value)}
@@ -74,30 +91,14 @@ const AddTables = () => {
                 required
               />
             </div>
-
-            <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="lang">
-                Язык
-              </label>
-
-              <select
-                onChange={(event) => setTablesLanguage(event.target.value)}
-                id="lang"
-                className={classes.modalBasicInput}
-              >
-                <option value=""></option>
-                {appLanguages.map((element, index) => (
-                  <option key={index} value={element[0]}>
-                    {" "}
-                    {element[1]}
-                  </option>
-                ))}
-              </select>
-            </div>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={AddNewTables} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={AddNewTables}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button
