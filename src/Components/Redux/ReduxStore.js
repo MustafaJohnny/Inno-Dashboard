@@ -57,6 +57,7 @@ const initialState = {
   show_add_tables: false,
   show_modal_QR_Img: false,
   show_change_client_name: false,
+  show_change_client_logo: false,
   show_change_item_name: false,
   show_change_item_desc: false,
   show_change_item_price: false,
@@ -276,6 +277,10 @@ const controlSlice = createSlice({
 
     toggleChangeClientName(state) {
       state.show_change_client_name = !state.show_change_client_name;
+    },
+
+    toggleChangeClientLogo(state) {
+      state.show_change_client_logo = !state.show_change_client_logo;
     },
 
     toggleChangeItemName(state) {

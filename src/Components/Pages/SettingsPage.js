@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import ChangeClientName from "../UI-Components/ChangeClientName";
+import ChangeClientLogo from "../UI-Components/ChangeClientLogo";
 import EditIcon from "../Icons/Edit.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
@@ -19,6 +20,10 @@ const SettingsPage = () => {
   const userCurrency = useSelector((state) => state.controler.user_currency);
   const userDomain = useSelector((state) => state.controler.user_domain);
 
+  const showChangeLogo = useSelector(
+    (state) => state.controler.show_change_client_logo
+  );
+
   const showChangeClient = useSelector(
     (state) => state.controler.show_change_client_name
   );
@@ -33,6 +38,10 @@ const SettingsPage = () => {
 
   const displayChangeClientName = () => {
     dispatch(controlActions.toggleChangeClientName());
+  };
+
+  const displayChangeClientLogo = () => {
+    dispatch(controlActions.toggleChangeClientLogo());
   };
 
   // const editSettingsAndSendPatch = (setting) => {
@@ -72,6 +81,7 @@ const SettingsPage = () => {
     <React.Fragment>
       <section>
         {showChangeClient && <ChangeClientName />}
+        {showChangeLogo && <ChangeClientLogo />}
         <SideNavigation />
         <div className={classes.contentBigBox}>
           <UpNavigation />
@@ -105,7 +115,11 @@ const SettingsPage = () => {
             </div>
             <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Логотип</h2>
-              <button type="button" className={classes.settingBtn}>
+              <button
+                onClick={displayChangeClientLogo}
+                type="button"
+                className={classes.settingBtn}
+              >
                 <img
                   src={EditIcon}
                   alt="icon"
