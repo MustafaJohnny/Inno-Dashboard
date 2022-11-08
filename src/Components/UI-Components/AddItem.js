@@ -37,7 +37,6 @@ const AddItem = () => {
   if (
     itemImage.size &&
     ItemName &&
-    itemDescription &&
     itemMeasurementType &&
     itemMeasurementParameter &&
     itemPrice &&
@@ -154,7 +153,9 @@ const AddItem = () => {
               />
             </div>
 
-            <div className={classes.wholeModalInput}>
+            <div
+              className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
+            >
               <label className={classes.modalBasicLable} htmlFor="address">
                 Описание
               </label>

@@ -1002,3 +1002,29 @@
   color: #9e9e9e;
   transform: translateX(-22.3rem);
 }
+
+.loginAndWatchTimeArea {
+  gap: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.watchBox {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  border-right: 1.8px solid #dfe0eb;
+  padding-right: 3rem;
+  gap: 0.8rem;
+}
+
+.watchImg {
+  width: 4rem;
+}
+
+.watchTimeText {
+  font-weight: 400;
+  font-size: 1.6rem;
+  color: #18181b;
+}

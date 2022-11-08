@@ -28,7 +28,7 @@ const AddMenu = () => {
 
   let formIsValid = false;
 
-  if (menuImage.size && menuName && menuDescription && menuAllHours) {
+  if (menuImage.size && menuName && menuAllHours) {
     formIsValid = true;
   }
 
@@ -123,7 +123,9 @@ const AddMenu = () => {
               />
             </div>
 
-            <div className={classes.wholeModalInput}>
+            <div
+              className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
+            >
               <label className={classes.modalBasicLable} htmlFor="address">
                 Описание
               </label>

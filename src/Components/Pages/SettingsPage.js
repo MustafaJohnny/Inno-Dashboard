@@ -16,6 +16,8 @@ const SettingsPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userCurrency = useSelector((state) => state.controler.user_currency);
+  const userDomain = useSelector((state) => state.controler.user_domain);
 
   const showChangeClient = useSelector(
     (state) => state.controler.show_change_client_name
@@ -158,23 +160,29 @@ const SettingsPage = () => {
             </div> */}
             <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Валюта</h2>
-              <button type="button" className={classes.settingBtn}>
+              <span className={classes.wholeSettingHeadValue}>
+                {userCurrency}
+              </span>
+              {/* <button type="button" className={classes.settingBtn}>
                 <img
                   src={EditIcon}
                   alt="icon"
                   className={classes.settingIcon}
                 />
-              </button>
+              </button> */}
             </div>
             <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Домен</h2>
-              <button type="button" className={classes.settingBtn}>
+              <span className={classes.wholeSettingHeadValue}>
+                {userDomain}
+              </span>
+              {/* <button type="button" className={classes.settingBtn}>
                 <img
                   src={EditIcon}
                   alt="icon"
                   className={classes.settingIcon}
                 />
-              </button>
+              </button> */}
             </div>
           </div>
         </main>

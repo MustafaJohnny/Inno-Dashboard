@@ -4,13 +4,16 @@ import LogOut from "../Icons/LogOut.svg";
 import OrderNav from "../Icons/OrderNav.svg";
 import WaiterNav from "../Icons/WaiterNav.svg";
 import ServiceNav from "../Icons/ServiceNav.svg";
-import { useEffect } from "react";
+import WatchImg from "../Icons/Watch1.svg";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import classes from "../Pages/HomePage.module.css";
 import { controlActions } from "../Redux/ReduxStore";
 
 const UpNavigation = () => {
+  const [time, setTime] = useState();
+
   useEffect(() => {
     let mounted = true;
     const requestToServer = setInterval(() => {
@@ -32,6 +35,18 @@ const UpNavigation = () => {
       };
 
       getData();
+
+      // Getting the current time of the user in order to later render it on the UI
+      const currentUserDate = new Date();
+
+      const hours = currentUserDate.getHours();
+
+      const minutes = currentUserDate.getMinutes();
+
+      const minutesFixed =
+        minutes.toString().length === 1 ? `0${minutes}` : minutes;
+
+      setTime(`${hours}:${minutesFixed}`);
     }, 5000);
 
     return () => {
@@ -144,14 +159,25 @@ const UpNavigation = () => {
             )}
           </div>
         </div>
-        <div className={classes.logingArea}>
-          <div className={classes.nameRoleArea}>
-            <span className={classes.userName}>{userName}</span>
-            <span className={classes.userRole}>{userRole}</span>
+        <div className={classes.loginAndWatchTimeArea}>
+          <div className={classes.watchBox}>
+            <img
+              className={classes.watchImg}
+              alt="just a watch"
+              src={WatchImg}
+            />
+
+            <span className={classes.watchTimeText}>{time}</span>
           </div>
-          <button onClick={logOutAndReset} className={classes.logOutBtn}>
-            <img alt="icon" src={LogOut} className={classes.logOutIcon} />
-          </button>
+          <div className={classes.logingArea}>
+            <div className={classes.nameRoleArea}>
+              <span className={classes.userName}>{userName}</span>
+              <span className={classes.userRole}>{userRole}</span>
+            </div>
+            <button onClick={logOutAndReset} className={classes.logOutBtn}>
+              <img alt="icon" src={LogOut} className={classes.logOutIcon} />
+            </button>
+          </div>
         </div>
       </header>
     </React.Fragment>

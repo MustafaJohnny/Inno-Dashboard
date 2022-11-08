@@ -28,7 +28,7 @@ const AddCategory = () => {
 
   let formIsValid = false;
 
-  if (categoryImage.size && categoryName && categoryDescription) {
+  if (categoryImage.size && categoryName) {
     formIsValid = true;
   }
 
@@ -125,7 +125,9 @@ const AddCategory = () => {
                 onChange={(event) => setCategoryName(event.target.value)}
               />
             </div>
-            <div className={classes.wholeModalInput}>
+            <div
+              className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
+            >
               <label className={classes.modalBasicLable} htmlFor="address">
                 Описание
               </label>
