@@ -54,6 +54,8 @@ const AddCategory = () => {
       menu_id: userCategoryID,
     };
 
+    if (!serverParams.description) delete serverParams.description;
+
     const formData = new FormData();
 
     formData.append("in_file", categoryImage, categoryImage.name);
@@ -124,12 +126,9 @@ const AddCategory = () => {
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="address">
-                  Описание
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable} htmlFor="address">
+                Описание
+              </label>
               <input
                 onChange={(event) => setCategoryDescription(event.target.value)}
                 type="text"

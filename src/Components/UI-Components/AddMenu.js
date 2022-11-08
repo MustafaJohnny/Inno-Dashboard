@@ -55,6 +55,7 @@ const AddMenu = () => {
 
     if (!serverParams.menu_start) delete serverParams.menu_start;
     if (!serverParams.menu_end) delete serverParams.menu_end;
+    if (!serverParams.description) delete serverParams.description;
 
     const formData = new FormData();
 
@@ -123,12 +124,9 @@ const AddMenu = () => {
             </div>
 
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="address">
-                  Описание
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable} htmlFor="address">
+                Описание
+              </label>
               <input
                 onChange={(event) => setMenudescription(event.target.value)}
                 type="text"

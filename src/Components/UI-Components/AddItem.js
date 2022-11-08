@@ -79,6 +79,8 @@ const AddItem = () => {
       },
     });
 
+    if (!data.prod.description) delete data.prod.description;
+
     const formData = new FormData();
 
     formData.append("in_file", itemImage, itemImage.name);
@@ -153,12 +155,9 @@ const AddItem = () => {
             </div>
 
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="address">
-                  Описание
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable} htmlFor="address">
+                Описание
+              </label>
               <input
                 onChange={(event) => setItemDescription(event.target.value)}
                 type="text"

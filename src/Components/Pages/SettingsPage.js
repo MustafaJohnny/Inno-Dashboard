@@ -33,33 +33,33 @@ const SettingsPage = () => {
     dispatch(controlActions.toggleChangeClientName());
   };
 
-  const editSettingsAndSendPatch = (setting) => {
-    axios
-      .patch(`http://${serverAPI}/api/dash/${setting}ClientChange`, "", {
-        params: {},
-        auth: {
-          username: userEmail,
-          password: userPassword,
-        },
-        headers: {
-          accept: "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        },
-      })
-      .then((response) => {
-        if ((response.status = "200")) {
-          dispatch(controlActions.getUserDataAfterLogin(response.data));
-        }
-      });
-  };
+  // const editSettingsAndSendPatch = (setting) => {
+  //   axios
+  //     .patch(`http://${serverAPI}/api/dash/${setting}ClientChange`, "", {
+  //       params: {},
+  //       auth: {
+  //         username: userEmail,
+  //         password: userPassword,
+  //       },
+  //       headers: {
+  //         accept: "application/json",
+  //         "Content-Type": "application/x-www-form-urlencoded",
+  //       },
+  //     })
+  //     .then((response) => {
+  //       if ((response.status = "200")) {
+  //         dispatch(controlActions.getUserDataAfterLogin(response.data));
+  //       }
+  //     });
+  // };
 
-  const activateOrDeactivateWaiter = () => {
-    editSettingsAndSendPatch("garson");
-  };
+  // const activateOrDeactivateWaiter = () => {
+  //   editSettingsAndSendPatch("garson");
+  // };
 
-  const activateOrDeactivateOrderMenu = () => {
-    editSettingsAndSendPatch("order");
-  };
+  // const activateOrDeactivateOrderMenu = () => {
+  //   editSettingsAndSendPatch("order");
+  // };
 
   const goPageBack = () => {
     navigate(-1, {
@@ -111,7 +111,7 @@ const SettingsPage = () => {
                 />
               </button>
             </div>
-            <div className={classes.wholeSetting}>
+            {/* <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Вызов официанта</h2>
 
               <button
@@ -155,7 +155,7 @@ const SettingsPage = () => {
               <button className={classes.activeMenu} type="button">
                 Активный
               </button>
-            </div>
+            </div> */}
             <div className={classes.wholeSetting}>
               <h2 className={classes.wholeSettingHeading}>Валюта</h2>
               <button type="button" className={classes.settingBtn}>
