@@ -9,6 +9,8 @@ const PaginationServices = () => {
     (state) => state.controler.user_orders_services
   );
 
+  console.log(ordersServices);
+
   const userCurrency = useSelector((state) => state.controler.user_currency);
 
   const [currentItems, setCurrentItems] = useState([]);
@@ -36,6 +38,11 @@ const PaginationServices = () => {
       {currentItems.map((ele) => (
         <div className={classes.wholeItemWaiter} key={ele.id}>
           <span className={classes.waiterOption}>{ele.table_name}</span>
+          <span
+            className={`${classes.waiterOption} ${classes.ServicesOptionNamee}`}
+          >
+            {ele.uslugi_name}
+          </span>
           <span
             className={`${classes.waiterOption} ${classes.ServicesOptionTime}`}
           >

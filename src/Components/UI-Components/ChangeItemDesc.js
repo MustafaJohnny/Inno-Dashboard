@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -29,7 +29,7 @@ const ChangeItemDesc = () => {
   const addNewItemDesc = () => {
     axios
       .patch(
-        `http://${serverAPI}/api/v1/menu/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
+        `http://${serverAPI}/api/prod/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
         "",
         {
           params: {},

@@ -21,6 +21,7 @@ const initialState = {
   user_current_item: [],
   user_waitor_data: [],
   user_orders_services: [],
+  user_all_orders: [],
   user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
@@ -82,7 +83,7 @@ const initialState = {
   categories_page_heading: "",
   items_page_heading: "",
   current_item_page_heading: "",
-  serverAPI: "inme.su",
+  serverAPI: "argen.su",
   app_languages: [],
 };
 
@@ -135,6 +136,10 @@ const controlSlice = createSlice({
 
     getUserOrdersServices(state, action) {
       state.user_orders_services = action.payload;
+    },
+
+    getUserAllOrders(state, action) {
+      state.user_all_orders = action.payload;
     },
 
     getAppLanguages(state, action) {

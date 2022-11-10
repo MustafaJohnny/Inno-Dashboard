@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -25,7 +25,7 @@ const ChangeClientLogo = () => {
     formData.append("in_file", logoImg, logoImg.name);
 
     axios
-      .patch(`http://${serverAPI}/api/dash/logoClientChange`, formData, {
+      .patch(`http://${serverAPI}/api/own/logoClientChange`, formData, {
         params: {},
         auth: {
           username: userEmail,

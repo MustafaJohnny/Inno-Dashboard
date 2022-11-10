@@ -19,7 +19,7 @@ const UpNavigation = () => {
     const requestToServer = setInterval(() => {
       const getData = async () => {
         const request = await axios.get(
-          `http://${serverAPI}/api/dash/client_data`,
+          `http://${serverAPI}/api/own/client_data`,
           {
             auth: {
               username: userEmail,
@@ -35,8 +35,17 @@ const UpNavigation = () => {
       };
 
       getData();
+    }, 5000);
 
+    return () => {
+      clearInterval(requestToServer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const requestDate = setInterval(() => {
       // Getting the current time of the user in order to later render it on the UI
+
       const currentUserDate = new Date();
 
       const hours = currentUserDate.getHours();
@@ -47,10 +56,10 @@ const UpNavigation = () => {
         minutes.toString().length === 1 ? `0${minutes}` : minutes;
 
       setTime(`${hours}:${minutesFixed}`);
-    }, 5000);
+    }, 1000);
 
     return () => {
-      clearInterval(requestToServer);
+      clearInterval(requestDate);
     };
   }, []);
 
@@ -113,6 +122,12 @@ const UpNavigation = () => {
     });
   };
 
+  const goToOrdersPage = () => {
+    navigate("/orders", {
+      replace: false,
+    });
+  };
+
   const logOutAndReset = () => {
     window.localStorage.clear();
     window.localStorage.removeItem("persist:root");
@@ -125,7 +140,7 @@ const UpNavigation = () => {
     <React.Fragment>
       <header className={classes.upHeader}>
         <div className={classes.headerIconsBox}>
-          <div className={classes.iconHeaderBack1}>
+          <div onClick={goToOrdersPage} className={classes.iconHeaderBack1}>
             <img alt="icon" className={classes.headerIcon} src={OrderNav} />
             {orderNotif === 0 ? (
               ""

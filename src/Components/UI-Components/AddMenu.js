@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -62,7 +62,7 @@ const AddMenu = () => {
     formData.append("in_file", menuImage, menuImage.name);
 
     axios
-      .post(`http://${serverAPI}/api/v1/menu/new/${userLanguage}`, formData, {
+      .post(`http://${serverAPI}/api/menu/new/${userLanguage}`, formData, {
         params: serverParams,
         auth: {
           username: userEmail,

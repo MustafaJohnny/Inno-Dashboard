@@ -43,7 +43,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/restandservice_list`,
+        `http://${serverAPI}/api/own/restandservice_list`,
         {
           auth: {
             username: userEmail,
@@ -90,7 +90,7 @@ const HomePage = () => {
   const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/owner/rest_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/rest/rest_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -109,7 +109,7 @@ const HomePage = () => {
   const activateOrDeactivateService = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/owner/service_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/serv/service_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -144,7 +144,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/rest_menu_list/${clickedRestaurantID}`,
+        `http://${serverAPI}/api/menu/rest_menu_list/${clickedRestaurantID}`,
         {
           auth: {
             username: userEmail,
@@ -177,7 +177,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/uslugi_list/${clickedServiceID}`,
+        `http://${serverAPI}/api/serv/uslugi_list/${clickedServiceID}`,
         {
           auth: {
             username: userEmail,

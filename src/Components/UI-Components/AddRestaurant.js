@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -67,7 +67,7 @@ const AddRestaurant = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/owner/rest_new/${userLanguage}`,
+        `http://${serverAPI}/api/rest/rest_new/${userLanguage}`,
         formData,
         {
           params: serverParams,

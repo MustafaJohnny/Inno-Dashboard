@@ -6,6 +6,9 @@ import FirstMenu3 from "../Images/FirstMenu3.png";
 import SecondMenu1 from "../Images/SecondMenu1.png";
 import SecondMenu2 from "../Images/SecondMenu2.png";
 import SecondMenu3 from "../Images/SecondMenu3.png";
+import ThirdMenu1 from "../Images/ThirdMenu1.jpg";
+import ThirdMenu2 from "../Images/ThirdMenu2.jpg";
+import ThirdMenu3 from "../Images/ThirdMenu3.jpg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ConfirmDesign from "../UI-Components/ConfirmDesign";
 import UpNavigation from "../UI-Components/UpNavigation";
@@ -155,6 +158,55 @@ const DesignMenuPage = () => {
                     <SwiperSlide className={classes.designSlide}>
                       <img
                         src={SecondMenu3}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                  </Swiper>
+                </div>
+
+                <div className={classes.wholeDesginMenuBox}>
+                  <h1 className={classes.desginMenuHeading}>Меню 3</h1>
+                  <div className={classes.selectInputArea}>
+                    <input
+                      className={classes.radioStyle}
+                      onChange={getDesignNumber}
+                      name="Design"
+                      value="3"
+                      type="radio"
+                      id="menu3"
+                    />
+                    <label className={classes.lablesDesigns} htmlFor="menu3">
+                      Выбрать меню
+                    </label>
+                  </div>
+
+                  <Swiper
+                    spaceBetween={30}
+                    loop={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    modules={[Pagination]}
+                    className={classes.desginSwiper}
+                  >
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={ThirdMenu1}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={ThirdMenu2}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={ThirdMenu3}
                         alt="img"
                         className={classes.designImg}
                       />

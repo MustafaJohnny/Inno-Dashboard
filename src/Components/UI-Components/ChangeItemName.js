@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -29,7 +29,7 @@ const ChangeItemName = () => {
   const addNewItemName = () => {
     axios
       .patch(
-        `http://${serverAPI}/api/v1/menu/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
+        `http://${serverAPI}/api/prod/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
         "",
         {
           params: {},

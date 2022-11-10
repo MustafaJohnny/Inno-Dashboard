@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -25,7 +25,7 @@ const ConfirmDesign = () => {
   const changeDesignNumber = () => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/owner/design/${selectedDesignNum}`,
+        `http://${serverAPI}/api/own/design/${selectedDesignNum}`,
         "",
         {
           auth: {

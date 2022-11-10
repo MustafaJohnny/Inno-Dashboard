@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
@@ -27,7 +27,7 @@ const ChangeItemImg = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/v1/menu/product_image_change/${currentItemID}`,
+        `http://${serverAPI}/api/prod/product_image_change/${currentItemID}`,
         formData,
         {
           params: {},

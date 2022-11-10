@@ -31,7 +31,7 @@ const CurrentItemsPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/product_list/${currentCategoryID}`,
+        `http://${serverAPI}/api/prod/product_list/${currentCategoryID}`,
         {
           auth: {
             username: userEmail,

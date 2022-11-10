@@ -34,7 +34,7 @@ const ServicesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/uslugi_list/${userServiceID}`,
+        `http://${serverAPI}/api/serv/uslugi_list/${userServiceID}`,
         {
           auth: {
             username: userEmail,

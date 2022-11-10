@@ -114,7 +114,7 @@ const LoginPage = () => {
                       Запомнить меня
                     </label>
                   </div>
-                  <a href="#" className={classes.forgetPassLink}>
+                  <a href="dashboard/src/Components/Pages/LoginPage#" className={classes.forgetPassLink}>
                     Забыли пароль?
                   </a>
                 </div>

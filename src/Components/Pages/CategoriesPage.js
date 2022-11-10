@@ -52,7 +52,7 @@ const CategoriesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/category_list/${userCategoryID}`,
+        `http://${serverAPI}/api/cat/category_list/${userCategoryID}`,
         {
           auth: {
             username: userEmail,
@@ -74,7 +74,7 @@ const CategoriesPage = () => {
   const activateOrDeactivateCategory = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/category_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/cat/category_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -105,7 +105,7 @@ const CategoriesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/product_list/${clickedCategoryID}`,
+        `http://${serverAPI}/api/prod/product_list/${clickedCategoryID}`,
         {
           auth: {
             username: userEmail,

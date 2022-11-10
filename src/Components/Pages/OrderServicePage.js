@@ -20,7 +20,7 @@ const OrderServicePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/client_uslugi`,
+        `http://${serverAPI}/api/ord_serv/client_uslugi`,
         {
           params: {
             offset: "0",
@@ -79,6 +79,7 @@ const OrderServicePage = () => {
                   className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
                 >
                   <span className={classes.waiterHeading}>Номер стола</span>
+                  <span className={classes.waiterHeading}>Название услуги</span>
                   <span className={classes.waiterHeading}>Время</span>
                   <span className={classes.waiterHeading}>Сумма</span>
                   <span className={classes.waiterHeading}>Статус</span>

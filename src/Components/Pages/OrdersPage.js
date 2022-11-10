@@ -2,7 +2,7 @@ import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
-import PaginationWaiter from "../UI-Components/PaginationWaiter";
+import PaginationOrders from "../UI-Components/PaginationOrders";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -10,17 +10,15 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
-const WaiterPage = () => {
-  const garsonNotif = useSelector(
-    (state) => state.controler.user_garson_notifi
-  );
+const OrdersPage = () => {
+  const OrdersNotif = useSelector((state) => state.controler.user_order_notifi);
 
   useEffect(() => {
     let mounted = true;
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/garson/client_garson`,
+        `http://${serverAPI}/api/ord_rest/order_list`,
         {
           params: {
             offset: "0",
@@ -30,18 +28,17 @@ const WaiterPage = () => {
             username: userEmail,
             password: userPassword,
           },
-
           headers: { accept: "application/json" },
         }
       );
 
       if (mounted) {
-        dispatch(controlActions.getUserWaiterData(request.data));
+        dispatch(controlActions.getUserAllOrders(request.data));
       }
     };
 
     getData();
-  }, [garsonNotif]);
+  }, [OrdersNotif]);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -71,18 +68,24 @@ const WaiterPage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>Вызов официанта</h1>
+                  <h1 className={classes.managementHeading}>Заказы</h1>
                 </div>
               </div>
 
               <div className={classes.serviceItemsBox}>
-                <div className={classes.multiHeadingWaiter}>
-                  <span className={classes.waiterHeading}>Номер стола</span>
+                <div
+                  className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
+                >
+                  <span className={classes.waiterHeading}>Номер заказа</span>
                   <span className={classes.waiterHeading}>Время</span>
-                  <span className={classes.waiterHeading}>Статус</span>
+                  <span className={classes.waiterHeading}>Стол</span>
+                  <span className={classes.waiterHeading}>Сумма</span>
+                  <span className={classes.waiterHeading}>Статус заказа</span>
+                  <span className={classes.waiterHeading}>Тип оплаты</span>
+                  <span className={classes.waiterHeading}>Статус оплаты</span>
                 </div>
 
-                <PaginationWaiter />
+                <PaginationOrders />
               </div>
             </main>
           </div>
@@ -92,4 +95,4 @@ const WaiterPage = () => {
   );
 };
 
-export default React.memo(WaiterPage);
+export default React.memo(OrdersPage);

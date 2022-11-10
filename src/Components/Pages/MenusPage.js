@@ -30,7 +30,7 @@ const MenusPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/rest_menu_list/${userMenuID}`,
+        `http://${serverAPI}/api/menu/rest_menu_list/${userMenuID}`,
         {
           auth: {
             username: userEmail,
@@ -87,7 +87,7 @@ const MenusPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/category_list/${clickedMenuID}`,
+        `http://${serverAPI}/api/cat/category_list/${clickedMenuID}`,
         {
           auth: {
             username: userEmail,

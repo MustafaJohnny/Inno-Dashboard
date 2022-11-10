@@ -212,16 +212,21 @@
 }
 
 .multiHeadingWaiter {
-  gap: 32rem;
+  gap: 44rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
   border-radius: 5px;
-  padding-left: 2.4rem;
+  padding-left: 0rem;
 }
 
 .multiHeadingWaiter2 {
-  gap: 22rem !important;
+  gap: 18rem !important;
+}
+
+.multiHeadingWaiter3 {
+  gap: 9rem !important;
+  padding-left: 0 !important;
 }
 
 .servicesHeading {
@@ -283,12 +288,35 @@
 
 .ServicesOptionTime {
   position: absolute;
-  transform: translateX(26rem);
+  transform: translateX(52rem);
 }
 
 .ServicesOptionPrice {
   position: absolute;
-  transform: translateX(58rem);
+  transform: translateX(75rem);
+}
+
+.ServicesOptionNamee {
+  transform: translateX(-7rem);
+  width: 18% !important;
+}
+
+.orderOpBox {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.ordersOptionsBoxx {
+  display: flex;
+  align-items: center;
+  gap: 2.6rem;
+  transform: translateX(110rem);
+  position: absolute;
+}
+
+.arrowDownIcon {
+  cursor: pointer;
 }
 
 .waiterOptionStatus {
@@ -301,18 +329,70 @@
   background-color: #e6f6f5;
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
   position: absolute;
-  transform: translateX(77rem);
+  transform: translateX(98.5rem);
+}
+
+.orderOptionStatus {
+  color: #27272a;
+  font-weight: 500;
+  font-size: 1.2rem;
+  line-height: 1.4rem;
+  border-radius: 30px;
+  padding: 0.6rem 1.2rem;
+  background-color: #e6f6f5;
+  box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
 }
 
 .waiterOptionServics {
   position: absolute;
-  transform: translateX(83.5rem);
+  transform: translateX(98.5rem);
 }
 
 .waiterOptionTime {
   position: absolute;
-  transform: translateX(35rem);
+  transform: translateX(47rem);
 }
+
+.wholeAllOrders {
+  background-color: #fff;
+  gap: 9rem;
+  box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
+  border-radius: 5px;
+  padding: 2.2rem 2.4rem 2.2rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  position: relative;
+}
+
+/**/
+
+.orderTableMove {
+  position: absolute;
+  transform: translateX(30rem);
+}
+
+.orderPriceMove {
+  position: absolute;
+  transform: translateX(40rem);
+}
+
+.orderStatusMove {
+  position: absolute;
+  transform: translateX(58rem);
+}
+
+.orderTypeMove {
+  position: absolute;
+  transform: translateX(76rem);
+}
+
+.orderStatusPayMove {
+  position: absolute;
+  transform: translateX(95rem);
+}
+
+/**/
 
 .servicePrice {
   font-weight: 400;

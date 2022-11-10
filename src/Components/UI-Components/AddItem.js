@@ -1,7 +1,7 @@
 import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
-import Overlay from "../UI-Components/Overlay";
+import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -58,7 +58,7 @@ const AddItem = () => {
       return;
     }
 
-    let data = JSON.stringify({
+    let data = {
       prod: {
         name: ItemName,
         description: itemDescription,
@@ -76,18 +76,20 @@ const AddItem = () => {
         name: itemMeasurementParameter,
         description: "",
       },
-    });
+    };
 
     if (!data.prod.description) delete data.prod.description;
+
+    let newData = JSON.stringify(data);
 
     const formData = new FormData();
 
     formData.append("in_file", itemImage, itemImage.name);
-    formData.append("base", data);
+    formData.append("base", newData);
 
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/newProduct/${userLanguage}`,
+        `http://${serverAPI}/api/prod/newProduct/${userLanguage}`,
         formData,
         {
           auth: {

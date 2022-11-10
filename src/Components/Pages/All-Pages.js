@@ -14,6 +14,7 @@ const QR_Page = React.lazy(() => import("./QRcodesPage"));
 const Clicked_Item = React.lazy(() => import("./CurrentItemPage"));
 const Waiter_Page = React.lazy(() => import("./WaiterPage"));
 const Orders_Servics_Page = React.lazy(() => import("./OrderServicePage"));
+const Orders_Page = React.lazy(() => import("./OrdersPage"));
 const Design_Menu_Page = React.lazy(() => import("./DesignMenuPage"));
 
 const All_Pages = () => {
@@ -35,6 +36,7 @@ const All_Pages = () => {
           <Route path="/currentItem" element={<Clicked_Item />} />
           <Route path="/waiter" element={<Waiter_Page />} />
           <Route path="/ordersService" element={<Orders_Servics_Page />} />
+          <Route path="/orders" element={<Orders_Page />} />
           <Route path="/design-menu" element={<Design_Menu_Page />} />
         </Routes>
       </Suspense>

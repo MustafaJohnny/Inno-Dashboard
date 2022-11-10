@@ -77,14 +77,21 @@ const SideNavigation = () => {
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
 
-            <a className={classes.notActiveSideLink}>
+            <NavLink
+              to="/orders"
+              className={(navData) =>
+                navData.isActive
+                  ? classes.activeSideLink
+                  : classes.notActiveSideLink
+              }
+            >
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={order} className={classes.actionIcon} />
 
                 <span className={classes.actionText}>Заказы</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
-            </a>
+            </NavLink>
 
             <NavLink
               to="/waiter"

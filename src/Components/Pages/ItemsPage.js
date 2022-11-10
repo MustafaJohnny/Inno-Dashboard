@@ -45,7 +45,7 @@ const ItemsPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/dash/product_list/${userItemID}`,
+        `http://${serverAPI}/api/prod/product_list/${userItemID}`,
         {
           auth: {
             username: userEmail,
@@ -68,7 +68,7 @@ const ItemsPage = () => {
   const activateOrDeactivateItem = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/product_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/v1/prod/product_active_or_deactivate/${menuID}`,
         {},
 
         {
