@@ -6,6 +6,7 @@ import ArrowDown from "../Icons/ArrowD.svg";
 import Pen from "../Icons/Pen.svg";
 import DeleteIcon from "../Icons/Delete.svg";
 import classes from "../Pages/HomePage.module.css";
+import { controlActions } from "../Redux/ReduxStore";
 import { useSelector, useDispatch } from "react-redux";
 
 const PaginationOrders = () => {
@@ -34,9 +35,14 @@ const PaginationOrders = () => {
   //////////////////////////////////////////////////////////////////////////////
 
   // From here this part of code is responsible for controling the orders and anything about them.
+  const dispatch = useDispatch();
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+
+  const clickedOrderDetail = useSelector(
+    (state) => state.controler.user_order_detail_per_click
+  );
 
   const getAllOrderInfo = (event) => {
     const clickedOrderId = event.target.id;
@@ -56,6 +62,7 @@ const PaginationOrders = () => {
       );
 
       if (mounted) {
+        dispatch(controlActions.getClickedOrderDetail(request.data));
         console.log(request.data);
       }
     };
@@ -120,9 +127,9 @@ const PaginationOrders = () => {
             </div>
 
             <div className={classes.ordersOptionsBoxx}>
-              <img className={classes.arrowDownIcon} alt="icon" src={Pen} />
+              <img className={classes.perOrderIcon} alt="icon" src={Pen} />
               <img
-                className={classes.arrowDownIcon}
+                className={classes.perOrderIcon}
                 alt="icon"
                 src={DeleteIcon}
               />
@@ -137,7 +144,46 @@ const PaginationOrders = () => {
           </div>
 
           <div className={classes.containerForOrdersDetails}>
-            <div className={classes.aWholeOrderDetailsBox}></div>
+            <div className={classes.aWholeOrderDetailsBox}>
+              <div className={classes.orderNameAndModfixBox}>
+                <h2 className={classes.perOrderName}>3. Штрудель вишневый</h2>
+                <ul className={classes.orderModfixBox}>
+                  <li className={classes.modifEL}>вес: 650 гр</li>
+                  <li className={classes.modifEL}>корочка: тонкая</li>
+                  <li className={classes.modifEL}>размер: средняя (20)</li>
+                  <li className={classes.modifEL}>топпинги: моцарелла</li>
+                  <li className={classes.modifEL}>убрать ингредиенты: лук</li>
+                </ul>
+              </div>
+              <div className={classes.orderCounterPriceBox}>
+                <div className={classes.OrderTheCounterBox}>
+                  <span className={classes.counterAreaHeading}>ЦЕНА:</span>
+                  <span className={classes.perOrderPrice}>980 РУБ</span>
+                </div>
+                <div className={classes.OrderTheCounterBox}>
+                  <span className={classes.counterAreaHeading}>
+                    КОЛИЧЕСТВО:
+                  </span>
+                  <div className={classes.OrderCounterBox}>
+                    <button type="button" className={classes.counterMinusBtn}>
+                      -
+                    </button>
+                    <span className={classes.orderCounterValue}>1</span>
+                    <button type="button" className={classes.counterPlusBtn}>
+                      +
+                    </button>
+                  </div>
+                </div>
+              </div>
+              <div className={classes.perOrderActionBox}>
+                <img className={classes.perOrderIcon} alt="icon" src={Pen} />
+                <img
+                  className={classes.perOrderIcon}
+                  alt="icon"
+                  src={DeleteIcon}
+                />
+              </div>
+            </div>
           </div>
         </div>
       ))}

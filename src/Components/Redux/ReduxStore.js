@@ -22,6 +22,7 @@ const initialState = {
   user_waitor_data: [],
   user_orders_services: [],
   user_all_orders: [],
+  user_order_detail_per_click: [],
   user_QR_big_img: "",
   user_menu_ID: "",
   user_service_ID: "",
@@ -192,6 +193,10 @@ const controlSlice = createSlice({
 
     getUserCurrentItem(state, action) {
       state.user_current_item = action.payload;
+    },
+
+    getClickedOrderDetail(state, action) {
+      state.user_order_detail_per_click = action.payload;
     },
 
     /* controling the app functions */
