@@ -79,8 +79,8 @@ const OrdersPage = () => {
                   <span className={classes.waiterHeading}>Номер заказа</span>
                   <span className={classes.waiterHeading}>Время</span>
                   <span className={classes.waiterHeading}>Стол</span>
-                  <span className={classes.waiterHeading}>Сумма</span>
                   <span className={classes.waiterHeading}>Статус заказа</span>
+                  <span className={classes.waiterHeading}>Сумма</span>
                   <span className={classes.waiterHeading}>Тип оплаты</span>
                   <span className={classes.waiterHeading}>Статус оплаты</span>
                 </div>

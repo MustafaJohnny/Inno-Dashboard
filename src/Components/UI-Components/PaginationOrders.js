@@ -39,12 +39,18 @@ const PaginationOrders = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const [showOrder, setShowOrder] = useState(true);
 
   const clickedOrderDetail = useSelector(
     (state) => state.controler.user_order_detail_per_click
   );
 
+  const OrderClassNameHide = `${classes.containerForOrdersDetails} ${classes.hiddenComponent}`;
+  const OrderClassNameShow = classes.containerForOrdersDetails;
+
   const getAllOrderInfo = (event) => {
+    setShowOrder(!showOrder);
+
     const clickedOrderId = event.target.id;
 
     let mounted = true;
@@ -74,21 +80,21 @@ const PaginationOrders = () => {
       {currentItems.map((ele) => (
         <div key={ele.id} className={classes.containerForAllOrders}>
           <div className={classes.wholeAllOrders}>
-            <span className={`${classes.waiterOption} `}>
+            <span className={`${classes.OrderOption} `}>
               {ele.id.toString().length === 1 ? `0${ele.id}` : ele.id}
             </span>
-            <span className={`${classes.waiterOption}`}>
+            <span className={`${classes.OrderOption}`}>
               {convertTime(ele.date_start)}
             </span>
             <span
-              className={`${classes.waiterOption} ${classes.orderTableMove}`}
+              className={`${classes.OrderOption} ${classes.orderTableMove}`}
             >
               {ele.table_name.toString().length === 1
                 ? `0${ele.table_name}`
                 : ele.table_name}
             </span>
             <span
-              className={`${classes.waiterOption} ${classes.orderPriceMove}`}
+              className={`${classes.OrderOption} ${classes.orderPriceMove}`}
             >
               {!ele.summa ? "" : `${ele.summa} ${userCurrency}`}
             </span>
@@ -105,7 +111,7 @@ const PaginationOrders = () => {
             </div>
 
             <div className={`${classes.orderOpBox} ${classes.orderTypeMove}`}>
-              <span className={`${classes.waiterOption} `}>{ele.pay_type}</span>
+              <span className={`${classes.OrderOption} `}>{ele.pay_type}</span>
               <img
                 className={classes.arrowDownIcon}
                 alt="icon"
@@ -116,7 +122,7 @@ const PaginationOrders = () => {
             <div
               className={`${classes.orderOpBox} ${classes.orderStatusPayMove}`}
             >
-              <span className={`${classes.waiterOption} `}>
+              <span className={`${classes.OrderOption} `}>
                 {ele.pay_status}
               </span>
               <img
@@ -143,7 +149,7 @@ const PaginationOrders = () => {
             </div>
           </div>
 
-          <div className={classes.containerForOrdersDetails}>
+          <div className={showOrder ? OrderClassNameHide : OrderClassNameShow}>
             <div className={classes.aWholeOrderDetailsBox}>
               <div className={classes.orderNameAndModfixBox}>
                 <h2 className={classes.perOrderName}>3. Штрудель вишневый</h2>
