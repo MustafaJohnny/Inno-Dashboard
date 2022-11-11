@@ -72,7 +72,7 @@ const OrdersPage = () => {
                 </div>
               </div>
 
-              <div className={classes.serviceItemsBox}>
+              <div className={classes.ordersItemsBox}>
                 <div
                   className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
                 >

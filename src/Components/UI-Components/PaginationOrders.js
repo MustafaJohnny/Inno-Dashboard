@@ -15,7 +15,7 @@ const PaginationOrders = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 8;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -65,55 +65,79 @@ const PaginationOrders = () => {
   return (
     <React.Fragment>
       {currentItems.map((ele) => (
-        <div className={classes.wholeAllOrders} key={ele.id}>
-          <span className={`${classes.waiterOption} `}>
-            {ele.id.toString().length === 1 ? `0${ele.id}` : ele.id}
-          </span>
-          <span className={`${classes.waiterOption}`}>
-            {convertTime(ele.date_start)}
-          </span>
-          <span className={`${classes.waiterOption} ${classes.orderTableMove}`}>
-            {ele.table_name.toString().length === 1
-              ? `0${ele.table_name}`
-              : ele.table_name}
-          </span>
-          <span className={`${classes.waiterOption} ${classes.orderPriceMove}`}>
-            {!ele.summa ? "" : `${ele.summa} ${userCurrency}`}
-          </span>
-
-          <div className={`${classes.orderOpBox} ${classes.orderStatusMove}`}>
-            <span className={`${classes.orderOptionStatus} `}>
-              {ele.status}
+        <div key={ele.id} className={classes.containerForAllOrders}>
+          <div className={classes.wholeAllOrders}>
+            <span className={`${classes.waiterOption} `}>
+              {ele.id.toString().length === 1 ? `0${ele.id}` : ele.id}
             </span>
-            <img className={classes.arrowDownIcon} alt="icon" src={ArrowDown} />
+            <span className={`${classes.waiterOption}`}>
+              {convertTime(ele.date_start)}
+            </span>
+            <span
+              className={`${classes.waiterOption} ${classes.orderTableMove}`}
+            >
+              {ele.table_name.toString().length === 1
+                ? `0${ele.table_name}`
+                : ele.table_name}
+            </span>
+            <span
+              className={`${classes.waiterOption} ${classes.orderPriceMove}`}
+            >
+              {!ele.summa ? "" : `${ele.summa} ${userCurrency}`}
+            </span>
+
+            <div className={`${classes.orderOpBox} ${classes.orderStatusMove}`}>
+              <span className={`${classes.orderOptionStatus} `}>
+                {ele.status}
+              </span>
+              <img
+                className={classes.arrowDownIcon}
+                alt="icon"
+                src={ArrowDown}
+              />
+            </div>
+
+            <div className={`${classes.orderOpBox} ${classes.orderTypeMove}`}>
+              <span className={`${classes.waiterOption} `}>{ele.pay_type}</span>
+              <img
+                className={classes.arrowDownIcon}
+                alt="icon"
+                src={ArrowDown}
+              />
+            </div>
+
+            <div
+              className={`${classes.orderOpBox} ${classes.orderStatusPayMove}`}
+            >
+              <span className={`${classes.waiterOption} `}>
+                {ele.pay_status}
+              </span>
+              <img
+                className={classes.arrowDownIcon}
+                alt="icon"
+                src={ArrowDown}
+              />
+            </div>
+
+            <div className={classes.ordersOptionsBoxx}>
+              <img className={classes.arrowDownIcon} alt="icon" src={Pen} />
+              <img
+                className={classes.arrowDownIcon}
+                alt="icon"
+                src={DeleteIcon}
+              />
+              <img
+                onClick={getAllOrderInfo}
+                className={classes.arrowDownIcon}
+                alt="icon"
+                src={ArrowDown}
+                id={ele.id}
+              />
+            </div>
           </div>
 
-          <div className={`${classes.orderOpBox} ${classes.orderTypeMove}`}>
-            <span className={`${classes.waiterOption} `}>{ele.pay_type}</span>
-            <img className={classes.arrowDownIcon} alt="icon" src={ArrowDown} />
-          </div>
-
-          <div
-            className={`${classes.orderOpBox} ${classes.orderStatusPayMove}`}
-          >
-            <span className={`${classes.waiterOption} `}>{ele.pay_status}</span>
-            <img className={classes.arrowDownIcon} alt="icon" src={ArrowDown} />
-          </div>
-
-          <div className={classes.ordersOptionsBoxx}>
-            <img className={classes.arrowDownIcon} alt="icon" src={Pen} />
-            <img
-              className={classes.arrowDownIcon}
-              alt="icon"
-              src={DeleteIcon}
-            />
-            <img
-              onClick={getAllOrderInfo}
-              className={classes.arrowDownIcon}
-              alt="icon"
-              src={ArrowDown}
-              id={ele.id}
-            />
+          <div className={classes.containerForOrdersDetails}>
+            <div className={classes.aWholeOrderDetailsBox}></div>
           </div>
         </div>
       ))}
