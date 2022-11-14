@@ -61,6 +61,8 @@ const CurrentItemsPage = () => {
   const currentItem = useSelector((state) => state.controler.user_current_item);
   const showSpinner = useSelector((state) => state.controler.show_spinner);
 
+  console.log(currentItem);
+
   const showChangeItemName = useSelector(
     (state) => state.controler.show_change_item_name
   );
@@ -286,7 +288,9 @@ const CurrentItemsPage = () => {
                           Название группы модификаторов
                         </label>
                         <div className={classes.inputAndEditArea}>
-                          <p className={classes.currentItemInput}>Вес</p>
+                          <p className={classes.currentItemInput}>
+                            {currentItem.modifex[0].name}
+                          </p>
 
                           <img
                             src={PenIcon}
@@ -298,7 +302,7 @@ const CurrentItemsPage = () => {
                           <input
                             type="text"
                             className={classes.modiferInputValue}
-                            value="600 гр"
+                            value={currentItem.modifex[0].datamodifex[0].name}
                             readOnly
                           />
 

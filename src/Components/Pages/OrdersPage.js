@@ -77,7 +77,11 @@ const OrdersPage = () => {
                   className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
                 >
                   <span className={classes.waiterHeading}>Номер заказа</span>
-                  <span className={classes.waiterHeading}>Время</span>
+                  <span
+                    className={`${classes.waiterHeading} ${classes.timeOrderHeadingMove}`}
+                  >
+                    Время
+                  </span>
                   <span className={classes.waiterHeading}>Стол</span>
                   <span className={classes.waiterHeading}>Статус заказа</span>
                   <span className={classes.waiterHeading}>Сумма</span>

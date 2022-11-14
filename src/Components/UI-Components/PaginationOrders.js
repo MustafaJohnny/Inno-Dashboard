@@ -49,6 +49,9 @@ const PaginationOrders = () => {
   const OrderClassNameHide = `${classes.containerForOrdersDetails} ${classes.hiddenComponent}`;
   const OrderClassNameShow = classes.containerForOrdersDetails;
 
+  const WholeOrderClassNameHide = classes.containerForAllOrders;
+  const wholeOrderClassNameShow = `${classes.containerForAllOrders} ${classes.bigOrderContShow}`;
+
   const [clicked, setClicked] = useState(false);
 
   const getAllOrderInfo = (clickedOrderId, index) => {
@@ -82,8 +85,18 @@ const PaginationOrders = () => {
   return (
     <React.Fragment>
       {currentItems.map((ele, index) => (
-        <div key={ele.id} className={classes.containerForAllOrders}>
-          <div className={classes.wholeAllOrders}>
+        <div
+          key={ele.id}
+          className={
+            clicked === index
+              ? wholeOrderClassNameShow
+              : WholeOrderClassNameHide
+          }
+        >
+          <div
+            onClick={() => getAllOrderInfo(ele.id, index)}
+            className={classes.wholeAllOrders}
+          >
             <span className={`${classes.OrderOption} `}>
               {ele.id.toString().length === 1 ? `0${ele.id}` : ele.id}
             </span>
@@ -145,7 +158,11 @@ const PaginationOrders = () => {
               />
               <img
                 onClick={() => getAllOrderInfo(ele.id, index)}
-                className={classes.arrowDownIcon}
+                className={
+                  clicked === index
+                    ? `${classes.arrowDownIcon} ${classes.arrowDownRotate}`
+                    : classes.arrowDownIcon
+                }
                 alt="icon"
                 src={ArrowDown}
                 id={ele.id}
@@ -173,24 +190,24 @@ const PaginationOrders = () => {
                 </div>
                 <div className={classes.orderCounterPriceBox}>
                   <div className={classes.OrderTheCounterBox}>
-                    <span className={classes.counterAreaHeading}>ЦЕНА:</span>
+                    {/* <span className={classes.counterAreaHeading}>ЦЕНА:</span> */}
                     <span
                       className={classes.perOrderPrice}
                     >{`${element.price} ${userCurrency}`}</span>
                   </div>
                   <div className={classes.OrderTheCounterBox}>
-                    <span className={classes.counterAreaHeading}>
+                    {/* <span className={classes.counterAreaHeading}>
                       КОЛИЧЕСТВО:
-                    </span>
+                    </span> */}
                     <div className={classes.OrderCounterBox}>
                       <button type="button" className={classes.counterMinusBtn}>
-                        -
+                        <span>-</span>
                       </button>
                       <span className={classes.orderCounterValue}>
                         {element.cartQuantity}
                       </span>
                       <button type="button" className={classes.counterPlusBtn}>
-                        +
+                        <span>+</span>
                       </button>
                     </div>
                   </div>

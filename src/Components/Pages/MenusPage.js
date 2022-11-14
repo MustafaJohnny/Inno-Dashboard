@@ -56,7 +56,7 @@ const MenusPage = () => {
   const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/menu/menu_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/menu/menu_active_or_deactivate/${menuID}`,
         {},
 
         {

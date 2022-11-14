@@ -171,7 +171,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Тип Измерения
+                  Обязательный модификатор (наименование)
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -185,7 +185,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Параметр Измерения
+                  Обязательный модификатор (значение)
                 </label>
                 <span className={classes.required}>*</span>
               </div>

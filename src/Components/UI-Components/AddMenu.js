@@ -48,13 +48,13 @@ const AddMenu = () => {
       name: menuName,
       description: menuDescription,
       all_hours: menuAllHours,
-      menu_start: menuStartTime,
-      menu_end: menuEndTime,
+      time_start: menuStartTime,
+      time_end: menuEndTime,
       ids: userMenuID,
     };
 
-    if (!serverParams.menu_start) delete serverParams.menu_start;
-    if (!serverParams.menu_end) delete serverParams.menu_end;
+    if (!serverParams.time_start) delete serverParams.time_start;
+    if (!serverParams.time_end) delete serverParams.time_end;
     if (!serverParams.description) delete serverParams.description;
 
     const formData = new FormData();
