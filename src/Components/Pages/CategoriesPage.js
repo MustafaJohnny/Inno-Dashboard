@@ -1,4 +1,6 @@
 import React from "react";
+import actionBin from "../Icons/actionBin.svg";
+import actionPen from "../Icons/actionPen.svg";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import FallMessage from "../UI-Components/FallMessage";
@@ -190,17 +192,36 @@ const CategoriesPage = () => {
                       id={index}
                       className={classes.itemRestaurent}
                     >
-                      <button
-                        onClick={() => activateOrDeactivateCategory(ele.id)}
-                        className={
-                          ele.is_active
-                            ? classes.activeMenu
-                            : classes.notActiveMenu
-                        }
-                        type="button"
-                      >
-                        {ele.is_active ? "Активный" : "Неактивный"}
-                      </button>
+                      <div className={classes.anItemOnlyActionBox}>
+                        <button
+                          onClick={() => activateOrDeactivateCategory(ele.id)}
+                          className={
+                            ele.is_active
+                              ? classes.activeMenu
+                              : classes.notActiveMenu
+                          }
+                          type="button"
+                        >
+                          {ele.is_active ? "Активный" : "Неактивный"}
+                        </button>
+
+                        <button className={classes.editWholeThingBtn}>
+                          <img
+                            className={classes.actionPenIcon}
+                            alt="icon"
+                            src={actionPen}
+                          />
+                        </button>
+
+                        <button className={classes.deleteWholeThingBtn}>
+                          <img
+                            className={classes.actionPenIcon}
+                            alt="icon"
+                            src={actionBin}
+                          />
+                        </button>
+                      </div>
+
                       <div className={classes.packageArea}>
                         <span id={index} className={classes.itemRestHeading}>
                           {ele.name}

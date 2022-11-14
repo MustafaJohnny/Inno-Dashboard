@@ -1,5 +1,6 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
+import actionBin from "../Icons/actionBin.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
@@ -174,9 +175,18 @@ const ItemsPage = () => {
                       ></div>
                       <div id={index} className={classes.itemContentBox}>
                         <div id={index} className={classes.innerItem}>
-                          <span id={index} className={classes.itemHeading}>
-                            {ele.name}
-                          </span>
+                          <div className={classes.itemNameDeleteArea}>
+                            <span id={index} className={classes.itemHeading}>
+                              {ele.name}
+                            </span>
+                            <button className={classes.deleteWholeThingBtn}>
+                              <img
+                                className={classes.actionPenIcon}
+                                alt="icon"
+                                src={actionBin}
+                              />
+                            </button>
+                          </div>
                           <span id={index} className={classes.itemSize}>
                             {ele.modifex[0].datamodifex[0].name}
                           </span>

@@ -699,6 +699,55 @@
   cursor: pointer;
 }
 
+.anItemOnlyActionBox {
+  align-items: center;
+  padding: 1.2rem;
+  display: flex;
+  gap: 1rem;
+}
+
+.editWholeThingBtn {
+  border: none;
+  background: none;
+  display: inline-block;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 100%;
+  background-color: #ffab2b;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.editWholeThingBtn:hover {
+  transform: translateY(-3px);
+}
+
+.actionPenIcon {
+  width: 1.2rem;
+}
+
+.deleteWholeThingBtn {
+  border: none;
+  background: none;
+  display: inline-block;
+  width: 2.6rem;
+  height: 2.6rem;
+  border-radius: 100%;
+  background-color: #fd5555;
+  cursor: pointer;
+  transition: all 0.5s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.deleteWholeThingBtn:hover {
+  transform: translateY(-3px);
+}
+
 .itemRestHeading {
   font-family: inherit;
   font-weight: 600;
@@ -732,8 +781,7 @@
   border-radius: 20px;
   font-weight: 500;
   font-size: 1.2rem;
-  padding: 0.5rem 0rem;
-  margin: 1rem 1rem;
+  padding: 0.6rem 0rem;
   cursor: pointer;
   transition: all 0.5s;
   display: inline-block;
@@ -752,10 +800,9 @@
   border-radius: 20px;
   font-weight: 500;
   font-size: 1.2rem;
-  padding: 0.5rem 0rem;
+  padding: 0.6rem 0rem;
   width: 10rem;
   display: inline-block;
-  margin: 1rem 1rem;
   cursor: pointer;
   transition: all 0.5s;
 }
@@ -838,6 +885,14 @@
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  margin: 1rem 1rem 1rem 0rem;
+}
+
+.itemNameDeleteArea {
+  display: flex;
+  align-items: center;
+  padding-right: 0.2rem;
+  justify-content: space-between;
 }
 
 .itemPrice {
