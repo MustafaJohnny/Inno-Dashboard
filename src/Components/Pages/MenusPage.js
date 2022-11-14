@@ -148,9 +148,6 @@ const MenusPage = () => {
                     </div>
                   </div>
                   <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
-                      Редактировать ресторан
-                    </button>
                     <button
                       onClick={unHideAddMenu}
                       className={classes.manageBtn}

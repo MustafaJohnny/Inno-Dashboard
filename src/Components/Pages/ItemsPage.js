@@ -148,9 +148,6 @@ const ItemsPage = () => {
                     </div>
                   </div>
                   <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
-                      Редактировать категорию
-                    </button>
                     <button
                       onClick={unHideAddItem}
                       className={classes.manageBtn}

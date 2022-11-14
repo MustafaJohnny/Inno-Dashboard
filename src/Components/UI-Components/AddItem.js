@@ -2,6 +2,7 @@ import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
+import Upload from "../Icons/Upload.svg";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
@@ -125,6 +126,10 @@ const AddItem = () => {
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
+              <label className={classes.btnAddImgModal} htmlFor="fileImg">
+                <img className={classes.uploadIcon} alt="icon" src={Upload} />
+                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+              </label>
               <input
                 className={classes.inputImgModal}
                 type="file"

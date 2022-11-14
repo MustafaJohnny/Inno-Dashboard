@@ -23,7 +23,17 @@ const ChangeClientName = () => {
     dispatch(controlActions.toggleChangeClientName());
   };
 
+  let formIsValid = false;
+
+  if (clientName) {
+    formIsValid = true;
+  }
+
   const addNewClientName = () => {
+    if (!formIsValid) {
+      return;
+    }
+
     axios
       .patch(
         `http://${serverAPI}/api/own/nameClientChange/${userLanguage}`,
@@ -60,9 +70,13 @@ const ChangeClientName = () => {
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Новое название
-              </label>
+              <div className={classes.lableRequiredArea}>
+                <label className={classes.modalBasicLable} htmlFor="name">
+                  Новое название
+                </label>
+
+                <span className={classes.required}>*</span>
+              </div>
               <input
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
                 onChange={(event) => setClientName(event.target.value)}
@@ -75,7 +89,11 @@ const ChangeClientName = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewClientName} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={addNewClientName}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

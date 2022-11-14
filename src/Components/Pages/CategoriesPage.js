@@ -169,9 +169,6 @@ const CategoriesPage = () => {
                     </div>
                   </div>
                   <div className={classes.twoBtnsManage}>
-                    <button className={classes.manageBtn} type="button">
-                      Редактировать меню
-                    </button>
                     <button
                       onClick={unHideAddCategory}
                       className={classes.manageBtn}

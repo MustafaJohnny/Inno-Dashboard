@@ -1,9 +1,9 @@
 import React from "react";
 import axios from "axios";
+import Pen from "../Icons/Pen.svg";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import ChangeClientName from "../UI-Components/ChangeClientName";
 import ChangeClientLogo from "../UI-Components/ChangeClientLogo";
-import EditIcon from "../Icons/Edit.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import classes from "./SettingsQRPages.module.css";
@@ -106,11 +106,7 @@ const SettingsPage = () => {
                 type="button"
                 className={classes.settingBtn}
               >
-                <img
-                  src={EditIcon}
-                  alt="icon"
-                  className={classes.settingIcon}
-                />
+                <img src={Pen} alt="icon" className={classes.settingIcon} />
               </button>
             </div>
             <div className={classes.wholeSetting}>
@@ -120,11 +116,7 @@ const SettingsPage = () => {
                 type="button"
                 className={classes.settingBtn}
               >
-                <img
-                  src={EditIcon}
-                  alt="icon"
-                  className={classes.settingIcon}
-                />
+                <img src={Pen} alt="icon" className={classes.settingIcon} />
               </button>
             </div>
             {/* <div className={classes.wholeSetting}>

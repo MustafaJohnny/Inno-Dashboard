@@ -118,6 +118,31 @@
   border-radius: 5px;
   background-color: #fff;
   box-shadow: 0 1px 1px rgb(0 0 0 / 15%);
+  opacity: 0;
+  display: none;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.btnAddImgModal {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  background: linear-gradient(90deg, #45cbd8 3.25%, #4d7cfe 89.92%);
+  font-family: "Rubik", sans-serif;
+  color: #fff;
+  border: none;
+  padding: 1rem 2rem;
+  border-radius: 5px;
+  font-size: 1.2rem;
+  font-weight: 500;
+  transition: all 0.4s;
+  cursor: pointer;
+}
+
+.uploadIcon {
+  width: 2.1rem;
 }
 
 ::-webkit-file-upload-button {

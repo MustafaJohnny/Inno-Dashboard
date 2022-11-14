@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import Upload from "../Icons/Upload.svg";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
@@ -93,6 +94,10 @@ const AddMenu = () => {
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
+              <label className={classes.btnAddImgModal} htmlFor="fileImg">
+                <img className={classes.uploadIcon} alt="icon" src={Upload} />
+                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+              </label>
               <input
                 className={classes.inputImgModal}
                 type="file"

@@ -95,9 +95,6 @@ const ServicesPage = () => {
                   <h1 className={classes.managementHeading}>{pageHeading}</h1>
                 </div>
                 <div className={classes.twoBtnsManage}>
-                  <button className={classes.manageBtn} type="button">
-                    Редактировать сервис
-                  </button>
                   <button
                     className={classes.manageBtn}
                     type="button"
