@@ -68,7 +68,7 @@ const ItemsPage = () => {
   const activateOrDeactivateItem = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/prod/product_active_or_deactivate/${menuID}`,
+        `http://${serverAPI}/api/prod/product_active_or_deactivate/${menuID}`,
         {},
 
         {

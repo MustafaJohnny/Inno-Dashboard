@@ -84,7 +84,7 @@ const initialState = {
   categories_page_heading: "",
   items_page_heading: "",
   current_item_page_heading: "",
-  serverAPI: "argen.su",
+  serverAPI: "inme.su",
   app_languages: [],
 };
 

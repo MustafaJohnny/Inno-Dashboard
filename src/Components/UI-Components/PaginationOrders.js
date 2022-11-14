@@ -39,19 +39,24 @@ const PaginationOrders = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const [showOrder, setShowOrder] = useState(true);
 
   const clickedOrderDetail = useSelector(
     (state) => state.controler.user_order_detail_per_click
   );
 
+  console.log(clickedOrderDetail);
+
   const OrderClassNameHide = `${classes.containerForOrdersDetails} ${classes.hiddenComponent}`;
   const OrderClassNameShow = classes.containerForOrdersDetails;
 
-  const getAllOrderInfo = (event) => {
-    setShowOrder(!showOrder);
+  const [clicked, setClicked] = useState(false);
 
-    const clickedOrderId = event.target.id;
+  const getAllOrderInfo = (clickedOrderId, index) => {
+    if (clicked === index) {
+      return setClicked(null);
+    }
+
+    setClicked(index);
 
     let mounted = true;
 
@@ -69,7 +74,6 @@ const PaginationOrders = () => {
 
       if (mounted) {
         dispatch(controlActions.getClickedOrderDetail(request.data));
-        console.log(request.data);
       }
     };
     getData();
@@ -77,7 +81,7 @@ const PaginationOrders = () => {
 
   return (
     <React.Fragment>
-      {currentItems.map((ele) => (
+      {currentItems.map((ele, index) => (
         <div key={ele.id} className={classes.containerForAllOrders}>
           <div className={classes.wholeAllOrders}>
             <span className={`${classes.OrderOption} `}>
@@ -140,7 +144,7 @@ const PaginationOrders = () => {
                 src={DeleteIcon}
               />
               <img
-                onClick={getAllOrderInfo}
+                onClick={() => getAllOrderInfo(ele.id, index)}
                 className={classes.arrowDownIcon}
                 alt="icon"
                 src={ArrowDown}
@@ -148,49 +152,60 @@ const PaginationOrders = () => {
               />
             </div>
           </div>
-
-          <div className={showOrder ? OrderClassNameHide : OrderClassNameShow}>
-            <div className={classes.aWholeOrderDetailsBox}>
-              <div className={classes.orderNameAndModfixBox}>
-                <h2 className={classes.perOrderName}>3. Штрудель вишневый</h2>
-                <ul className={classes.orderModfixBox}>
-                  <li className={classes.modifEL}>вес: 650 гр</li>
-                  <li className={classes.modifEL}>корочка: тонкая</li>
-                  <li className={classes.modifEL}>размер: средняя (20)</li>
-                  <li className={classes.modifEL}>топпинги: моцарелла</li>
-                  <li className={classes.modifEL}>убрать ингредиенты: лук</li>
-                </ul>
-              </div>
-              <div className={classes.orderCounterPriceBox}>
-                <div className={classes.OrderTheCounterBox}>
-                  <span className={classes.counterAreaHeading}>ЦЕНА:</span>
-                  <span className={classes.perOrderPrice}>980 РУБ</span>
+          {clickedOrderDetail.map((element) => (
+            <div
+              key={element.id}
+              className={
+                clicked === index ? OrderClassNameShow : OrderClassNameHide
+              }
+            >
+              <div className={classes.aWholeOrderDetailsBox}>
+                <div className={classes.orderNameAndModfixBox}>
+                  <h2 className={classes.perOrderName}>{element.name}</h2>
+                  <ul className={classes.orderModfixBox}>
+                    {element.modifex.map((eleModifex, index) => (
+                      <li className={classes.modifEL} key={index}>
+                        {eleModifex.name}: {eleModifex.datamodifex[0].name}
+                      </li>
+                    ))}
+                    {/* {  <li className={classes.modifEL}>топпинги: моцарелла</li>} */}
+                  </ul>
                 </div>
-                <div className={classes.OrderTheCounterBox}>
-                  <span className={classes.counterAreaHeading}>
-                    КОЛИЧЕСТВО:
-                  </span>
-                  <div className={classes.OrderCounterBox}>
-                    <button type="button" className={classes.counterMinusBtn}>
-                      -
-                    </button>
-                    <span className={classes.orderCounterValue}>1</span>
-                    <button type="button" className={classes.counterPlusBtn}>
-                      +
-                    </button>
+                <div className={classes.orderCounterPriceBox}>
+                  <div className={classes.OrderTheCounterBox}>
+                    <span className={classes.counterAreaHeading}>ЦЕНА:</span>
+                    <span
+                      className={classes.perOrderPrice}
+                    >{`${element.price} ${userCurrency}`}</span>
+                  </div>
+                  <div className={classes.OrderTheCounterBox}>
+                    <span className={classes.counterAreaHeading}>
+                      КОЛИЧЕСТВО:
+                    </span>
+                    <div className={classes.OrderCounterBox}>
+                      <button type="button" className={classes.counterMinusBtn}>
+                        -
+                      </button>
+                      <span className={classes.orderCounterValue}>
+                        {element.cartQuantity}
+                      </span>
+                      <button type="button" className={classes.counterPlusBtn}>
+                        +
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className={classes.perOrderActionBox}>
-                <img className={classes.perOrderIcon} alt="icon" src={Pen} />
-                <img
-                  className={classes.perOrderIcon}
-                  alt="icon"
-                  src={DeleteIcon}
-                />
+                <div className={classes.perOrderActionBox}>
+                  <img className={classes.perOrderIcon} alt="icon" src={Pen} />
+                  <img
+                    className={classes.perOrderIcon}
+                    alt="icon"
+                    src={DeleteIcon}
+                  />
+                </div>
               </div>
             </div>
-          </div>
+          ))}
         </div>
       ))}
 
