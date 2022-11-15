@@ -78,6 +78,25 @@ const ServicesPage = () => {
     dispatch(controlActions.toggleShowAddServiceItems());
   };
 
+  const activateOrDeactivateServiceItem = (serviceItemID) => {
+    axios
+      .post(
+        `http://${serverAPI}/api/serv/uslugi_active_or_deactivate/${serviceItemID}`,
+        {},
+
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
+      .then((response) => {
+        console.log(response.status);
+        navigate(0);
+      });
+  };
+
   // Code for editing and deleting service items..
 
   const displayEditServiceItem = (ServiceItemIndex) => {
@@ -149,10 +168,17 @@ const ServicesPage = () => {
                     </span>
                     <div className={classes.service2btnArea}>
                       <button
+                        onClick={() =>
+                          activateOrDeactivateServiceItem(element.id)
+                        }
+                        className={
+                          element.is_active
+                            ? classes.activeMenu
+                            : classes.notActiveMenu
+                        }
                         type="button"
-                        className={classes.serviceActiveBtn}
                       >
-                        Активный
+                        {element.is_active ? "Активный" : "Неактивный"}
                       </button>
 
                       <button
