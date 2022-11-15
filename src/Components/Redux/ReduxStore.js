@@ -99,6 +99,13 @@ const initialState = {
   service_item_edit_id: "",
   service_item_old_data: "",
 
+  /* Here we have only the deleting states logic */
+  delete_something: "",
+  delete_something_id: "",
+  show_delete_rest: false,
+  show_delete_service: false,
+  show_delete_menu: false,
+
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -428,6 +435,27 @@ const controlSlice = createSlice({
     getEditServiceItemData(state, action) {
       state.service_item_edit_id = action.payload.id;
       state.service_item_old_data = action.payload;
+    },
+
+    /** Deleting Restaurants & Services Functions **/
+
+    getDeleteSomething(state, action) {
+      state.delete_something = action.payload;
+    },
+
+    toggleDeleteRestaurant(state, action) {
+      state.show_delete_rest = !state.show_delete_rest;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteService(state, action) {
+      state.show_delete_service = !state.show_delete_service;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteMenu(state, action) {
+      state.show_delete_menu = !state.show_delete_menu;
+      state.delete_something_id = action.payload;
     },
   },
 });

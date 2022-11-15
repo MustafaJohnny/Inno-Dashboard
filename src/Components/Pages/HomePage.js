@@ -9,6 +9,7 @@ import EditRestaurant from "../UI-Components/EditRestaurant";
 import EditService from "../UI-Components/EditService";
 import AddService from "../UI-Components/AddService";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useSelector, useDispatch } from "react-redux";
@@ -47,6 +48,14 @@ const HomePage = () => {
 
   const showEditService = useSelector(
     (state) => state.controler.show_edit_service
+  );
+
+  const showDeleteRestaurant = useSelector(
+    (state) => state.controler.show_delete_rest
+  );
+
+  const showDeleteService = useSelector(
+    (state) => state.controler.show_delete_service
   );
 
   // This one is for getting information about the product owner first time we load the home page
@@ -223,6 +232,16 @@ const HomePage = () => {
     dispatch(controlActions.toggleEditService());
   };
 
+  const displayDeleteRestaurent = (restaurantID) => {
+    dispatch(controlActions.toggleDeleteRestaurant(restaurantID));
+    dispatch(controlActions.getDeleteSomething("ресторан"));
+  };
+
+  const displayDeleteService = (serviceID) => {
+    dispatch(controlActions.toggleDeleteService(serviceID));
+    dispatch(controlActions.getDeleteSomething("сервис"));
+  };
+
   return (
     <React.Fragment>
       <section>
@@ -232,6 +251,8 @@ const HomePage = () => {
         {showEditRestaurant && <EditRestaurant />}
         {showEditService && <EditService />}
         {showAddService && <AddService />}
+        {showDeleteRestaurant && <DeleteOptionalModal />}
+        {showDeleteService && <DeleteOptionalModal />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -293,7 +314,10 @@ const HomePage = () => {
                           />
                         </button>
 
-                        <button className={classes.deleteWholeThingBtn}>
+                        <button
+                          onClick={() => displayDeleteRestaurent(ele.id)}
+                          className={classes.deleteWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"
@@ -348,7 +372,10 @@ const HomePage = () => {
                           />
                         </button>
 
-                        <button className={classes.deleteWholeThingBtn}>
+                        <button
+                          onClick={() => displayDeleteService(ele.id)}
+                          className={classes.deleteWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"
