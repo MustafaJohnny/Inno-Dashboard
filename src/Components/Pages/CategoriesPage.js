@@ -4,6 +4,7 @@ import actionPen from "../Icons/actionPen.svg";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import FallMessage from "../UI-Components/FallMessage";
+import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddCategory from "../UI-Components/AddCategory";
@@ -36,6 +37,10 @@ const CategoriesPage = () => {
 
   const showEditCategory = useSelector(
     (state) => state.controler.show_edit_category
+  );
+
+  const showDeleteCategory = useSelector(
+    (state) => state.controler.show_delete_category
   );
 
   const userCategoryID = useSelector(
@@ -132,11 +137,16 @@ const CategoriesPage = () => {
     getData();
   };
 
-  // Code for editing categories..
+  // Code for editing and deleting categories..
 
   const displayEditCategory = (categoryIndex) => {
     dispatch(controlActions.getEditCategoryData(userCategories[categoryIndex]));
     dispatch(controlActions.toggleEditCategory());
+  };
+
+  const displayDeleteCategory = (categoryID) => {
+    dispatch(controlActions.toggleDeleteCategory(categoryID));
+    dispatch(controlActions.getDeleteSomething("категорию"));
   };
 
   const goPageBack = () => {
@@ -152,6 +162,7 @@ const CategoriesPage = () => {
         {spinnerCategories && <LoadingSpinner2 />}
         {showAddCategory && <AddCategory />}
         {showEditCategory && <EditCategory />}
+        {showDeleteCategory && <DeleteOptionalModal />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -229,7 +240,10 @@ const CategoriesPage = () => {
                           />
                         </button>
 
-                        <button className={classes.deleteWholeThingBtn}>
+                        <button
+                          onClick={() => displayDeleteCategory(ele.id)}
+                          className={classes.deleteWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"

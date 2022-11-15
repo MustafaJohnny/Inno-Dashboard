@@ -33,6 +33,18 @@ const DeleteOptionalModal = () => {
     if (deleteSomething === "меню") {
       dispatch(controlActions.toggleDeleteMenu());
     }
+
+    if (deleteSomething === "категорию") {
+      dispatch(controlActions.toggleDeleteCategory());
+    }
+
+    if (deleteSomething === "блюдо") {
+      dispatch(controlActions.toggleDeleteItem());
+    }
+
+    if (deleteSomething === "услугу") {
+      dispatch(controlActions.toggleDeleteServiceItem());
+    }
   };
 
   const optionalDeleteLogic = () => {
@@ -134,6 +146,107 @@ const DeleteOptionalModal = () => {
           }
         });
     }
+
+    if (deleteSomething === "категорию") {
+      optionalHideDeleteModal();
+      dispatch(controlActions.toggleSpinnerCategories());
+
+      const serverParams = {
+        id: deleteSomethingID,
+      };
+
+      axios
+        .delete(`http://${serverAPI}/api/cat/delCategory`, {
+          params: serverParams,
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        })
+        .then((response) => {
+          setTimeout(() => {
+            if (response.status === 200) {
+              dispatch(
+                controlActions.getUserCategories(response.data.categorymenu)
+              );
+              dispatch(controlActions.toggleSpinnerCategories());
+              navigate(0);
+            }
+          }, 3000);
+        })
+        .catch((error) => {
+          if (error) {
+            dispatch(controlActions.toggleSpinnerCategories());
+            dispatch(controlActions.toggleFallCategories());
+          }
+        });
+    }
+
+    if (deleteSomething === "блюдо") {
+      optionalHideDeleteModal();
+      dispatch(controlActions.toggleSpinnerItems());
+
+      const serverParams = {
+        id: deleteSomethingID,
+      };
+
+      axios
+        .delete(`http://${serverAPI}/api/prod/del_product`, {
+          params: serverParams,
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        })
+        .then((response) => {
+          setTimeout(() => {
+            if (response.status === 200) {
+              //   dispatch(controlActions.getUserItems(response.data.product));
+              dispatch(controlActions.toggleSpinnerItems());
+              navigate(0);
+            }
+          }, 3000);
+        })
+        .catch((error) => {
+          if (error) {
+            dispatch(controlActions.toggleSpinnerItems());
+            dispatch(controlActions.toggleFallItems());
+          }
+        });
+    }
+
+    if (deleteSomething === "услугу") {
+      optionalHideDeleteModal();
+      dispatch(controlActions.toggleSpinnerServices());
+
+      const serverParams = {
+        id: deleteSomethingID,
+      };
+
+      axios
+        .delete(`http://${serverAPI}/api/serv/delUslugi`, {
+          params: serverParams,
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        })
+        .then((response) => {
+          setTimeout(() => {
+            if (response.status === 200) {
+              dispatch(controlActions.getUserServiceItems(response.data));
+              dispatch(controlActions.toggleSpinnerServices());
+              navigate(0);
+            }
+          }, 3000);
+        })
+        .catch((error) => {
+          if (error) {
+            dispatch(controlActions.toggleSpinnerServices());
+            dispatch(controlActions.toggleFallServices());
+          }
+        });
+    }
   };
 
   return (
@@ -143,7 +256,7 @@ const DeleteOptionalModal = () => {
         <h1 className={classes.modalHeading}>Удалить {deleteSomething}</h1>
         <form className={classes.modalForm}>
           <div className={classes.confirmDesignArea}>
-            <h1 className={classes.confirmDesignHeading}>
+            <h1 className={classes.deleteHeading}>
               Вы действительно хотите удалить {deleteSomething}
             </h1>
           </div>

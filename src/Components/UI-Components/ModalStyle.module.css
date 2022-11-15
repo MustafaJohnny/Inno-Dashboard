@@ -320,6 +320,13 @@
   text-align: center;
 }
 
+.deleteHeading {
+  color: #27272a;
+  font-size: 1.9rem;
+  font-weight: 400;
+  text-align: center;
+}
+
 .fallMessageHeading {
   color: #27272a;
   font-size: 2rem;

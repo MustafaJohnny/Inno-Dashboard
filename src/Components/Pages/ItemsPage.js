@@ -3,6 +3,7 @@ import ArrowBack from "../Icons/ArrowBack.svg";
 import actionBin from "../Icons/actionBin.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import FallMessage from "../UI-Components/FallMessage";
 import AddItem from "../UI-Components/AddItem";
@@ -39,6 +40,10 @@ const ItemsPage = () => {
 
   const categoriesPageHeading = useSelector(
     (state) => state.controler.categories_page_heading
+  );
+
+  const showDeleteItem = useSelector(
+    (state) => state.controler.show_delete_item
   );
 
   useEffect(() => {
@@ -102,6 +107,13 @@ const ItemsPage = () => {
     }
   };
 
+  // Code for editing and deleting a whole Item..
+
+  const displayDeleteItem = (itemID) => {
+    dispatch(controlActions.toggleDeleteItem(itemID));
+    dispatch(controlActions.getDeleteSomething("блюдо"));
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -114,6 +126,7 @@ const ItemsPage = () => {
         {spinnerItems && <LoadingSpinner2 />}
         {fallItems && <FallMessage />}
         {showAddItem && <AddItem />}
+        {showDeleteItem && <DeleteOptionalModal />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -179,7 +192,10 @@ const ItemsPage = () => {
                             <span id={index} className={classes.itemHeading}>
                               {ele.name}
                             </span>
-                            <button className={classes.deleteWholeThingBtn}>
+                            <button
+                              onClick={() => displayDeleteItem(ele.id)}
+                              className={classes.deleteWholeThingBtn}
+                            >
                               <img
                                 className={classes.actionPenIcon}
                                 alt="icon"

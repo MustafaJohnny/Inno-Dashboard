@@ -105,6 +105,9 @@ const initialState = {
   show_delete_rest: false,
   show_delete_service: false,
   show_delete_menu: false,
+  show_delete_category: false,
+  show_delete_item: false,
+  show_delete_service_item: false,
 
   /* The App States */
   active_section_heading: "Менеджмент",
@@ -455,6 +458,21 @@ const controlSlice = createSlice({
 
     toggleDeleteMenu(state, action) {
       state.show_delete_menu = !state.show_delete_menu;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteCategory(state, action) {
+      state.show_delete_category = !state.show_delete_category;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteItem(state, action) {
+      state.show_delete_item = !state.show_delete_item;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteServiceItem(state, action) {
+      state.show_delete_service_item = !state.show_delete_service_item;
       state.delete_something_id = action.payload;
     },
   },

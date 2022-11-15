@@ -4,7 +4,9 @@ import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddServiceItem from "../UI-Components/AddServiceItem";
 import EditServiceItem from "../UI-Components/EditServiceItem";
-import Pen from "../Icons/Pen.svg";
+import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import actionBin from "../Icons/actionBin.svg";
+import actionPen from "../Icons/actionPen.svg";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -60,6 +62,10 @@ const ServicesPage = () => {
     (state) => state.controler.show_edit_service_item
   );
 
+  const showDeleteItemService = useSelector(
+    (state) => state.controler.show_delete_service_item
+  );
+
   const userServiceItems = useSelector(
     (state) => state.controler.user_service_items
   );
@@ -72,13 +78,18 @@ const ServicesPage = () => {
     dispatch(controlActions.toggleShowAddServiceItems());
   };
 
-  // Code for editing service items..
+  // Code for editing and deleting service items..
 
   const displayEditServiceItem = (ServiceItemIndex) => {
     dispatch(
       controlActions.getEditServiceItemData(userServiceItems[ServiceItemIndex])
     );
     dispatch(controlActions.toggleEditServiceItem());
+  };
+
+  const displayDeleteServiceItem = (serviceItemID) => {
+    dispatch(controlActions.toggleDeleteServiceItem(serviceItemID));
+    dispatch(controlActions.getDeleteSomething("услугу"));
   };
 
   const goPageBack = () => {
@@ -94,6 +105,7 @@ const ServicesPage = () => {
         {fallServices && <FallMessage />}
         {showAddItemService && <AddServiceItem />}
         {showEditItemService && <EditServiceItem />}
+        {showDeleteItemService && <DeleteOptionalModal />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -144,14 +156,24 @@ const ServicesPage = () => {
                       </button>
 
                       <button
-                        onClick={() => displayEditServiceItem(index)}
-                        type="button"
-                        className={classes.editServiceBtn}
+                        onClick={() => displayDeleteServiceItem(element.id)}
+                        className={classes.deleteWholeThingBtn}
                       >
                         <img
-                          className={classes.editIcon}
+                          className={classes.actionPenIcon}
                           alt="icon"
-                          src={Pen}
+                          src={actionBin}
+                        />
+                      </button>
+
+                      <button
+                        onClick={() => displayEditServiceItem(index)}
+                        className={classes.editWholeThingBtn}
+                      >
+                        <img
+                          className={classes.actionPenIcon}
+                          alt="icon"
+                          src={actionPen}
                         />
                       </button>
                     </div>
