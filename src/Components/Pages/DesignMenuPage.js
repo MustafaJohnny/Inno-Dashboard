@@ -224,11 +224,11 @@ const DesignMenuPage = () => {
                       className={classes.radioStyle}
                       onChange={getDesignNumber}
                       name="Design"
-                      value="3"
+                      value="4"
                       type="radio"
-                      id="menu3"
+                      id="menu4"
                     />
-                    <label className={classes.lablesDesigns} htmlFor="menu3">
+                    <label className={classes.lablesDesigns} htmlFor="menu4">
                       Выбрать меню
                     </label>
                   </div>
@@ -244,21 +244,21 @@ const DesignMenuPage = () => {
                   >
                     <SwiperSlide className={classes.designSlide}>
                       <img
-                        src={ThirdMenu1}
+                        src={ForthMenu1}
                         alt="img"
                         className={classes.designImg}
                       />
                     </SwiperSlide>
                     <SwiperSlide className={classes.designSlide}>
                       <img
-                        src={ThirdMenu2}
+                        src={ForthMenu2}
                         alt="img"
                         className={classes.designImg}
                       />
                     </SwiperSlide>
                     <SwiperSlide className={classes.designSlide}>
                       <img
-                        src={ThirdMenu3}
+                        src={ForthMenu3}
                         alt="img"
                         className={classes.designImg}
                       />
