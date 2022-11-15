@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const AddMenu = () => {
+const EditMenu = () => {
   const [menuImage, setMenuImage] = useState([]);
   const [menuName, setMenuName] = useState("");
   const [menuStartTime, setMenuStartTime] = useState("");
@@ -16,34 +16,47 @@ const AddMenu = () => {
   const [menuDescription, setMenudescription] = useState("");
   const [menuAllHours, setMenuAllHours] = useState("");
 
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
-  const userEmail = useSelector((state) => state.controler.user_email);
-  const userPassword = useSelector((state) => state.controler.user_password);
-  const userMenuID = useSelector((state) => state.controler.user_menu_ID);
-  const userLanguage = useSelector(
-    (state) => state.controler.user_first_language
-  );
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let formIsValid = false;
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userDomain = useSelector((state) => state.controler.user_domain);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const editedMenuID = useSelector((state) => state.controler.menu_edit_id);
+  const menuOldData = useSelector((state) => state.controler.menu_old_data);
+  const userLang = useSelector((state) => state.controler.user_first_language);
 
-  if (menuImage.size && menuName && menuAllHours) {
+  let formIsValid = false;
+  let imageIsValid = false;
+
+  if (
+    menuImage.size ||
+    menuName ||
+    menuDescription ||
+    menuAllHours ||
+    menuStartTime ||
+    menuEndTime
+  ) {
     formIsValid = true;
   }
 
-  if (menuImage.size >= 1000000 || !menuImage) {
+  if (menuImage.size >= 1000000) {
     formIsValid = false;
   }
 
-  const hideAddMenu = () => {
-    dispatch(controlActions.toggleAddMenu());
+  if (menuImage.size <= 1000000) {
+    imageIsValid = true;
+  }
+
+  const hideEditMenu = () => {
+    dispatch(controlActions.toggleEditMenu());
   };
 
-  const createNewRestaurant = () => {
+  const editMenu = () => {
+    hideEditMenu();
     dispatch(controlActions.toggleSpinnerMenu());
-    hideAddMenu();
 
     const serverParams = {
       name: menuName,
@@ -51,28 +64,41 @@ const AddMenu = () => {
       all_hours: menuAllHours,
       time_start: menuStartTime,
       time_end: menuEndTime,
-      ids: userMenuID,
     };
 
+    if (!serverParams.name) delete serverParams.name;
+    if (!serverParams.description) delete serverParams.description;
+    if (!serverParams.all_hours) delete serverParams.all_hours;
     if (!serverParams.time_start) delete serverParams.time_start;
     if (!serverParams.time_end) delete serverParams.time_end;
-    if (!serverParams.description) delete serverParams.description;
+
+    let newData = JSON.stringify(serverParams);
 
     const formData = new FormData();
 
-    formData.append("in_file", menuImage, menuImage.name);
+    if (menuImage.size) {
+      formData.append("in_file", menuImage, menuImage.name);
+    }
+
+    if (serverParams) {
+      formData.append("base", newData);
+    }
 
     axios
-      .post(`http://${serverAPI}/api/menu/new/${userLanguage}`, formData, {
-        params: serverParams,
-        auth: {
-          username: userEmail,
-          password: userPassword,
-        },
-      })
+      .patch(
+        `http://${serverAPI}/api/menu/menuDataChange/${editedMenuID}/${userLang}`,
+        formData,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
+            dispatch(controlActions.getUserMenus(response.data));
             dispatch(controlActions.toggleSpinnerMenu());
             navigate(0);
           }
@@ -90,9 +116,14 @@ const AddMenu = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить меню</h1>
+        <h1 className={classes.modalHeading}>Редактировать меню</h1>
         <form className={classes.modalForm}>
-          <div className={classes.inputImgArea}>
+          <div
+            className={classes.inputImgArea2}
+            style={{
+              backgroundImage: `url("${URL}/${menuOldData.image}")`,
+            }}
+          >
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
@@ -107,25 +138,24 @@ const AddMenu = () => {
                 onChange={(event) => setMenuImage(event.target.files[0])}
                 required
               />
-              <span className={classes.requiredImg}>*</span>
             </div>
-            <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
-            </span>
+            {!imageIsValid && (
+              <span className={classes.requiredImgMess2}>
+                {"Размер изображения должен быть меньше 1 мб"}
+              </span>
+            )}
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="name">
+                Название
+              </label>
               <input
                 type="text"
                 className={classes.modalBasicInput}
                 id="name"
                 onChange={(event) => setMenuName(event.target.value)}
+                placeholder={menuOldData.name}
               />
             </div>
 
@@ -140,15 +170,13 @@ const AddMenu = () => {
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
+                placeholder={menuOldData.description}
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="lang">
-                  Действует без ограничения времени
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="lang">
+                Действует без ограничения времени
+              </label>
 
               <select
                 onChange={(event) => setMenuAllHours(event.target.value)}
@@ -162,7 +190,7 @@ const AddMenu = () => {
             <div className={classes.modalInputsContaine2}>
               <div className={classes.twoInputsArea}>
                 <div className={classes.wholeModalInput}>
-                  <label className={classes.modalBasicLable} htmlFor="start">
+                  <label className={classes.modalBasicLable2} htmlFor="start">
                     Начало работы
                   </label>
                   <input
@@ -170,10 +198,13 @@ const AddMenu = () => {
                     type="time"
                     className={classes.modalBasicInput}
                     id="start"
+                    placeholder={
+                      !menuOldData.time_start ? "" : menuOldData.time_start
+                    }
                   />
                 </div>
                 <div className={classes.wholeModalInput}>
-                  <label className={classes.modalBasicLable} htmlFor="end">
+                  <label className={classes.modalBasicLable2} htmlFor="end">
                     Конец работы
                   </label>
                   <input
@@ -181,6 +212,9 @@ const AddMenu = () => {
                     type="time"
                     className={classes.modalBasicInput}
                     id="end"
+                    placeholder={
+                      !menuOldData.time_end ? "" : menuOldData.time_end
+                    }
                   />
                 </div>
               </div>
@@ -190,19 +224,19 @@ const AddMenu = () => {
         <div className={classes.modalControlBtnsArea}>
           <button
             disabled={!formIsValid}
-            onClick={createNewRestaurant}
+            onClick={editMenu}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            СОХРАНИТЬ
           </button>
           <button
-            onClick={hideAddMenu}
+            onClick={hideEditMenu}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
             Отменить
           </button>
         </div>
-        <button onClick={hideAddMenu} className={classes.btnCloseModal}>
+        <button onClick={hideEditMenu} className={classes.btnCloseModal}>
           &times;
         </button>
       </div>
@@ -210,4 +244,4 @@ const AddMenu = () => {
   );
 };
 
-export default AddMenu;
+export default EditMenu;

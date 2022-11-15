@@ -5,6 +5,8 @@ import UpNavigation from "../UI-Components/UpNavigation";
 import actionBin from "../Icons/actionBin.svg";
 import actionPen from "../Icons/actionPen.svg";
 import AddRestaurant from "../UI-Components/AddRestaurant";
+import EditRestaurant from "../UI-Components/EditRestaurant";
+import EditService from "../UI-Components/EditService";
 import AddService from "../UI-Components/AddService";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import classes from "./HomePage.module.css";
@@ -35,8 +37,16 @@ const HomePage = () => {
     (state) => state.controler.show_add_restaurant
   );
 
+  const showEditRestaurant = useSelector(
+    (state) => state.controler.show_edit_restaurent
+  );
+
   const showAddService = useSelector(
     (state) => state.controler.show_add_service
+  );
+
+  const showEditService = useSelector(
+    (state) => state.controler.show_edit_service
   );
 
   // This one is for getting information about the product owner first time we load the home page
@@ -199,12 +209,28 @@ const HomePage = () => {
     getData();
   };
 
+  // The code from here is for editing restaurant and service..
+  const displayEditRestaurent = (restaurantIndex) => {
+    dispatch(
+      controlActions.getEditedRestData(userRestaurants[restaurantIndex])
+    );
+
+    dispatch(controlActions.toggleEditRestaurant());
+  };
+
+  const displayEditService = (ServiceIndex) => {
+    dispatch(controlActions.getEditServiceData(userServices[ServiceIndex]));
+    dispatch(controlActions.toggleEditService());
+  };
+
   return (
     <React.Fragment>
       <section>
         {showFallHome && <FallMessage />}
         {showSpinnerHome && <LoadingSpinner2 />}
         {showAddRestaurant && <AddRestaurant />}
+        {showEditRestaurant && <EditRestaurant />}
+        {showEditService && <EditService />}
         {showAddService && <AddService />}
         <main className={classes.mainContiner}>
           <SideNavigation />
@@ -256,7 +282,10 @@ const HomePage = () => {
                           {ele.is_active ? "Активный" : "Неактивный"}
                         </button>
 
-                        <button className={classes.editWholeThingBtn}>
+                        <button
+                          onClick={() => displayEditRestaurent(index)}
+                          className={classes.editWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"
@@ -308,7 +337,10 @@ const HomePage = () => {
                           {ele.is_active ? "Активный" : "Неактивный"}
                         </button>
 
-                        <button className={classes.editWholeThingBtn}>
+                        <button
+                          onClick={() => displayEditService(index)}
+                          className={classes.editWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"

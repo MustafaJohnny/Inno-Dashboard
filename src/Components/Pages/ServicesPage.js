@@ -3,8 +3,9 @@ import ArrowBack from "../Icons/ArrowBack.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddServiceItem from "../UI-Components/AddServiceItem";
+import EditServiceItem from "../UI-Components/EditServiceItem";
+import Pen from "../Icons/Pen.svg";
 import classes from "./HomePage.module.css";
-import editIcon from "../Icons/Edit.svg";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
@@ -55,6 +56,10 @@ const ServicesPage = () => {
     (state) => state.controler.show_add_service_items
   );
 
+  const showEditItemService = useSelector(
+    (state) => state.controler.show_edit_service_item
+  );
+
   const userServiceItems = useSelector(
     (state) => state.controler.user_service_items
   );
@@ -65,6 +70,15 @@ const ServicesPage = () => {
 
   const showModalItem = () => {
     dispatch(controlActions.toggleShowAddServiceItems());
+  };
+
+  // Code for editing service items..
+
+  const displayEditServiceItem = (ServiceItemIndex) => {
+    dispatch(
+      controlActions.getEditServiceItemData(userServiceItems[ServiceItemIndex])
+    );
+    dispatch(controlActions.toggleEditServiceItem());
   };
 
   const goPageBack = () => {
@@ -79,6 +93,7 @@ const ServicesPage = () => {
         {spinnerServices && <LoadingSpinner2 />}
         {fallServices && <FallMessage />}
         {showAddItemService && <AddServiceItem />}
+        {showEditItemService && <EditServiceItem />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -111,7 +126,7 @@ const ServicesPage = () => {
                   <span className={classes.servicesHeading}>Цена</span>
                   <span className={classes.servicesHeading}>Описание</span>
                 </div>
-                {userServiceItems.map((element) => (
+                {userServiceItems.map((element, index) => (
                   <div key={element.id} className={classes.wholeItemService}>
                     <span className={classes.serviceName}>{element.name}</span>
                     <span className={classes.servicePrice}>
@@ -128,11 +143,15 @@ const ServicesPage = () => {
                         Активный
                       </button>
 
-                      <button type="button" className={classes.editServiceBtn}>
+                      <button
+                        onClick={() => displayEditServiceItem(index)}
+                        type="button"
+                        className={classes.editServiceBtn}
+                      >
                         <img
                           className={classes.editIcon}
                           alt="icon"
-                          src={editIcon}
+                          src={Pen}
                         />
                       </button>
                     </div>

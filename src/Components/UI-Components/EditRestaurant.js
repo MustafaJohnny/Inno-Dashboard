@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const AddRestaurant = () => {
+const EditRestaurant = () => {
   const [restImage, setRestImage] = useState([]);
   const [restName, setRestName] = useState("");
   const [restAddress, setRestAddress] = useState("");
@@ -17,38 +17,57 @@ const AddRestaurant = () => {
   const [restEndTime, setRestEndTime] = useState("");
   const [restTimeZone, setRestTimeZone] = useState("");
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+
+  const editedRestID = useSelector(
+    (state) => state.controler.restaurant_edit_id
+  );
+
+  const restOldData = useSelector(
+    (state) => state.controler.restaurant_old_data
+  );
 
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   let formIsValid = false;
+  let imageIsValid = false;
 
-  if (restImage.size && restName && restAddress && restPhone && restTimeZone) {
+  if (
+    restImage.size ||
+    restName ||
+    restAddress ||
+    restPhone ||
+    restStartTime ||
+    restEndTime ||
+    restTimeZone
+  ) {
     formIsValid = true;
   }
 
-  if (restImage.size >= 1000000 || !restImage) {
+  if (restImage.size >= 1000000) {
     formIsValid = false;
   }
 
-  const hideAddRestaurent = () => {
-    dispatch(controlActions.toggleAddRestaurant());
+  if (restImage.size <= 1000000) {
+    imageIsValid = true;
+  }
+
+  const hideEditRestaurent = () => {
+    dispatch(controlActions.toggleEditRestaurant());
   };
 
-  const createNewRestaurant = () => {
-    hideAddRestaurent();
+  const EditRestaurant = () => {
+    hideEditRestaurent();
     dispatch(controlActions.toggleSpinnerHome());
-
-    if (!formIsValid) {
-      return;
-    }
 
     const serverParams = {
       name_rest: restName,
@@ -61,22 +80,38 @@ const AddRestaurant = () => {
 
     if (!serverParams.time_start) delete serverParams.time_start;
     if (!serverParams.time_end) delete serverParams.time_end;
+    if (!serverParams.timezone) delete serverParams.timezone;
+    if (!serverParams.name_rest) delete serverParams.name_rest;
+    if (!serverParams.addr_rest) delete serverParams.addr_rest;
+    if (!serverParams.tel_rest) delete serverParams.tel_rest;
+
+    let newData = JSON.stringify(serverParams);
 
     const formData = new FormData();
 
-    formData.append("in_file", restImage, restImage.name);
+    if (restImage.size) {
+      formData.append("in_file", restImage, restImage.name);
+    }
+
+    if (serverParams) {
+      formData.append("base", newData);
+    }
 
     axios
-      .post(`http://${serverAPI}/api/rest/rest_new/${userLanguage}`, formData, {
-        params: serverParams,
-        auth: {
-          username: userEmail,
-          password: userPassword,
-        },
-      })
+      .patch(
+        `http://${serverAPI}/api/rest/restDataChange/${editedRestID}/${userLanguage}`,
+        formData,
+        {
+          auth: {
+            username: userEmail,
+            password: userPassword,
+          },
+        }
+      )
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
+            dispatch(controlActions.getUserDataAfterLogin(response.data));
             dispatch(controlActions.toggleSpinnerHome());
             navigate(0);
           }
@@ -94,9 +129,14 @@ const AddRestaurant = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить ресторан</h1>
+        <h1 className={classes.modalHeading}>Редактировать ресторан</h1>
         <form className={classes.modalForm}>
-          <div className={classes.inputImgArea}>
+          <div
+            className={classes.inputImgArea2}
+            style={{
+              backgroundImage: `url("${URL}/${restOldData.image}")`,
+            }}
+          >
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
@@ -111,75 +151,68 @@ const AddRestaurant = () => {
                 onChange={(event) => setRestImage(event.target.files[0])}
                 required
               />
-              <span className={classes.requiredImg}>*</span>
             </div>
-            <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
-            </span>
+            {!imageIsValid && (
+              <span className={classes.requiredImgMess2}>
+                {"Размер изображения должен быть меньше 1 мб"}
+              </span>
+            )}
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="name">
+                Название
+              </label>
               <input
                 type="text"
                 className={classes.modalBasicInput}
                 id="name"
                 onChange={(event) => setRestName(event.target.value)}
+                placeholder={restOldData.name_rest}
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="phone">
-                  Телефон
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="phone">
+                Телефон
+              </label>
               <input
                 onChange={(event) => setRestPhone(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="phone"
+                placeholder={restOldData.tel_rest}
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="address">
-                  Адрес
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="address">
+                Адрес
+              </label>
               <input
                 onChange={(event) => setRestAddress(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
+                placeholder={restOldData.addr_rest}
               />
             </div>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="zone">
-                  Временная зона
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="zone">
+                Временная зона
+              </label>
 
               <input
                 onChange={(event) => setRestTimeZone(event.target.value)}
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
+                placeholder={restOldData.timezone}
               />
             </div>
           </div>
           <div className={classes.modalInputsContaine2}>
             <div className={classes.twoInputsArea}>
               <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="start">
+                <label className={classes.modalBasicLable2} htmlFor="start">
                   Начало работы
                 </label>
                 <input
@@ -187,10 +220,13 @@ const AddRestaurant = () => {
                   type="time"
                   className={classes.modalBasicInput}
                   id="start"
+                  placeholder={
+                    !restOldData.time_start ? "" : restOldData.time_start
+                  }
                 />
               </div>
               <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="end">
+                <label className={classes.modalBasicLable2} htmlFor="end">
                   Конец работы
                 </label>
                 <input
@@ -198,6 +234,9 @@ const AddRestaurant = () => {
                   type="time"
                   className={classes.modalBasicInput}
                   id="end"
+                  placeholder={
+                    !restOldData.time_end ? "" : restOldData.time_start
+                  }
                 />
               </div>
             </div>
@@ -206,19 +245,19 @@ const AddRestaurant = () => {
         <div className={classes.modalControlBtnsArea}>
           <button
             disabled={!formIsValid}
-            onClick={createNewRestaurant}
+            onClick={EditRestaurant}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            СОХРАНИТЬ
           </button>
           <button
-            onClick={hideAddRestaurent}
+            onClick={hideEditRestaurent}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
             Отменить
           </button>
         </div>
-        <button onClick={hideAddRestaurent} className={classes.btnCloseModal}>
+        <button onClick={hideEditRestaurent} className={classes.btnCloseModal}>
           &times;
         </button>
       </div>
@@ -226,4 +265,4 @@ const AddRestaurant = () => {
   );
 };
 
-export default AddRestaurant;
+export default EditRestaurant;

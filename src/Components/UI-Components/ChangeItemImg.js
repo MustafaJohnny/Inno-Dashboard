@@ -69,6 +69,7 @@ const ChangeItemImg = () => {
               accept="image/png, image/jpeg"
               onChange={(event) => setItemImg(event.target.files[0])}
               required
+              id="fileImg"
             />
           </div>
         </form>

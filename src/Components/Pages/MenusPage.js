@@ -5,6 +5,7 @@ import actionPen from "../Icons/actionPen.svg";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import UpNavigation from "../UI-Components/UpNavigation";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import EditMenu from "../UI-Components/EditMenu";
 import FallMessage from "../UI-Components/FallMessage";
 import AddMenu from "../UI-Components/AddMenu";
 import classes from "./HomePage.module.css";
@@ -26,6 +27,7 @@ const MenusPage = () => {
   const userMenus = useSelector((state) => state.controler.user_menus);
   const spinnerMenu = useSelector((state) => state.controler.show_spinner_menu);
   const fallMenu = useSelector((state) => state.controler.show_fall_menu);
+  const showEditMenu = useSelector((state) => state.controler.show_edit_menu);
 
   useEffect(() => {
     let mounted = true;
@@ -109,6 +111,13 @@ const MenusPage = () => {
     getData();
   };
 
+  // Code for editing menus
+
+  const displayEditMenu = (menuIndex) => {
+    dispatch(controlActions.getEditMenuData(userMenus[menuIndex]));
+    dispatch(controlActions.toggleEditMenu());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -121,6 +130,7 @@ const MenusPage = () => {
         {fallMenu && <FallMessage />}
         {spinnerMenu && <LoadingSpinner2 />}
         {showAddMenu && <AddMenu />}
+        {showEditMenu && <EditMenu />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -184,7 +194,10 @@ const MenusPage = () => {
                           {ele.is_active ? "Активный" : "Неактивный"}
                         </button>
 
-                        <button className={classes.editWholeThingBtn}>
+                        <button
+                          onClick={() => displayEditMenu(index)}
+                          className={classes.editWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"

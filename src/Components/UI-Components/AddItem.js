@@ -133,6 +133,7 @@ const AddItem = () => {
               <input
                 className={classes.inputImgModal}
                 type="file"
+                id="fileImg"
                 multiple
                 accept="image/png, image/jpeg image/jpg"
                 onChange={(event) => setItemImage(event.target.files[0])}

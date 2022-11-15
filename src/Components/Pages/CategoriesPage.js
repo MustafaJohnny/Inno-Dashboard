@@ -7,6 +7,7 @@ import FallMessage from "../UI-Components/FallMessage";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import UpNavigation from "../UI-Components/UpNavigation";
 import AddCategory from "../UI-Components/AddCategory";
+import EditCategory from "../UI-Components/EditCategory";
 import classes from "./HomePage.module.css";
 import axios from "axios";
 import { useEffect } from "react";
@@ -31,6 +32,10 @@ const CategoriesPage = () => {
 
   const showAddCategory = useSelector(
     (state) => state.controler.show_add_categories
+  );
+
+  const showEditCategory = useSelector(
+    (state) => state.controler.show_edit_category
   );
 
   const userCategoryID = useSelector(
@@ -127,6 +132,13 @@ const CategoriesPage = () => {
     getData();
   };
 
+  // Code for editing categories..
+
+  const displayEditCategory = (categoryIndex) => {
+    dispatch(controlActions.getEditCategoryData(userCategories[categoryIndex]));
+    dispatch(controlActions.toggleEditCategory());
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -139,6 +151,7 @@ const CategoriesPage = () => {
         {fallCategories && <FallMessage />}
         {spinnerCategories && <LoadingSpinner2 />}
         {showAddCategory && <AddCategory />}
+        {showEditCategory && <EditCategory />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -205,7 +218,10 @@ const CategoriesPage = () => {
                           {ele.is_active ? "Активный" : "Неактивный"}
                         </button>
 
-                        <button className={classes.editWholeThingBtn}>
+                        <button
+                          onClick={() => displayEditCategory(index)}
+                          className={classes.editWholeThingBtn}
+                        >
                           <img
                             className={classes.actionPenIcon}
                             alt="icon"

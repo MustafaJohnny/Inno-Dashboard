@@ -1,72 +1,88 @@
 import React from "react";
 import axios from "axios";
+import Upload from "../Icons/Upload.svg";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
-import Upload from "../Icons/Upload.svg";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
-const AddCategory = () => {
+const EditCategory = () => {
   const [categoryImage, setCategoryImage] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
 
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
-  const userEmail = useSelector((state) => state.controler.user_email);
-  const userPassword = useSelector((state) => state.controler.user_password);
-  const userLanguage = useSelector(
-    (state) => state.controler.user_first_language
-  );
-
-  const userCategoryID = useSelector(
-    (state) => state.controler.user_category_ID
-  );
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  let formIsValid = false;
+  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  const userDomain = useSelector((state) => state.controler.user_domain);
+  const userEmail = useSelector((state) => state.controler.user_email);
+  const userPassword = useSelector((state) => state.controler.user_password);
+  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
 
-  if (categoryImage.size && categoryName) {
+  const edittedCategoryID = useSelector(
+    (state) => state.controler.category_edit_id
+  );
+
+  const categoryOldData = useSelector(
+    (state) => state.controler.category_old_data
+  );
+
+  console.log(edittedCategoryID);
+  console.log(categoryOldData);
+
+  const userLang = useSelector((state) => state.controler.user_first_language);
+
+  let formIsValid = false;
+  let imageIsValid = false;
+
+  if (categoryImage.size || categoryName || categoryDescription) {
     formIsValid = true;
   }
 
-  if (categoryImage.size >= 1000000 || !categoryImage) {
+  if (categoryImage.size >= 1000000) {
     formIsValid = false;
   }
 
-  const hideAddCategory = () => {
-    dispatch(controlActions.toggleAddCategories());
+  if (categoryImage.size <= 1000000) {
+    imageIsValid = true;
+  }
+
+  const hideEditCategory = () => {
+    dispatch(controlActions.toggleEditCategory());
   };
 
-  const createNewCategory = () => {
-    hideAddCategory();
+  const editCategory = () => {
+    hideEditCategory();
     dispatch(controlActions.toggleSpinnerCategories());
-
-    if (!formIsValid) {
-      return;
-    }
 
     const serverParams = {
       name: categoryName,
       description: categoryDescription,
-      menu_id: userCategoryID,
     };
 
+    if (!serverParams.name) delete serverParams.name;
     if (!serverParams.description) delete serverParams.description;
+
+    let newData = JSON.stringify(serverParams);
 
     const formData = new FormData();
 
-    formData.append("in_file", categoryImage, categoryImage.name);
+    if (categoryImage.size) {
+      formData.append("in_file", categoryImage, categoryImage.name);
+    }
+
+    if (serverParams) {
+      formData.append("base", newData);
+    }
 
     axios
-      .post(
-        `http://${serverAPI}/api/cat/newCategory/${userLanguage}`,
+      .patch(
+        `http://${serverAPI}/api/cat/categoryDataChange/${edittedCategoryID}/${userLang}`,
         formData,
         {
-          params: serverParams,
           auth: {
             username: userEmail,
             password: userPassword,
@@ -76,6 +92,9 @@ const AddCategory = () => {
       .then((response) => {
         setTimeout(() => {
           if (response.status === 200) {
+            dispatch(
+              controlActions.getUserCategories(response.data.categorymenu)
+            );
             dispatch(controlActions.toggleSpinnerCategories());
             navigate(0);
           }
@@ -93,9 +112,14 @@ const AddCategory = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить категорию</h1>
+        <h1 className={classes.modalHeading}>Редактировать категорию</h1>
         <form className={classes.modalForm}>
-          <div className={classes.inputImgArea}>
+          <div
+            className={classes.inputImgArea2}
+            style={{
+              backgroundImage: `url("${URL}/${categoryOldData.image}")`,
+            }}
+          >
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
@@ -110,27 +134,27 @@ const AddCategory = () => {
                 onChange={(event) => setCategoryImage(event.target.files[0])}
                 required
               />
-              <span className={classes.requiredImg}>*</span>
             </div>
-            <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
-            </span>
+            {!imageIsValid && (
+              <span className={classes.requiredImgMess2}>
+                {"Размер изображения должен быть меньше 1 мб"}
+              </span>
+            )}
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
-              <div className={classes.lableRequiredArea}>
-                <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
-                </label>
-                <span className={classes.required}>*</span>
-              </div>
+              <label className={classes.modalBasicLable2} htmlFor="name">
+                Название
+              </label>
               <input
                 type="text"
                 className={classes.modalBasicInput}
                 id="name"
                 onChange={(event) => setCategoryName(event.target.value)}
+                placeholder={categoryOldData.name}
               />
             </div>
+
             <div
               className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
             >
@@ -142,6 +166,7 @@ const AddCategory = () => {
                 type="text"
                 className={classes.modalBasicInput}
                 id="address"
+                placeholder={categoryOldData.description}
               />
             </div>
           </div>
@@ -149,19 +174,19 @@ const AddCategory = () => {
         <div className={classes.modalControlBtnsArea}>
           <button
             disabled={!formIsValid}
-            onClick={createNewCategory}
+            onClick={editCategory}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            СОХРАНИТЬ
           </button>
           <button
-            onClick={hideAddCategory}
+            onClick={hideEditCategory}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
             Отменить
           </button>
         </div>
-        <button onClick={hideAddCategory} className={classes.btnCloseModal}>
+        <button onClick={hideEditCategory} className={classes.btnCloseModal}>
           &times;
         </button>
       </div>
@@ -169,4 +194,4 @@ const AddCategory = () => {
   );
 };
 
-export default AddCategory;
+export default EditCategory;

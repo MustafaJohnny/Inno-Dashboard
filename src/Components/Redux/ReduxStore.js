@@ -4,12 +4,14 @@ const initialState = {
   /* User Login States */
   user_email: "",
   user_password: "",
+
   /* User Account States */
   user_name: "",
   user_role: "",
   user_phone_number: "",
   user_register_date: "",
   user_last_seen_date: "",
+
   /* Owner Product States */
   user_service_items: [],
   user_restaurants: [],
@@ -40,6 +42,7 @@ const initialState = {
   user_service_notifi: "",
   user_basket_menu_status: "",
   user_garson_call_status: "",
+
   /* Old Values */
   user_table_QR_descrip_value: "",
   item_current_ID: "",
@@ -48,6 +51,7 @@ const initialState = {
   item_price_value: "",
   item_img_value: "",
   selected_design_num: "",
+
   /* App Toggling States */
   show_add_service_items: false,
   show_add_categories: false,
@@ -77,6 +81,24 @@ const initialState = {
   show_fall_categories: false,
   show_fall_items: false,
   show_fall_qr: false,
+
+  /* Here we have only the editing states logic */
+  show_edit_restaurent: false,
+  restaurant_edit_id: "",
+  restaurant_old_data: "",
+  show_edit_service: false,
+  service_edit_id: "",
+  service_old_data: "",
+  show_edit_menu: false,
+  menu_edit_id: "",
+  menu_old_data: "",
+  show_edit_category: false,
+  category_edit_id: "",
+  category_old_data: "",
+  show_edit_service_item: false,
+  service_item_edit_id: "",
+  service_item_old_data: "",
+
   /* The App States */
   active_section_heading: "Менеджмент",
   restaurant_page_heading: "",
@@ -359,6 +381,53 @@ const controlSlice = createSlice({
 
     toggleFallQR(state) {
       state.show_fall_qr = !state.show_fall_qr;
+    },
+
+    /** Editing Restaurants & Services Functions **/
+
+    toggleEditRestaurant(state) {
+      state.show_edit_restaurent = !state.show_edit_restaurent;
+    },
+
+    getEditedRestData(state, action) {
+      state.restaurant_edit_id = action.payload.id;
+      state.restaurant_old_data = action.payload;
+    },
+
+    toggleEditService(state) {
+      state.show_edit_service = !state.show_edit_service;
+    },
+
+    getEditServiceData(state, action) {
+      state.service_edit_id = action.payload.id;
+      state.service_old_data = action.payload;
+    },
+
+    toggleEditMenu(state) {
+      state.show_edit_menu = !state.show_edit_menu;
+    },
+
+    getEditMenuData(state, action) {
+      state.menu_edit_id = action.payload.id;
+      state.menu_old_data = action.payload;
+    },
+
+    toggleEditCategory(state) {
+      state.show_edit_category = !state.show_edit_category;
+    },
+
+    getEditCategoryData(state, action) {
+      state.category_edit_id = action.payload.id;
+      state.category_old_data = action.payload;
+    },
+
+    toggleEditServiceItem(state) {
+      state.show_edit_service_item = !state.show_edit_service_item;
+    },
+
+    getEditServiceItemData(state, action) {
+      state.service_item_edit_id = action.payload.id;
+      state.service_item_old_data = action.payload;
     },
   },
 });
