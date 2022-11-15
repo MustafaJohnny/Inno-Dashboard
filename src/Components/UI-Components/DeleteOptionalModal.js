@@ -45,6 +45,10 @@ const DeleteOptionalModal = () => {
     if (deleteSomething === "услугу") {
       dispatch(controlActions.toggleDeleteServiceItem());
     }
+
+    if (deleteSomething === "стол") {
+      dispatch(controlActions.toggleDeleteTable());
+    }
   };
 
   const optionalDeleteLogic = () => {
@@ -201,7 +205,6 @@ const DeleteOptionalModal = () => {
         .then((response) => {
           setTimeout(() => {
             if (response.status === 200) {
-              //   dispatch(controlActions.getUserItems(response.data.product));
               dispatch(controlActions.toggleSpinnerItems());
               navigate(0);
             }
@@ -244,6 +247,36 @@ const DeleteOptionalModal = () => {
           if (error) {
             dispatch(controlActions.toggleSpinnerServices());
             dispatch(controlActions.toggleFallServices());
+          }
+        });
+    }
+
+    if (deleteSomething === "стол") {
+      optionalHideDeleteModal();
+      dispatch(controlActions.toggleSpinnerQR());
+
+      axios
+        .delete(
+          `http://${serverAPI}/api/v1/table/table_delete/${deleteSomethingID}`,
+          {
+            auth: {
+              username: userEmail,
+              password: userPassword,
+            },
+          }
+        )
+        .then((response) => {
+          setTimeout(() => {
+            if (response.status === 200) {
+              dispatch(controlActions.toggleSpinnerQR());
+              navigate(0);
+            }
+          }, 3000);
+        })
+        .catch((error) => {
+          if (error) {
+            dispatch(controlActions.toggleSpinnerQR());
+            dispatch(controlActions.toggleFallQR());
           }
         });
     }

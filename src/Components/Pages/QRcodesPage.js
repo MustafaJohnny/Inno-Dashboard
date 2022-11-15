@@ -12,6 +12,9 @@ import AddTableQR from "../UI-Components/AddTableQR";
 import AddTables from "../UI-Components/AddTables";
 import ModalImgQR from "../UI-Components/ModaImgQR";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import actionBin from "../Icons/actionBin.svg";
+import actionPen from "../Icons/actionPen.svg";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -31,6 +34,10 @@ const QRcodesPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const spinnerQR = useSelector((state) => state.controler.show_spinner_qr);
   const fallQR = useSelector((state) => state.controler.show_fall_qr);
+
+  const showDeleteTable = useSelector(
+    (state) => state.controler.show_delete_table
+  );
 
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
@@ -129,6 +136,11 @@ const QRcodesPage = () => {
     dispatch(controlActions.toggleModalImgQR());
   };
 
+  const displayDeleteTable = (tableID) => {
+    dispatch(controlActions.toggleDeleteTable(tableID));
+    dispatch(controlActions.getDeleteSomething("стол"));
+  };
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -142,6 +154,7 @@ const QRcodesPage = () => {
         {showModalQR && <ModalImgQR />}
         {showTableQR && <AddTableQR />}
         {showTables && <AddTables />}
+        {showDeleteTable && <DeleteOptionalModal />}
         <SideNavigation />
         <div className={classes.contentBigBox}>
           <UpNavigation />
@@ -173,17 +186,31 @@ const QRcodesPage = () => {
                 <div className={classes.tableDescrioArea}>
                   <span className={classes.tableDescription}>
                     {ele.description}
+                  </span>
+
+                  <div className={classes.qrPageTwoBtnBoxy}>
                     <button
                       onClick={() => displayShowAddQR(ele.id, ele.description)}
-                      className={classes.editDescripBtn}
+                      className={classes.editWholeThingBtn}
                     >
                       <img
-                        src={PenIcon}
+                        className={classes.actionPenIcon}
                         alt="icon"
-                        className={classes.penIcon}
+                        src={actionPen}
                       />
                     </button>
-                  </span>
+
+                    <button
+                      onClick={() => displayDeleteTable(ele.id)}
+                      className={classes.deleteWholeThingBtn}
+                    >
+                      <img
+                        className={classes.actionPenIcon}
+                        alt="icon"
+                        src={actionBin}
+                      />
+                    </button>
+                  </div>
                 </div>
                 <div className={classes.optionsQRArea}>
                   <div className={classes.optionsBox}>

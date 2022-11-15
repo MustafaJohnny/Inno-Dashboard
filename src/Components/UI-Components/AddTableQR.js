@@ -20,11 +20,20 @@ const AddTableQR = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let formIsValid = false;
+
+  if (tableQRdescription) {
+    formIsValid = true;
+  }
+
   const hideAddTableQR = () => {
     dispatch(controlActions.toggleAddTableQR());
   };
 
   const createNewTableQR = () => {
+    hideAddTableQR();
+    dispatch(controlActions.toggleSpinnerQR());
+
     axios
       .post(`http://${serverAPI}/api/v1/table/table_description`, "", {
         params: {
@@ -41,13 +50,16 @@ const AddTableQR = () => {
         },
       })
       .then((response) => {
-        if (response.status === 200) {
-          hideAddTableQR();
-          navigate(0);
-        }
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerQR());
+            navigate(0);
+          }
+        }, 2000);
       })
       .catch((error) => {
         if (error) {
+          dispatch(controlActions.toggleSpinnerQR());
           dispatch(controlActions.toggleFallQR());
         }
       });
@@ -78,7 +90,11 @@ const AddTableQR = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={createNewTableQR} className={classes.controlBtn}>
+          <button
+            disabled={!formIsValid}
+            onClick={createNewTableQR}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

@@ -110,6 +110,7 @@ const initialState = {
   show_delete_category: false,
   show_delete_item: false,
   show_delete_service_item: false,
+  show_delete_table: false,
 
   /* The App States */
   active_section_heading: "Менеджмент",
@@ -483,6 +484,11 @@ const controlSlice = createSlice({
 
     toggleDeleteServiceItem(state, action) {
       state.show_delete_service_item = !state.show_delete_service_item;
+      state.delete_something_id = action.payload;
+    },
+
+    toggleDeleteTable(state, action) {
+      state.show_delete_table = !state.show_delete_table;
       state.delete_something_id = action.payload;
     },
   },
