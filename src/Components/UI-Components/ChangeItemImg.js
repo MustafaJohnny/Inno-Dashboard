@@ -9,19 +9,33 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const ChangeItemImg = () => {
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [ItemImg, setItemImg] = useState("");
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const currentItemID = useSelector((state) => state.controler.item_current_ID);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  let formIsVaild = false;
+
+  if (ItemImg.size) {
+    formIsVaild = true;
+  }
+
+  if (ItemImg.size >= 1000000 || !ItemImg) {
+    formIsVaild = false;
+  }
+
   const hideChangeItemImg = () => {
     dispatch(controlActions.toggleChangeItemImg());
   };
 
   const addNewItemName = () => {
+    hideChangeItemImg();
+    dispatch(controlActions.toggleSpinnerCurrentItem());
+
     const formData = new FormData();
 
     formData.append("in_file", ItemImg, ItemImg.name);
@@ -43,10 +57,17 @@ const ChangeItemImg = () => {
         }
       )
       .then((response) => {
-        console.log(response);
-        if ((response.status = "200")) {
-          hideChangeItemImg();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerCurrentItem());
+            navigate(0);
+          }
+        }, 3000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerCurrentItem());
+          dispatch(controlActions.toggleFallCurrentItem());
         }
       });
   };
@@ -58,23 +79,33 @@ const ChangeItemImg = () => {
         <h1 className={classes.modalHeading}>Изменить изображение</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
-            <label className={classes.btnAddImgModal} htmlFor="fileImg">
-              <img className={classes.uploadIcon} alt="icon" src={Upload} />
-              <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
-            </label>
-            <input
-              className={classes.inputImgModal}
-              type="file"
-              multiple
-              accept="image/png, image/jpeg"
-              onChange={(event) => setItemImg(event.target.files[0])}
-              required
-              id="fileImg"
-            />
+            <div className={classes.requiredImgBox}>
+              <label className={classes.btnAddImgModal} htmlFor="fileImg">
+                <img className={classes.uploadIcon} alt="icon" src={Upload} />
+                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+              </label>
+              <input
+                className={classes.inputImgModal}
+                type="file"
+                id="fileImg"
+                multiple
+                accept="image/png, image/jpeg image/jpg"
+                onChange={(event) => setItemImg(event.target.files[0])}
+                required
+              />
+              <span className={classes.requiredImg}>*</span>
+            </div>
+            <span className={classes.requiredImgMess}>
+              {!formIsVaild && "Размер изображения должен быть меньше 1 мб"}
+            </span>
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewItemName} className={classes.controlBtn}>
+          <button
+            disabled={!formIsVaild}
+            onClick={addNewItemName}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

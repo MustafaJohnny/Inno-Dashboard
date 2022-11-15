@@ -22,11 +22,20 @@ const ChangeItemName = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let formIsVaild = false;
+
+  if (ItemName) {
+    formIsVaild = true;
+  }
+
   const hideChangeItemName = () => {
     dispatch(controlActions.toggleChangeItemName());
   };
 
   const addNewItemName = () => {
+    hideChangeItemName();
+    dispatch(controlActions.toggleSpinnerCurrentItem());
+
     axios
       .patch(
         `http://${serverAPI}/api/prod/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
@@ -44,9 +53,17 @@ const ChangeItemName = () => {
         }
       )
       .then((response) => {
-        if ((response.status = "200")) {
-          hideChangeItemName();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerCurrentItem());
+            navigate(0);
+          }
+        }, 2000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerCurrentItem());
+          dispatch(controlActions.toggleFallCurrentItem());
         }
       });
   };
@@ -61,7 +78,7 @@ const ChangeItemName = () => {
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
+              <label className={classes.modalBasicLable2} htmlFor="name">
                 Новое название
               </label>
               <input
@@ -76,7 +93,11 @@ const ChangeItemName = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewItemName} className={classes.controlBtn}>
+          <button
+            disabled={!formIsVaild}
+            onClick={addNewItemName}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

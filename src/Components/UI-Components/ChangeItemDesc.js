@@ -22,11 +22,20 @@ const ChangeItemDesc = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let formIsVaild = false;
+
+  if (ItemDesc) {
+    formIsVaild = true;
+  }
+
   const hideChangeItemDesc = () => {
     dispatch(controlActions.toggleChangeItemDesc());
   };
 
   const addNewItemDesc = () => {
+    hideChangeItemDesc();
+    dispatch(controlActions.toggleSpinnerCurrentItem());
+
     axios
       .patch(
         `http://${serverAPI}/api/prod/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
@@ -44,9 +53,17 @@ const ChangeItemDesc = () => {
         }
       )
       .then((response) => {
-        if ((response.status = "200")) {
-          hideChangeItemDesc();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerCurrentItem());
+            navigate(0);
+          }
+        }, 2000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerCurrentItem());
+          dispatch(controlActions.toggleFallCurrentItem());
         }
       });
   };
@@ -61,7 +78,7 @@ const ChangeItemDesc = () => {
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
+              <label className={classes.modalBasicLable2} htmlFor="name">
                 Новое Описание
               </label>
               <input
@@ -76,7 +93,11 @@ const ChangeItemDesc = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewItemDesc} className={classes.controlBtn}>
+          <button
+            disabled={!formIsVaild}
+            onClick={addNewItemDesc}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

@@ -18,11 +18,20 @@ const ChangeItemPrice = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  let formIsVaild = false;
+
+  if (ItemPrice) {
+    formIsVaild = true;
+  }
+
   const hideChangeItemPrice = () => {
     dispatch(controlActions.toggleChangeItemPrice());
   };
 
   const addNewItemName = () => {
+    hideChangeItemPrice();
+    dispatch(controlActions.toggleSpinnerCurrentItem());
+
     axios
       .patch(
         `http://${serverAPI}/api/prod/product_price_change/${currentItemID}`,
@@ -42,9 +51,17 @@ const ChangeItemPrice = () => {
         }
       )
       .then((response) => {
-        if ((response.status = "200")) {
-          hideChangeItemPrice();
-          navigate(0);
+        setTimeout(() => {
+          if (response.status === 200) {
+            dispatch(controlActions.toggleSpinnerCurrentItem());
+            navigate(0);
+          }
+        }, 2000);
+      })
+      .catch((error) => {
+        if (error) {
+          dispatch(controlActions.toggleSpinnerCurrentItem());
+          dispatch(controlActions.toggleFallCurrentItem());
         }
       });
   };
@@ -59,7 +76,7 @@ const ChangeItemPrice = () => {
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
+              <label className={classes.modalBasicLable2} htmlFor="name">
                 новая цена
               </label>
               <input
@@ -74,7 +91,11 @@ const ChangeItemPrice = () => {
           </div>
         </form>
         <div className={classes.modalControlBtnsArea}>
-          <button onClick={addNewItemName} className={classes.controlBtn}>
+          <button
+            disabled={!formIsVaild}
+            onClick={addNewItemName}
+            className={classes.controlBtn}
+          >
             ДОБАВИТЬ
           </button>
           <button

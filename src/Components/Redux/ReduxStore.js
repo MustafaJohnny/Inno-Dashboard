@@ -81,6 +81,8 @@ const initialState = {
   show_fall_categories: false,
   show_fall_items: false,
   show_fall_qr: false,
+  show_spinner_current_item: false,
+  show_fall_current_item: false,
 
   /* Here we have only the editing states logic */
   show_edit_restaurent: false,
@@ -391,6 +393,14 @@ const controlSlice = createSlice({
 
     toggleFallQR(state) {
       state.show_fall_qr = !state.show_fall_qr;
+    },
+
+    toggleSpinnerCurrentItem(state) {
+      state.show_spinner_current_item = !state.show_spinner_current_item;
+    },
+
+    toggleFallCurrentItem(state) {
+      state.show_fall_current_item = !state.show_fall_current_item;
     },
 
     /** Editing Restaurants & Services Functions **/

@@ -1,6 +1,7 @@
 import React from "react";
 import axios from "axios";
 import PenIcon from "../Icons/Pen.svg";
+import actionPen from "../Icons/actionPen.svg";
 import DeleteIcon from "../Icons/Delete.svg";
 import classes from "./HomePage.module.css";
 import ArrowBack from "../Icons/ArrowBack.svg";
@@ -15,6 +16,7 @@ import ChangeItemDesc from "../UI-Components/ChangeItemDesc";
 import ChangeItemPrice from "../UI-Components/ChangeItemPrice";
 import ChangeItemImg from "../UI-Components/ChangeItemImg";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import FallMessage from "../UI-Components/FallMessage";
 
 const CurrentItemsPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
@@ -22,8 +24,17 @@ const CurrentItemsPage = () => {
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userPassword = useSelector((state) => state.controler.user_password);
   const itemCurrentID = useSelector((state) => state.controler.item_current_ID);
+
   const currentCategoryID = useSelector(
     (state) => state.controler.user_item_ID
+  );
+
+  const showSpinnerCurrentItem = useSelector(
+    (state) => state.controler.show_spinner_current_item
+  );
+
+  const showFallCurrentItem = useSelector(
+    (state) => state.controler.show_fall_current_item
   );
 
   useEffect(() => {
@@ -59,9 +70,6 @@ const CurrentItemsPage = () => {
   const navigate = useNavigate();
   const userCurrency = useSelector((state) => state.controler.user_currency);
   const currentItem = useSelector((state) => state.controler.user_current_item);
-  const showSpinner = useSelector((state) => state.controler.show_spinner);
-
-  console.log(currentItem);
 
   const showChangeItemName = useSelector(
     (state) => state.controler.show_change_item_name
@@ -129,11 +137,12 @@ const CurrentItemsPage = () => {
   return (
     <React.Fragment>
       <section>
-        {showSpinner && <LoadingSpinner2 />}
         {showChangeItemName && <ChangeItemName />}
         {showChangeItemDesc && <ChangeItemDesc />}
         {showChangeItemPrice && <ChangeItemPrice />}
         {showChangeItemImg && <ChangeItemImg />}
+        {showSpinnerCurrentItem && <LoadingSpinner2 />}
+        {showFallCurrentItem && <FallMessage />}
         <main className={classes.mainContiner}>
           <SideNavigation />
           <div className={classes.contentBigBox}>
@@ -181,7 +190,7 @@ const CurrentItemsPage = () => {
                   >
                     <img
                       onClick={() => displayChangeItemImg(currentItem.id)}
-                      src={PenIcon}
+                      src={actionPen}
                       alt="icon"
                       className={classes.penIconCurrentImg}
                     />
@@ -310,12 +319,12 @@ const CurrentItemsPage = () => {
                             <span
                               className={`${classes.modifierPrice} ${classes.modifierPrice1}`}
                             >
-                              + 50
+                              0
                             </span>
                             <span
                               className={`${classes.modifierPrice} ${classes.modifierPrice2}`}
                             >
-                              РУБ
+                              {userCurrency}
                             </span>
                           </div>
 
