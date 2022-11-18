@@ -151,61 +151,71 @@ const ServicesPage = () => {
                 </div>
               </div>
 
-              <div className={classes.serviceItemsBox}>
-                <div className={classes.multiHeadingServices}>
-                  <span className={classes.servicesHeading}>Название</span>
-                  <span className={classes.servicesHeading}>Цена</span>
-                  <span className={classes.servicesHeading}>Описание</span>
+              {userServiceItems.length <= 0 ? (
+                <div className={classes.emptyMsgInnerHeadingService}>
+                  <h1 className={classes.emptyMsgHomePage}>
+                    Вы еще не добавили сервис
+                  </h1>
                 </div>
-                {userServiceItems.map((element, index) => (
-                  <div key={element.id} className={classes.wholeItemService}>
-                    <span className={classes.serviceName}>{element.name}</span>
-                    <span className={classes.servicePrice}>
-                      {element.price}
-                    </span>
-                    <span className={classes.serviceDescription}>
-                      {element.description}
-                    </span>
-                    <div className={classes.service2btnArea}>
-                      <button
-                        onClick={() =>
-                          activateOrDeactivateServiceItem(element.id)
-                        }
-                        className={
-                          element.is_active
-                            ? classes.activeMenu
-                            : classes.notActiveMenu
-                        }
-                        type="button"
-                      >
-                        {element.is_active ? "Активный" : "Неактивный"}
-                      </button>
-
-                      <button
-                        onClick={() => displayDeleteServiceItem(element.id)}
-                        className={classes.deleteWholeThingBtn}
-                      >
-                        <img
-                          className={classes.actionPenIcon}
-                          alt="icon"
-                          src={actionBin}
-                        />
-                      </button>
-
-                      <button
-                        onClick={() => displayEditServiceItem(index)}
-                        className={classes.editWholeThingBtn}
-                      >
-                        <img
-                          className={classes.actionPenIcon}
-                          alt="icon"
-                          src={actionPen}
-                        />
-                      </button>
-                    </div>
+              ) : (
+                <div className={classes.serviceItemsBox}>
+                  <div className={classes.multiHeadingServices}>
+                    <span className={classes.servicesHeading}>Название</span>
+                    <span className={classes.servicesHeading}>Цена</span>
+                    <span className={classes.servicesHeading}>Описание</span>
                   </div>
-                ))}
-              </div>
+                  {userServiceItems.map((element, index) => (
+                    <div key={element.id} className={classes.wholeItemService}>
+                      <span className={classes.serviceName}>
+                        {element.name}
+                      </span>
+                      <span className={classes.servicePrice}>
+                        {element.price}
+                      </span>
+                      <span className={classes.serviceDescription}>
+                        {element.description}
+                      </span>
+                      <div className={classes.service2btnArea}>
+                        <button
+                          onClick={() =>
+                            activateOrDeactivateServiceItem(element.id)
+                          }
+                          className={
+                            element.is_active
+                              ? classes.activeMenu
+                              : classes.notActiveMenu
+                          }
+                          type="button"
+                        >
+                          {element.is_active ? "Активный" : "Неактивный"}
+                        </button>
+
+                        <button
+                          onClick={() => displayDeleteServiceItem(element.id)}
+                          className={classes.deleteWholeThingBtn}
+                        >
+                          <img
+                            className={classes.actionPenIcon}
+                            alt="icon"
+                            src={actionBin}
+                          />
+                        </button>
+
+                        <button
+                          onClick={() => displayEditServiceItem(index)}
+                          className={classes.editWholeThingBtn}
+                        >
+                          <img
+                            className={classes.actionPenIcon}
+                            alt="icon"
+                            src={actionPen}
+                          />
+                        </button>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
             </main>
           </div>
         </main>

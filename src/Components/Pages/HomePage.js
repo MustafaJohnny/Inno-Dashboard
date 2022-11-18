@@ -58,6 +58,8 @@ const HomePage = () => {
     (state) => state.controler.show_delete_service
   );
 
+  const restAndServiceLength = userRestaurants.length + userServices.length;
+
   // This one is for getting information about the product owner first time we load the home page
   useEffect(() => {
     let mounted = true;
@@ -257,143 +259,159 @@ const HomePage = () => {
           <SideNavigation />
           <div className={classes.contentBigBox}>
             <UpNavigation />
-            <main className={classes.changeContentBox}>
-              <div className={classes.managmentContent}>
-                <div className={classes.managementBtnsArea}>
-                  <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
-                  <div className={classes.twoBtnsManage}>
-                    <button
-                      onClick={unHideAddService}
-                      className={classes.manageBtn}
-                      type="button"
-                    >
-                      + Добавить сервис
-                    </button>
-                    <button
-                      onClick={unHideAddRestaurent}
-                      className={classes.manageBtn}
-                      type="button"
-                    >
-                      + Добавить ресторан
-                    </button>
+            {restAndServiceLength < 0 ? (
+              <div className={classes.emptyMsgInnerHeading}>
+                <h1 className={classes.emptyMsgHomePage}>
+                  У вас нет добавленных ресторанов и сервисов
+                </h1>
+              </div>
+            ) : (
+              <main className={classes.changeContentBox}>
+                <div className={classes.managmentContent}>
+                  <div className={classes.managementBtnsArea}>
+                    {userRestaurants.length >= 1 ? (
+                      <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
+                    ) : (
+                      ""
+                    )}
+                    <div className={classes.twoBtnsManage}>
+                      <button
+                        onClick={unHideAddService}
+                        className={classes.manageBtn}
+                        type="button"
+                      >
+                        + Добавить сервис
+                      </button>
+                      <button
+                        onClick={unHideAddRestaurent}
+                        className={classes.manageBtn}
+                        type="button"
+                      >
+                        + Добавить ресторан
+                      </button>
+                    </div>
+                  </div>
+
+                  <div className={classes.managementRestaurents}>
+                    {userRestaurants.map((ele, index) => (
+                      <div
+                        onClick={getClickedRestaurant}
+                        style={{
+                          backgroundImage: `url("${URL}/${ele.image}")`,
+                        }}
+                        key={ele.id}
+                        id={index}
+                        className={classes.itemRestaurent}
+                      >
+                        <div className={classes.anItemOnlyActionBox}>
+                          <button
+                            onClick={() => activateOrDeactivateMenu(ele.id)}
+                            className={
+                              ele.is_active
+                                ? classes.activeMenu
+                                : classes.notActiveMenu
+                            }
+                            type="button"
+                          >
+                            {ele.is_active ? "Активный" : "Неактивный"}
+                          </button>
+
+                          <button
+                            onClick={() => displayEditRestaurent(index)}
+                            className={classes.editWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionPen}
+                            />
+                          </button>
+
+                          <button
+                            onClick={() => displayDeleteRestaurent(ele.id)}
+                            className={classes.deleteWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionBin}
+                            />
+                          </button>
+                        </div>
+                        <div className={classes.packageArea}>
+                          <span id={index} className={classes.itemRestHeading}>
+                            {ele.name_rest}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  <div className={classes.serviceHeadingArea}>
+                    {userServices.length >= 1 ? (
+                      <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
+                    ) : (
+                      ""
+                    )}
+                  </div>
+                  <div className={classes.managementRestaurents}>
+                    {userServices.map((ele, index) => (
+                      <div
+                        onClick={getClickedService}
+                        style={{
+                          backgroundImage: `url("${URL}/${ele.image}")`,
+                        }}
+                        key={ele.id}
+                        id={index}
+                        className={classes.itemRestaurent}
+                      >
+                        <div className={classes.anItemOnlyActionBox}>
+                          <button
+                            onClick={() => activateOrDeactivateService(ele.id)}
+                            className={
+                              ele.is_active
+                                ? classes.activeMenu
+                                : classes.notActiveMenu
+                            }
+                            type="button"
+                          >
+                            {ele.is_active ? "Активный" : "Неактивный"}
+                          </button>
+
+                          <button
+                            onClick={() => displayEditService(index)}
+                            className={classes.editWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionPen}
+                            />
+                          </button>
+
+                          <button
+                            onClick={() => displayDeleteService(ele.id)}
+                            className={classes.deleteWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionBin}
+                            />
+                          </button>
+                        </div>
+
+                        <div className={classes.packageArea}>
+                          <span id={index} className={classes.itemRestHeading}>
+                            {ele.name_service}
+                          </span>
+                        </div>
+                      </div>
+                    ))}
                   </div>
                 </div>
-
-                <div className={classes.managementRestaurents}>
-                  {userRestaurants.map((ele, index) => (
-                    <div
-                      onClick={getClickedRestaurant}
-                      style={{
-                        backgroundImage: `url("${URL}/${ele.image}")`,
-                      }}
-                      key={ele.id}
-                      id={index}
-                      className={classes.itemRestaurent}
-                    >
-                      <div className={classes.anItemOnlyActionBox}>
-                        <button
-                          onClick={() => activateOrDeactivateMenu(ele.id)}
-                          className={
-                            ele.is_active
-                              ? classes.activeMenu
-                              : classes.notActiveMenu
-                          }
-                          type="button"
-                        >
-                          {ele.is_active ? "Активный" : "Неактивный"}
-                        </button>
-
-                        <button
-                          onClick={() => displayEditRestaurent(index)}
-                          className={classes.editWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionPen}
-                          />
-                        </button>
-
-                        <button
-                          onClick={() => displayDeleteRestaurent(ele.id)}
-                          className={classes.deleteWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionBin}
-                          />
-                        </button>
-                      </div>
-                      <div className={classes.packageArea}>
-                        <span id={index} className={classes.itemRestHeading}>
-                          {ele.name_rest}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-
-                <div className={classes.serviceHeadingArea}>
-                  <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
-                </div>
-                <div className={classes.managementRestaurents}>
-                  {userServices.map((ele, index) => (
-                    <div
-                      onClick={getClickedService}
-                      style={{
-                        backgroundImage: `url("${URL}/${ele.image}")`,
-                      }}
-                      key={ele.id}
-                      id={index}
-                      className={classes.itemRestaurent}
-                    >
-                      <div className={classes.anItemOnlyActionBox}>
-                        <button
-                          onClick={() => activateOrDeactivateService(ele.id)}
-                          className={
-                            ele.is_active
-                              ? classes.activeMenu
-                              : classes.notActiveMenu
-                          }
-                          type="button"
-                        >
-                          {ele.is_active ? "Активный" : "Неактивный"}
-                        </button>
-
-                        <button
-                          onClick={() => displayEditService(index)}
-                          className={classes.editWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionPen}
-                          />
-                        </button>
-
-                        <button
-                          onClick={() => displayDeleteService(ele.id)}
-                          className={classes.deleteWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionBin}
-                          />
-                        </button>
-                      </div>
-
-                      <div className={classes.packageArea}>
-                        <span id={index} className={classes.itemRestHeading}>
-                          {ele.name_service}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </main>
+              </main>
+            )}
           </div>
         </main>
       </section>

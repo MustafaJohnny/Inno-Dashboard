@@ -290,7 +290,7 @@ const DeleteOptionalModal = () => {
         <form className={classes.modalForm}>
           <div className={classes.confirmDesignArea}>
             <h1 className={classes.deleteHeading}>
-              Вы действительно хотите удалить {deleteSomething}
+              Вы действительно хотите удалить {deleteSomething}?
             </h1>
           </div>
         </form>

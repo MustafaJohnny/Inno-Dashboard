@@ -30,6 +30,8 @@ const MenusPage = () => {
   const fallMenu = useSelector((state) => state.controler.show_fall_menu);
   const showEditMenu = useSelector((state) => state.controler.show_edit_menu);
 
+  console.log(userMenus.length);
+
   const showDeleteMenu = useSelector(
     (state) => state.controler.show_delete_menu
   );
@@ -181,61 +183,69 @@ const MenusPage = () => {
                   </div>
                 </div>
 
-                <div className={classes.managementRestaurents}>
-                  {userMenus.map((ele, index) => (
-                    <div
-                      onClick={getClickedMenu}
-                      style={{
-                        backgroundImage: `url("${URL}/${ele.image}")`,
-                      }}
-                      key={ele.id}
-                      id={index}
-                      className={classes.itemRestaurent}
-                    >
-                      <div className={classes.anItemOnlyActionBox}>
-                        <button
-                          onClick={() => activateOrDeactivateMenu(ele.id)}
-                          className={
-                            ele.is_active
-                              ? classes.activeMenu
-                              : classes.notActiveMenu
-                          }
-                          type="button"
-                        >
-                          {ele.is_active ? "Активный" : "Неактивный"}
-                        </button>
+                {userMenus.length <= 0 ? (
+                  <div className={classes.emptyMsgInnerHeading}>
+                    <h1 className={classes.emptyMsgHomePage}>
+                      Вы еще не добавили меню
+                    </h1>
+                  </div>
+                ) : (
+                  <div className={classes.managementRestaurents}>
+                    {userMenus.map((ele, index) => (
+                      <div
+                        onClick={getClickedMenu}
+                        style={{
+                          backgroundImage: `url("${URL}/${ele.image}")`,
+                        }}
+                        key={ele.id}
+                        id={index}
+                        className={classes.itemRestaurent}
+                      >
+                        <div className={classes.anItemOnlyActionBox}>
+                          <button
+                            onClick={() => activateOrDeactivateMenu(ele.id)}
+                            className={
+                              ele.is_active
+                                ? classes.activeMenu
+                                : classes.notActiveMenu
+                            }
+                            type="button"
+                          >
+                            {ele.is_active ? "Активный" : "Неактивный"}
+                          </button>
 
-                        <button
-                          onClick={() => displayEditMenu(index)}
-                          className={classes.editWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionPen}
-                          />
-                        </button>
+                          <button
+                            onClick={() => displayEditMenu(index)}
+                            className={classes.editWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionPen}
+                            />
+                          </button>
 
-                        <button
-                          onClick={() => displayDeleteMenu(ele.id)}
-                          className={classes.deleteWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionBin}
-                          />
-                        </button>
+                          <button
+                            onClick={() => displayDeleteMenu(ele.id)}
+                            className={classes.deleteWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionBin}
+                            />
+                          </button>
+                        </div>
+
+                        <div className={classes.packageArea}>
+                          <span id={index} className={classes.itemRestHeading}>
+                            {ele.name}
+                          </span>
+                        </div>
                       </div>
-
-                      <div className={classes.packageArea}>
-                        <span id={index} className={classes.itemRestHeading}>
-                          {ele.name}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </main>
           </div>
