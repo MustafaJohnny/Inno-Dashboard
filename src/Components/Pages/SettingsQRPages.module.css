@@ -290,15 +290,7 @@
 
 .emptyMsgInnerHeading {
   width: 100%;
-  height: 24vw;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.emptyMsgInnerHeadingService {
-  width: 100%;
-  height: 24vw;
+  height: 30vw;
   display: flex;
   align-items: center;
   justify-content: center;

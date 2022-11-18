@@ -48,6 +48,12 @@ const OrderServicePage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
+  const ordersServices = useSelector(
+    (state) => state.controler.user_orders_services
+  );
+
+  console.log(ordersServices);
+
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -74,19 +80,29 @@ const OrderServicePage = () => {
                 </div>
               </div>
 
-              <div className={classes.serviceItemsBox}>
-                <div
-                  className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
-                >
-                  <span className={classes.waiterHeading}>Номер стола</span>
-                  <span className={classes.waiterHeading}>Название услуги</span>
-                  <span className={classes.waiterHeading}>Время</span>
-                  <span className={classes.waiterHeading}>Сумма</span>
-                  <span className={classes.waiterHeading}>Статус</span>
+              {ordersServices.length <= 0 ? (
+                <div className={classes.emptyMsgInnerHeading}>
+                  <h1 className={classes.emptyMsgHomePage}>
+                    У вас еще нет заказанных услуг...
+                  </h1>
                 </div>
+              ) : (
+                <div className={classes.serviceItemsBox}>
+                  <div
+                    className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
+                  >
+                    <span className={classes.waiterHeading}>Номер стола</span>
+                    <span className={classes.waiterHeading}>
+                      Название услуги
+                    </span>
+                    <span className={classes.waiterHeading}>Время</span>
+                    <span className={classes.waiterHeading}>Сумма</span>
+                    <span className={classes.waiterHeading}>Статус</span>
+                  </div>
 
-                <PaginationServices />
-              </div>
+                  <PaginationServices />
+                </div>
+              )}
             </main>
           </div>
         </main>

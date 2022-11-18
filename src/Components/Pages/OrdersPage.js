@@ -45,6 +45,7 @@ const OrdersPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const userOrders = useSelector((state) => state.controler.user_all_orders);
 
   const goPageBack = () => {
     navigate(-1, {
@@ -72,25 +73,33 @@ const OrdersPage = () => {
                 </div>
               </div>
 
-              <div className={classes.ordersItemsBox}>
-                <div
-                  className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
-                >
-                  <span className={classes.waiterHeading}>Номер заказа</span>
-                  <span
-                    className={`${classes.waiterHeading} ${classes.timeOrderHeadingMove}`}
-                  >
-                    Время
-                  </span>
-                  <span className={classes.waiterHeading}>Стол</span>
-                  <span className={classes.waiterHeading}>Статус заказа</span>
-                  <span className={classes.waiterHeading}>Сумма</span>
-                  <span className={classes.waiterHeading}>Тип оплаты</span>
-                  <span className={classes.waiterHeading}>Статус оплаты</span>
+              {userOrders.length <= 0 ? (
+                <div className={classes.emptyMsgInnerHeading}>
+                  <h1 className={classes.emptyMsgHomePage}>
+                    У вас еще нет заказов...
+                  </h1>
                 </div>
+              ) : (
+                <div className={classes.ordersItemsBox}>
+                  <div
+                    className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
+                  >
+                    <span className={classes.waiterHeading}>Номер заказа</span>
+                    <span
+                      className={`${classes.waiterHeading} ${classes.timeOrderHeadingMove}`}
+                    >
+                      Время
+                    </span>
+                    <span className={classes.waiterHeading}>Стол</span>
+                    <span className={classes.waiterHeading}>Статус заказа</span>
+                    <span className={classes.waiterHeading}>Сумма</span>
+                    <span className={classes.waiterHeading}>Тип оплаты</span>
+                    <span className={classes.waiterHeading}>Статус оплаты</span>
+                  </div>
 
-                <PaginationOrders />
-              </div>
+                  <PaginationOrders />
+                </div>
+              )}
             </main>
           </div>
         </main>

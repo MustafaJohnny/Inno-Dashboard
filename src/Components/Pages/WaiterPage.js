@@ -48,6 +48,7 @@ const WaiterPage = () => {
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
+  const WaiterData = useSelector((state) => state.controler.user_waitor_data);
 
   const goPageBack = () => {
     navigate(-1, {
@@ -74,16 +75,23 @@ const WaiterPage = () => {
                   <h1 className={classes.managementHeading}>Вызов официанта</h1>
                 </div>
               </div>
-
-              <div className={classes.serviceItemsBox}>
-                <div className={classes.multiHeadingWaiter}>
-                  <span className={classes.waiterHeading}>Номер стола</span>
-                  <span className={classes.waiterHeading}>Время</span>
-                  <span className={classes.waiterHeading}>Статус</span>
+              {WaiterData.length <= 0 ? (
+                <div className={classes.emptyMsgInnerHeading}>
+                  <h1 className={classes.emptyMsgHomePage}>
+                    У вас еще нет вызовов официанта...
+                  </h1>
                 </div>
+              ) : (
+                <div className={classes.serviceItemsBox}>
+                  <div className={classes.multiHeadingWaiter}>
+                    <span className={classes.waiterHeading}>Номер стола</span>
+                    <span className={classes.waiterHeading}>Время</span>
+                    <span className={classes.waiterHeading}>Статус</span>
+                  </div>
 
-                <PaginationWaiter />
-              </div>
+                  <PaginationWaiter />
+                </div>
+              )}
             </main>
           </div>
         </main>

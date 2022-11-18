@@ -44,8 +44,6 @@ const PaginationOrders = () => {
     (state) => state.controler.user_order_detail_per_click
   );
 
-  console.log(clickedOrderDetail);
-
   const OrderClassNameHide = `${classes.containerForOrdersDetails} ${classes.hiddenComponent}`;
   const OrderClassNameShow = classes.containerForOrdersDetails;
 

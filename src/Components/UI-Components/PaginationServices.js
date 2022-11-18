@@ -9,8 +9,6 @@ const PaginationServices = () => {
     (state) => state.controler.user_orders_services
   );
 
-  console.log(ordersServices);
-
   const userCurrency = useSelector((state) => state.controler.user_currency);
 
   const [currentItems, setCurrentItems] = useState([]);

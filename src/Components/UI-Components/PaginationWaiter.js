@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 
 const PaginationWaiter = () => {
   const WaiterData = useSelector((state) => state.controler.user_waitor_data);
-  console.log(WaiterData);
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);

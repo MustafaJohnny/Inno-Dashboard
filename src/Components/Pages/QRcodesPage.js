@@ -180,110 +180,124 @@ const QRcodesPage = () => {
             </button>
           </div>
 
-          <div className={classes.qrBigBox}>
-            {userQRCodes.map((ele) => (
-              <div key={ele.id} className={classes.wholeQR}>
-                <div className={classes.tableDescrioArea}>
-                  <span className={classes.tableDescription}>
-                    {ele.description}
-                  </span>
+          {userQRCodes.length <= 0 ? (
+            <div className={classes.emptyMsgInnerHeading}>
+              <h1 className={classes.emptyMsgHomePage}>
+                Вы еще не добавили столы
+              </h1>
+            </div>
+          ) : (
+            <div className={classes.qrBigBox}>
+              {userQRCodes.map((ele) => (
+                <div key={ele.id} className={classes.wholeQR}>
+                  <div className={classes.tableDescrioArea}>
+                    <span className={classes.tableDescription}>
+                      {ele.description}
+                    </span>
 
-                  <div className={classes.qrPageTwoBtnBoxy}>
-                    <button
-                      onClick={() => displayShowAddQR(ele.id, ele.description)}
-                      className={classes.editWholeThingBtn}
-                    >
-                      <img
-                        className={classes.actionPenIcon}
-                        alt="icon"
-                        src={actionPen}
-                      />
-                    </button>
+                    <div className={classes.qrPageTwoBtnBoxy}>
+                      <button
+                        onClick={() =>
+                          displayShowAddQR(ele.id, ele.description)
+                        }
+                        className={classes.editWholeThingBtn}
+                      >
+                        <img
+                          className={classes.actionPenIcon}
+                          alt="icon"
+                          src={actionPen}
+                        />
+                      </button>
 
-                    <button
-                      onClick={() => displayDeleteTable(ele.id)}
-                      className={classes.deleteWholeThingBtn}
-                    >
-                      <img
-                        className={classes.actionPenIcon}
-                        alt="icon"
-                        src={actionBin}
-                      />
-                    </button>
+                      <button
+                        onClick={() => displayDeleteTable(ele.id)}
+                        className={classes.deleteWholeThingBtn}
+                      >
+                        <img
+                          className={classes.actionPenIcon}
+                          alt="icon"
+                          src={actionBin}
+                        />
+                      </button>
+                    </div>
+                  </div>
+                  <div className={classes.optionsQRArea}>
+                    <div className={classes.optionsBox}>
+                      <div className={classes.wholeOption}>
+                        <span className={classes.optionText}>
+                          Заказ от стола
+                        </span>
+                        <button
+                          onClick={() => activateOrDeactivateOrder(ele.id)}
+                          className={
+                            ele.order_call
+                              ? classes.activeMenu
+                              : classes.notActiveMenu
+                          }
+                          type="button"
+                        >
+                          {ele.order_call ? "Активный" : "Неактивный"}
+                        </button>
+                      </div>
+                      <div className={classes.wholeOption}>
+                        <span className={classes.optionText}>
+                          Вызов официанта
+                        </span>
+                        <button
+                          onClick={() => activateOrDeactivateWaiter(ele.id)}
+                          className={
+                            ele.garson_call
+                              ? classes.activeMenu
+                              : classes.notActiveMenu
+                          }
+                          type="button"
+                        >
+                          {ele.garson_call ? "Активный" : "Неактивный"}
+                        </button>
+                      </div>
+                      <div className={classes.wholeOption}>
+                        <span className={classes.optionText}>
+                          Активный стол
+                        </span>
+                        <button
+                          onClick={() => activateOrDeactivateTable(ele.id)}
+                          className={
+                            ele.is_active
+                              ? classes.activeMenu
+                              : classes.notActiveMenu
+                          }
+                          type="button"
+                        >
+                          {ele.is_active ? "Активный" : "Неактивный"}
+                        </button>
+                      </div>
+                    </div>
+                    <div className={classes.justAreaQR}>
+                      <div
+                        style={{
+                          backgroundImage: `url("${URL}/${ele.qr_code}")`,
+                        }}
+                        className={classes.imgSmallQR}
+                      ></div>
+                      <div className={classes.actionQRArea}>
+                        <img
+                          onClick={() => displayModalImgQR(ele.qr_code)}
+                          src={eyeIcon}
+                          alt="icon"
+                          className={classes.actionQRicons}
+                        />
+                        <img
+                          src={downlodIcon}
+                          alt="icon"
+                          className={classes.actionQRicons}
+                        />
+                      </div>
+                    </div>
                   </div>
                 </div>
-                <div className={classes.optionsQRArea}>
-                  <div className={classes.optionsBox}>
-                    <div className={classes.wholeOption}>
-                      <span className={classes.optionText}>Заказ от стола</span>
-                      <button
-                        onClick={() => activateOrDeactivateOrder(ele.id)}
-                        className={
-                          ele.order_call
-                            ? classes.activeMenu
-                            : classes.notActiveMenu
-                        }
-                        type="button"
-                      >
-                        {ele.order_call ? "Активный" : "Неактивный"}
-                      </button>
-                    </div>
-                    <div className={classes.wholeOption}>
-                      <span className={classes.optionText}>
-                        Вызов официанта
-                      </span>
-                      <button
-                        onClick={() => activateOrDeactivateWaiter(ele.id)}
-                        className={
-                          ele.garson_call
-                            ? classes.activeMenu
-                            : classes.notActiveMenu
-                        }
-                        type="button"
-                      >
-                        {ele.garson_call ? "Активный" : "Неактивный"}
-                      </button>
-                    </div>
-                    <div className={classes.wholeOption}>
-                      <span className={classes.optionText}>Активный стол</span>
-                      <button
-                        onClick={() => activateOrDeactivateTable(ele.id)}
-                        className={
-                          ele.is_active
-                            ? classes.activeMenu
-                            : classes.notActiveMenu
-                        }
-                        type="button"
-                      >
-                        {ele.is_active ? "Активный" : "Неактивный"}
-                      </button>
-                    </div>
-                  </div>
-                  <div className={classes.justAreaQR}>
-                    <div
-                      style={{
-                        backgroundImage: `url("${URL}/${ele.qr_code}")`,
-                      }}
-                      className={classes.imgSmallQR}
-                    ></div>
-                    <div className={classes.actionQRArea}>
-                      <img
-                        onClick={() => displayModalImgQR(ele.qr_code)}
-                        src={eyeIcon}
-                        alt="icon"
-                        className={classes.actionQRicons}
-                      />
-                      <img
-                        src={downlodIcon}
-                        alt="icon"
-                        className={classes.actionQRicons}
-                      />
-                    </div>
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
+              ))}
+            </div>
+          )}
         </main>
       </section>
     </React.Fragment>
