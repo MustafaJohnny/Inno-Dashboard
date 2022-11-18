@@ -259,39 +259,34 @@ const HomePage = () => {
           <SideNavigation />
           <div className={classes.contentBigBox}>
             <UpNavigation />
-            {restAndServiceLength < 0 ? (
-              <div className={classes.emptyMsgInnerHeading}>
-                <h1 className={classes.emptyMsgHomePage}>
-                  У вас нет добавленных ресторанов и сервисов
-                </h1>
-              </div>
-            ) : (
-              <main className={classes.changeContentBox}>
-                <div className={classes.managmentContent}>
-                  <div className={classes.managementBtnsArea}>
-                    {userRestaurants.length >= 1 ? (
-                      <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
-                    ) : (
-                      ""
-                    )}
-                    <div className={classes.twoBtnsManage}>
-                      <button
-                        onClick={unHideAddService}
-                        className={classes.manageBtn}
-                        type="button"
-                      >
-                        + Добавить сервис
-                      </button>
-                      <button
-                        onClick={unHideAddRestaurent}
-                        className={classes.manageBtn}
-                        type="button"
-                      >
-                        + Добавить ресторан
-                      </button>
-                    </div>
-                  </div>
 
+            <main className={classes.changeContentBox}>
+              <div className={classes.managmentContent}>
+                <div className={classes.managementBtnsArea}>
+                  {userRestaurants.length >= 1 ? (
+                    <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
+                  ) : (
+                    ""
+                  )}
+                  <div className={classes.twoBtnsManage}>
+                    <button
+                      onClick={unHideAddService}
+                      className={classes.manageBtn}
+                      type="button"
+                    >
+                      + Добавить сервис
+                    </button>
+                    <button
+                      onClick={unHideAddRestaurent}
+                      className={classes.manageBtn}
+                      type="button"
+                    >
+                      + Добавить ресторан
+                    </button>
+                  </div>
+                </div>
+
+                {userRestaurants.length >= 1 ? (
                   <div className={classes.managementRestaurents}>
                     {userRestaurants.map((ele, index) => (
                       <div
@@ -346,14 +341,26 @@ const HomePage = () => {
                       </div>
                     ))}
                   </div>
+                ) : (
+                  ""
+                )}
 
-                  <div className={classes.serviceHeadingArea}>
-                    {userServices.length >= 1 ? (
-                      <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
-                    ) : (
-                      ""
-                    )}
+                {!restAndServiceLength && (
+                  <div className={classes.emptyMsgInnerHeading}>
+                    <h1 className={classes.emptyMsgHomePage}>
+                      У вас нет добавленных ресторанов и сервисов
+                    </h1>
                   </div>
+                )}
+
+                <div className={classes.serviceHeadingArea}>
+                  {userServices.length >= 1 ? (
+                    <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
+                  ) : (
+                    ""
+                  )}
+                </div>
+                {userServices.length >= 1 ? (
                   <div className={classes.managementRestaurents}>
                     {userServices.map((ele, index) => (
                       <div
@@ -409,9 +416,11 @@ const HomePage = () => {
                       </div>
                     ))}
                   </div>
-                </div>
-              </main>
-            )}
+                ) : (
+                  ""
+                )}
+              </div>
+            </main>
           </div>
         </main>
       </section>

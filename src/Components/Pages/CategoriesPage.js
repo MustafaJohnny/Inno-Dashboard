@@ -205,61 +205,69 @@ const CategoriesPage = () => {
                   </div>
                 </div>
 
-                <div className={classes.managementRestaurents}>
-                  {userCategories.map((ele, index) => (
-                    <div
-                      onClick={getClickedCategory}
-                      style={{
-                        backgroundImage: `url("${URL}/${ele.image}")`,
-                      }}
-                      key={ele.id}
-                      id={index}
-                      className={classes.itemRestaurent}
-                    >
-                      <div className={classes.anItemOnlyActionBox}>
-                        <button
-                          onClick={() => activateOrDeactivateCategory(ele.id)}
-                          className={
-                            ele.is_active
-                              ? classes.activeMenu
-                              : classes.notActiveMenu
-                          }
-                          type="button"
-                        >
-                          {ele.is_active ? "Активный" : "Неактивный"}
-                        </button>
+                {userCategories.length <= 0 ? (
+                  <div className={classes.emptyMsgInnerHeading}>
+                    <h1 className={classes.emptyMsgHomePage}>
+                      Вы еще не добавили категорию
+                    </h1>
+                  </div>
+                ) : (
+                  <div className={classes.managementRestaurents}>
+                    {userCategories.map((ele, index) => (
+                      <div
+                        onClick={getClickedCategory}
+                        style={{
+                          backgroundImage: `url("${URL}/${ele.image}")`,
+                        }}
+                        key={ele.id}
+                        id={index}
+                        className={classes.itemRestaurent}
+                      >
+                        <div className={classes.anItemOnlyActionBox}>
+                          <button
+                            onClick={() => activateOrDeactivateCategory(ele.id)}
+                            className={
+                              ele.is_active
+                                ? classes.activeMenu
+                                : classes.notActiveMenu
+                            }
+                            type="button"
+                          >
+                            {ele.is_active ? "Активный" : "Неактивный"}
+                          </button>
 
-                        <button
-                          onClick={() => displayEditCategory(index)}
-                          className={classes.editWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionPen}
-                          />
-                        </button>
+                          <button
+                            onClick={() => displayEditCategory(index)}
+                            className={classes.editWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionPen}
+                            />
+                          </button>
 
-                        <button
-                          onClick={() => displayDeleteCategory(ele.id)}
-                          className={classes.deleteWholeThingBtn}
-                        >
-                          <img
-                            className={classes.actionPenIcon}
-                            alt="icon"
-                            src={actionBin}
-                          />
-                        </button>
+                          <button
+                            onClick={() => displayDeleteCategory(ele.id)}
+                            className={classes.deleteWholeThingBtn}
+                          >
+                            <img
+                              className={classes.actionPenIcon}
+                              alt="icon"
+                              src={actionBin}
+                            />
+                          </button>
+                        </div>
+
+                        <div className={classes.packageArea}>
+                          <span id={index} className={classes.itemRestHeading}>
+                            {ele.name}
+                          </span>
+                        </div>
                       </div>
-
-                      <div className={classes.packageArea}>
-                        <span id={index} className={classes.itemRestHeading}>
-                          {ele.name}
-                        </span>
-                      </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </main>
           </div>

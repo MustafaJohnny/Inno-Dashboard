@@ -171,66 +171,81 @@ const ItemsPage = () => {
                     </button>
                   </div>
                 </div>
-                <div className={classes.justItemsContainer}>
-                  {userItems.map((ele, index) => (
-                    <div
-                      onClick={getClickedItemData}
-                      id={index}
-                      key={ele.id}
-                      className={classes.wholeItemElement}
-                    >
+
+                {userItems.length <= 0 ? (
+                  <div className={classes.emptyMsgInnerHeading}>
+                    <h1 className={classes.emptyMsgHomePage}>
+                      Вы еще не добавили блюдо
+                    </h1>
+                  </div>
+                ) : (
+                  <div className={classes.justItemsContainer}>
+                    {userItems.map((ele, index) => (
                       <div
+                        onClick={getClickedItemData}
                         id={index}
-                        style={{
-                          backgroundImage: `url("${URL}/${ele.image}")`,
-                        }}
-                        className={classes.itemImgBox}
-                      ></div>
-                      <div id={index} className={classes.itemContentBox}>
-                        <div id={index} className={classes.innerItem}>
-                          <div className={classes.itemNameDeleteArea}>
-                            <span id={index} className={classes.itemHeading}>
-                              {ele.name}
+                        key={ele.id}
+                        className={classes.wholeItemElement}
+                      >
+                        <div
+                          id={index}
+                          style={{
+                            backgroundImage: `url("${URL}/${ele.image}")`,
+                          }}
+                          className={classes.itemImgBox}
+                        ></div>
+                        <div id={index} className={classes.itemContentBox}>
+                          <div id={index} className={classes.innerItem}>
+                            <div className={classes.itemNameDeleteArea}>
+                              <span id={index} className={classes.itemHeading}>
+                                {ele.name}
+                              </span>
+                              <button
+                                onClick={() => displayDeleteItem(ele.id)}
+                                className={classes.deleteWholeThingBtn}
+                              >
+                                <img
+                                  className={classes.actionPenIcon}
+                                  alt="icon"
+                                  src={actionBin}
+                                />
+                              </button>
+                            </div>
+                            <span id={index} className={classes.itemSize}>
+                              {ele.modifex[0].datamodifex[0].name}
                             </span>
-                            <button
-                              onClick={() => displayDeleteItem(ele.id)}
-                              className={classes.deleteWholeThingBtn}
+                            <span
+                              id={index}
+                              className={classes.itemDescription}
                             >
-                              <img
-                                className={classes.actionPenIcon}
-                                alt="icon"
-                                src={actionBin}
-                              />
+                              {ele.description}
+                            </span>
+                          </div>
+                          <div
+                            id={index}
+                            className={classes.itemPriceActiveArea}
+                          >
+                            <span
+                              id={index}
+                              className={classes.itemPrice}
+                            >{`${ele.price} ${userCurrency}`}</span>
+                            <button
+                              onClick={() => activateOrDeactivateItem(ele.id)}
+                              className={
+                                ele.is_active
+                                  ? classes.activeMenu
+                                  : classes.notActiveMenu
+                              }
+                              type="button"
+                            >
+                              {ele.is_active ? "Активный" : "Неактивный"}
                             </button>
                           </div>
-                          <span id={index} className={classes.itemSize}>
-                            {ele.modifex[0].datamodifex[0].name}
-                          </span>
-                          <span id={index} className={classes.itemDescription}>
-                            {ele.description}
-                          </span>
-                        </div>
-                        <div id={index} className={classes.itemPriceActiveArea}>
-                          <span
-                            id={index}
-                            className={classes.itemPrice}
-                          >{`${ele.price} ${userCurrency}`}</span>
-                          <button
-                            onClick={() => activateOrDeactivateItem(ele.id)}
-                            className={
-                              ele.is_active
-                                ? classes.activeMenu
-                                : classes.notActiveMenu
-                            }
-                            type="button"
-                          >
-                            {ele.is_active ? "Активный" : "Неактивный"}
-                          </button>
                         </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </main>
           </div>
