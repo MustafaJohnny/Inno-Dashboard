@@ -82,7 +82,7 @@ const WaiterPage = () => {
                   </h1>
                 </div>
               ) : (
-                <div className={classes.serviceItemsBox}>
+                <div className={classes.waiterItemsBox}>
                   <div className={classes.multiHeadingWaiter}>
                     <span className={classes.waiterHeading}>Номер стола</span>
                     <span className={classes.waiterHeading}>Время</span>

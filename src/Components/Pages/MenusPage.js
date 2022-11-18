@@ -30,8 +30,6 @@ const MenusPage = () => {
   const fallMenu = useSelector((state) => state.controler.show_fall_menu);
   const showEditMenu = useSelector((state) => state.controler.show_edit_menu);
 
-  console.log(userMenus.length);
-
   const showDeleteMenu = useSelector(
     (state) => state.controler.show_delete_menu
   );

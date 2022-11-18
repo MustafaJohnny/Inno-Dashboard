@@ -80,7 +80,7 @@ const OrdersPage = () => {
                   </h1>
                 </div>
               ) : (
-                <div className={classes.ordersItemsBox}>
+                <div className={classes.waiterItemsBox}>
                   <div
                     className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
                   >

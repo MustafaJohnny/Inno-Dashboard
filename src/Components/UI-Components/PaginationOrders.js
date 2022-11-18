@@ -16,7 +16,7 @@ const PaginationOrders = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 10;
+  const itemsPerPage = 11;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -238,6 +238,7 @@ const PaginationOrders = () => {
           pageCount={pageCount}
           previousLabel="<"
           renderOnZeroPageCount={null}
+          onClick={() => setClicked(null)}
         />
       )}
     </React.Fragment>

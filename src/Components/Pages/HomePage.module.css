@@ -182,11 +182,11 @@
 }
 
 .servicesContainer {
+  gap: 1rem;
   width: 100%;
   display: flex;
+  padding: 2rem 2.4rem;
   flex-direction: column;
-  gap: 2.4rem;
-  padding: 2rem 2.6rem;
 }
 
 .designContainer {
@@ -199,7 +199,13 @@
 .serviceItemsBox {
   display: flex;
   flex-direction: column;
-  gap: 1.6rem;
+  gap: 0.8em;
+}
+
+.waiterItemsBox {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6em;
 }
 
 .ordersItemsBox {
@@ -209,31 +215,31 @@
 }
 
 .multiHeadingServices {
-  background-color: #252631;
-  padding: 2rem 2.4rem;
-  gap: 18.5rem;
+  gap: 18rem;
   display: flex;
   align-items: center;
+  padding: 1.2rem 2.4rem;
   justify-content: flex-start;
-  border-radius: 5px;
+  background-color: #252631;
 }
 
 .multiHeadingWaiter {
-  gap: 44rem;
+  gap: 43.5rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  border-radius: 5px;
-  padding-left: 0rem;
+  padding: 1.2rem 2rem;
+  background-color: #252631;
+  margin-bottom: 0.5rem;
 }
 
 .multiHeadingWaiter2 {
-  gap: 18rem !important;
+  gap: 16.8rem !important;
 }
 
 .multiHeadingWaiter3 {
-  gap: 9rem !important;
-  padding-left: 0 !important;
+  gap: 9.6rem !important;
+  border-radius: unset !important;
 }
 
 .servicesHeading {
@@ -243,9 +249,9 @@
 }
 
 .waiterHeading {
-  font-weight: 400;
-  font-size: 1.4rem;
-  color: #98a9bc;
+  font-weight: 300;
+  font-size: 1.3rem;
+  color: #fff;
 }
 
 .servicesHeading:nth-child(2) {
@@ -253,22 +259,20 @@
 }
 
 .wholeItemService {
-  background-color: #fff;
-  box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
-  border-radius: 5px;
-  padding: 2.6rem 2.4rem;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
   position: relative;
+  align-items: center;
+  padding: 1.8rem 2.4rem;
+  background-color: #fff;
+  justify-content: space-between;
+  box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
 }
 
 .wholeItemWaiter {
   background-color: #fff;
   gap: 32rem;
   box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
-  border-radius: 5px;
-  padding: 2.2rem 2.4rem;
+  padding: 1rem 2.4rem;
   display: flex;
   align-items: center;
   justify-content: flex-start;
@@ -276,15 +280,15 @@
 }
 
 .serviceName {
+  width: 20%;
   color: #27272a;
   font-weight: 400;
-  font-size: 1.8rem;
-  width: 22%;
+  font-size: 1.5rem;
 }
 
 .waiterOption {
   font-weight: 400;
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   line-height: 1.6rem;
   color: #06152b;
 }
@@ -303,16 +307,16 @@
 
 .ServicesOptionTime {
   position: absolute;
-  transform: translateX(52rem);
+  transform: translateX(48rem);
 }
 
 .ServicesOptionPrice {
   position: absolute;
-  transform: translateX(75rem);
+  transform: translateX(72.5rem);
 }
 
 .ServicesOptionNamee {
-  transform: translateX(-14rem);
+  transform: translateX(-12.4rem);
   width: 18% !important;
 }
 
@@ -342,10 +346,10 @@
 .waiterOptionStatus {
   color: #27272a;
   font-weight: 500;
-  font-size: 1.2rem;
+  font-size: 1.1rem;
   line-height: 1.4rem;
   border-radius: 30px;
-  padding: 0.6rem 1.2rem;
+  padding: 0.4rem 1rem;
   background-color: #e6f6f5;
   box-shadow: 0 0 1px 1px rgb(0 0 0 / 5%);
   position: absolute;
@@ -367,13 +371,18 @@
   transform: translateX(98.5rem);
 }
 
+.itemyOptionServics {
+  position: absolute;
+  transform: translateX(93rem);
+}
+
 .waiterOptionTime {
   position: absolute;
   transform: translateX(47rem);
 }
 
 .wholeAllOrders {
-  gap: 8rem;
+  gap: 9rem;
   width: 100%;
   display: flex;
   cursor: pointer;
@@ -393,7 +402,7 @@
   align-items: flex-start;
   background-color: #fff;
   justify-content: flex-start;
-  padding: 1.4rem 2.4rem 0.8rem 2rem;
+  padding: 1rem 2.4rem 0.6rem 2rem;
   box-shadow: 0px 2px 16px rgba(153, 155, 168, 0.12);
 }
 
@@ -560,27 +569,27 @@
 
 .orderTableMove {
   position: absolute;
-  transform: translateX(29rem);
+  transform: translateX(31rem);
 }
 
 .orderPriceMove {
   position: absolute;
-  transform: translateX(60.2rem);
+  transform: translateX(62rem);
 }
 
 .orderStatusMove {
   position: absolute;
-  transform: translateX(44rem);
+  transform: translateX(46rem);
 }
 
 .orderTypeMove {
   position: absolute;
-  transform: translateX(76rem);
+  transform: translateX(78rem);
 }
 
 .orderStatusPayMove {
   position: absolute;
-  transform: translateX(95rem);
+  transform: translateX(96rem);
 }
 
 .timeOrderHeadingMove {
@@ -591,23 +600,24 @@
 
 .servicePrice {
   font-weight: 400;
-  font-size: 1.5rem;
-  color: #778ca2;
-  position: absolute;
-  transform: translateX(27rem);
-}
-
-.serviceDescription {
-  width: 40%;
-  font-weight: 400;
   font-size: 1.4rem;
   color: #778ca2;
   position: absolute;
-  transform: translateX(47rem);
+  transform: translateX(25rem);
+}
+
+.serviceDescription {
+  width: 36%;
+  font-weight: 400;
+  font-size: 1.3rem;
+  line-height: 1.7rem;
+  color: #778ca2;
+  position: absolute;
+  transform: translateX(45rem);
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
 }
 
@@ -1410,4 +1420,108 @@
   text-align: center;
   line-height: 2.4rem;
   letter-spacing: 0.444444px;
+}
+
+/*** Quires **/
+
+@media (max-width: 238em) {
+  html {
+    font-size: 130%;
+  }
+}
+
+@media (max-width: 207em) {
+  html {
+    font-size: 120%;
+  }
+}
+
+@media (max-width: 188em) {
+  html {
+    font-size: 105%;
+  }
+}
+
+@media (max-width: 169em) {
+  html {
+    font-size: 95%;
+  }
+}
+
+@media (max-width: 150em) {
+  html {
+    font-size: 85%;
+  }
+}
+
+@media (min-width: 140em) {
+  html {
+    font-size: 80%;
+  }
+}
+
+@media (max-width: 132em) {
+  html {
+    font-size: 75%;
+  }
+}
+
+@media (max-width: 120em) {
+  html {
+    font-size: 62.5%;
+  }
+}
+
+@media (max-width: 91.25em) {
+  html {
+    font-size: 58%;
+  }
+}
+
+@media (max-width: 80.8em) {
+  html {
+    font-size: 53%;
+  }
+}
+
+@media (max-width: 74em) {
+  html {
+    font-size: 48%;
+  }
+}
+
+@media (max-width: 67em) {
+  html {
+    font-size: 43%;
+  }
+}
+
+@media (max-width: 60em) {
+  html {
+    font-size: 40%;
+  }
+}
+
+@media (max-width: 54em) {
+  html {
+    font-size: 35%;
+  }
+}
+
+@media (max-width: 49em) {
+  html {
+    font-size: 32%;
+  }
+}
+
+@media (max-width: 45em) {
+  html {
+    font-size: 28%;
+  }
+}
+
+@media (max-width: 40em) {
+  html {
+    font-size: 26%;
+  }
 }

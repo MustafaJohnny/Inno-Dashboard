@@ -52,8 +52,6 @@ const OrderServicePage = () => {
     (state) => state.controler.user_orders_services
   );
 
-  console.log(ordersServices);
-
   const goPageBack = () => {
     navigate(-1, {
       replace: false,
@@ -87,7 +85,7 @@ const OrderServicePage = () => {
                   </h1>
                 </div>
               ) : (
-                <div className={classes.serviceItemsBox}>
+                <div className={classes.waiterItemsBox}>
                   <div
                     className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
                   >

@@ -14,7 +14,7 @@ const PaginationServices = () => {
   const [currentItems, setCurrentItems] = useState([]);
   const [pageCount, setPageCount] = useState(0);
   const [itemOffset, setItemOffset] = useState(0);
-  const itemsPerPage = 6;
+  const itemsPerPage = 11;
 
   useEffect(() => {
     const endOffset = itemOffset + itemsPerPage;
@@ -53,7 +53,7 @@ const PaginationServices = () => {
             {!ele.price ? "" : `${ele.price} ${userCurrency}`}
           </span>
           <span
-            className={`${classes.waiterOptionStatus} ${classes.waiterOptionServics}`}
+            className={`${classes.waiterOptionStatus} ${classes.itemyOptionServics}`}
           >
             {ele.status}
           </span>

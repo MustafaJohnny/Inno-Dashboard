@@ -23,6 +23,7 @@ const ServicesPage = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
+  const userCurrency = useSelector((state) => state.controler.user_currency);
 
   const spinnerServices = useSelector(
     (state) => state.controler.show_spinner_service
@@ -170,7 +171,7 @@ const ServicesPage = () => {
                         {element.name}
                       </span>
                       <span className={classes.servicePrice}>
-                        {element.price}
+                        {`${element.price} ${userCurrency}`}
                       </span>
                       <span className={classes.serviceDescription}>
                         {element.description}

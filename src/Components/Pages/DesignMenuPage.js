@@ -12,6 +12,9 @@ import ThirdMenu3 from "../Images/ThirdMenu3.jpg";
 import ForthMenu1 from "../Images/ForthMenu1.jpg";
 import ForthMenu2 from "../Images/ForthMenu2.jpg";
 import ForthMenu3 from "../Images/ForthMenu3.jpg";
+import FifthMenu1 from "../Images/FifthMenu1.jpg";
+import FifthMenu2 from "../Images/FifthMenu2.jpg";
+import FifthMenu3 from "../Images/FifthMenu3.jpg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ConfirmDesign from "../UI-Components/ConfirmDesign";
 import UpNavigation from "../UI-Components/UpNavigation";
@@ -259,6 +262,55 @@ const DesignMenuPage = () => {
                     <SwiperSlide className={classes.designSlide}>
                       <img
                         src={ForthMenu3}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                  </Swiper>
+                </div>
+
+                <div className={classes.wholeDesginMenuBox}>
+                  <h1 className={classes.desginMenuHeading}>Меню 5</h1>
+                  <div className={classes.selectInputArea}>
+                    <input
+                      className={classes.radioStyle}
+                      onChange={getDesignNumber}
+                      name="Design"
+                      value="5"
+                      type="radio"
+                      id="menu5"
+                    />
+                    <label className={classes.lablesDesigns} htmlFor="menu5">
+                      Выбрать меню
+                    </label>
+                  </div>
+
+                  <Swiper
+                    spaceBetween={30}
+                    loop={true}
+                    pagination={{
+                      clickable: true,
+                    }}
+                    modules={[Pagination]}
+                    className={classes.desginSwiper}
+                  >
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={FifthMenu1}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={FifthMenu2}
+                        alt="img"
+                        className={classes.designImg}
+                      />
+                    </SwiperSlide>
+                    <SwiperSlide className={classes.designSlide}>
+                      <img
+                        src={FifthMenu3}
                         alt="img"
                         className={classes.designImg}
                       />
