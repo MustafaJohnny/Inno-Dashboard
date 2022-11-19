@@ -22,43 +22,43 @@ body {
 
 @media (max-width: 238em) {
   html {
-    font-size: 130%;
+    font-size: 135%;
   }
 }
 
 @media (max-width: 207em) {
   html {
-    font-size: 120%;
+    font-size: 125%;
   }
 }
 
 @media (max-width: 188em) {
   html {
-    font-size: 105%;
+    font-size: 110%;
   }
 }
 
 @media (max-width: 169em) {
   html {
-    font-size: 95%;
+    font-size: 100%;
   }
 }
 
 @media (max-width: 150em) {
   html {
-    font-size: 85%;
+    font-size: 90%;
   }
 }
 
 @media (min-width: 140em) {
   html {
-    font-size: 80%;
+    font-size: 85%;
   }
 }
 
 @media (max-width: 132em) {
   html {
-    font-size: 75%;
+    font-size: 83%;
   }
 }
 
