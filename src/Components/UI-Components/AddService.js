@@ -27,8 +27,7 @@ const AddService = () => {
   );
 
   useEffect(() => {
-    // changeLanguage(userLanguage.toLowerCase());
-    changeLanguage("en");
+    changeLanguage(userLanguage.toLowerCase());
   }, []);
 
   const dispatch = useDispatch();

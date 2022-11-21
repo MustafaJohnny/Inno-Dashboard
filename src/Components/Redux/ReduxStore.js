@@ -120,7 +120,6 @@ const initialState = {
   items_page_heading: "",
   current_item_page_heading: "",
   serverAPI: "inme.su",
-  app_languages: [],
 };
 
 const controlSlice = createSlice({
@@ -176,10 +175,6 @@ const controlSlice = createSlice({
 
     getUserAllOrders(state, action) {
       state.user_all_orders = action.payload;
-    },
-
-    getAppLanguages(state, action) {
-      state.app_languages = action.payload;
     },
 
     getUserMenus(state, action) {

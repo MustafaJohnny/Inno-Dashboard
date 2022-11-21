@@ -3,10 +3,11 @@ import axios from "axios";
 import Upload from "../Icons/Upload.svg";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
+import { useTranslation } from "react-i18next";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddRestaurant = () => {
   const [restImage, setRestImage] = useState([]);
@@ -21,12 +22,22 @@ const AddRestaurant = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
 
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsValid = false;
 
@@ -94,13 +105,13 @@ const AddRestaurant = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить ресторан</h1>
+        <h1 className={classes.modalHeading}>{t("addRest")}</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -114,14 +125,14 @@ const AddRestaurant = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+              {!formIsValid && t("imgLimit")}
             </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
+                  {t("justName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -135,7 +146,7 @@ const AddRestaurant = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="phone">
-                  Телефон
+                  {t("justPhone")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -149,7 +160,7 @@ const AddRestaurant = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Адрес
+                  {t("justAddress")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -163,7 +174,7 @@ const AddRestaurant = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="zone">
-                  Временная зона
+                  {t("timeZone")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -179,8 +190,8 @@ const AddRestaurant = () => {
           <div className={classes.modalInputsContaine2}>
             <div className={classes.twoInputsArea}>
               <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="start">
-                  Начало работы
+                <label className={classes.modalBasicLable2} htmlFor="start">
+                  {t("workStart")}
                 </label>
                 <input
                   onChange={(event) => setRestStartTime(event.target.value)}
@@ -190,8 +201,8 @@ const AddRestaurant = () => {
                 />
               </div>
               <div className={classes.wholeModalInput}>
-                <label className={classes.modalBasicLable} htmlFor="end">
-                  Конец работы
+                <label className={classes.modalBasicLable2} htmlFor="end">
+                  {t("workEnd")}
                 </label>
                 <input
                   onChange={(event) => setRestEndTime(event.target.value)}
@@ -209,13 +220,13 @@ const AddRestaurant = () => {
             onClick={createNewRestaurant}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddRestaurent}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddRestaurent} className={classes.btnCloseModal}>

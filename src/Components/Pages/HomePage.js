@@ -85,36 +85,11 @@ const HomePage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserDataAfterLogin(request.data));
-        // changeLanguage(request.data.first_language.toLowerCase());
-        changeLanguage("en");
+        changeLanguage(request.data.first_language.toLowerCase());
       }
     };
 
     getData();
-  }, []);
-
-  // This one if for getting the list of languages from the server also first time when we load the home page.
-  useEffect(() => {
-    let mounted = true;
-
-    const getData = async () => {
-      const request = await axios.get(`http://${serverAPI}/api/v1/dict/lang`);
-
-      if (mounted) {
-        // Converting the received objects {key: valye} to an array of [key, valye].
-        const convertLanguages = request.data
-          .map((ele) => Object.entries(ele))
-          .map((ele) => ele[0]);
-
-        dispatch(controlActions.getAppLanguages(convertLanguages));
-      }
-    };
-
-    getData();
-
-    return () => {
-      mounted = false;
-    };
   }, []);
 
   const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
@@ -245,12 +220,12 @@ const HomePage = () => {
 
   const displayDeleteRestaurent = (restaurantID) => {
     dispatch(controlActions.toggleDeleteRestaurant(restaurantID));
-    dispatch(controlActions.getDeleteSomething("ресторан"));
+    dispatch(controlActions.getDeleteSomething(t("justRest")));
   };
 
   const displayDeleteService = (serviceID) => {
     dispatch(controlActions.toggleDeleteService(serviceID));
-    dispatch(controlActions.getDeleteSomething("сервис"));
+    dispatch(controlActions.getDeleteSomething(t("justService")));
   };
 
   return (

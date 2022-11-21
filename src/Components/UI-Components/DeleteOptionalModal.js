@@ -1,6 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { controlActions } from "../Redux/ReduxStore";
+import { useTranslation } from "react-i18next";
+import { useEffect } from "react";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +23,26 @@ const DeleteOptionalModal = () => {
     (state) => state.controler.delete_something_id
   );
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
+
   const optionalHideDeleteModal = () => {
-    if (deleteSomething === "ресторан") {
+    if (deleteSomething === t("justRest")) {
       dispatch(controlActions.toggleDeleteRestaurant());
     }
 
-    if (deleteSomething === "сервис") {
+    if (deleteSomething === t("justService")) {
       dispatch(controlActions.toggleDeleteService());
     }
 
@@ -52,7 +68,7 @@ const DeleteOptionalModal = () => {
   };
 
   const optionalDeleteLogic = () => {
-    if (deleteSomething === "ресторан") {
+    if (deleteSomething === t("justRest")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerHome());
 
@@ -85,7 +101,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "сервис") {
+    if (deleteSomething === t("justService")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerHome());
 
@@ -286,11 +302,13 @@ const DeleteOptionalModal = () => {
     <React.Fragment>
       <Overlay />
       <div className={`${classes.modal} ${classes.modalDesign}`}>
-        <h1 className={classes.modalHeading}>Удалить {deleteSomething}</h1>
+        <h1 className={`${classes.modalHeading}`}>
+          {t("justDelete")} {deleteSomething}
+        </h1>
         <form className={classes.modalForm}>
           <div className={classes.confirmDesignArea}>
             <h1 className={classes.deleteHeading}>
-              Вы действительно хотите удалить {deleteSomething}?
+              {t("deleteText")} {deleteSomething}?
             </h1>
           </div>
         </form>

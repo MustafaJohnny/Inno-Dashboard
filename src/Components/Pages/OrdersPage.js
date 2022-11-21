@@ -45,8 +45,7 @@ const OrdersPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserAllOrders(request.data));
-        // changeLanguage(userLang);
-        changeLanguage("en");
+        changeLanguage(userLang);
       }
     };
 

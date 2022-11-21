@@ -38,8 +38,7 @@ const SideNavigation = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // changeLanguage(userLang);
-    changeLanguage("en");
+    changeLanguage(userLang);
 
     setTimeout(() => {
       setWaitLogo(true);
