@@ -5,10 +5,17 @@ import Overlay from "./Overlay";
 import Upload from "../Icons/Upload.svg";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddService = () => {
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const [serviceName, setServiceName] = useState("");
   const [serviceImage, setServiceImage] = useState([]);
   const serverAPI = useSelector((state) => state.controler.serverAPI);
@@ -18,6 +25,11 @@ const AddService = () => {
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
+
+  useEffect(() => {
+    // changeLanguage(userLanguage.toLowerCase());
+    changeLanguage("en");
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -84,13 +96,13 @@ const AddService = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить сервис</h1>
+        <h1 className={classes.modalHeading}>{t("addService")}</h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -104,7 +116,7 @@ const AddService = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+              {!formIsValid && t("imgLimit")}
             </span>
           </div>
 
@@ -114,7 +126,7 @@ const AddService = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
+                  {t("justName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -134,13 +146,13 @@ const AddService = () => {
             onClick={createNewService}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddService}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddService} className={classes.btnCloseModal}>

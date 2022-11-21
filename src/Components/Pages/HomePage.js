@@ -1,4 +1,5 @@
 import React from "react";
+import { useTranslation } from "react-i18next";
 import SideNavigation from "../UI-Components/SideNavigation";
 import FallMessage from "../UI-Components/FallMessage";
 import UpNavigation from "../UI-Components/UpNavigation";
@@ -18,6 +19,12 @@ import { useNavigate } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
 
 const HomePage = () => {
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDomain = useSelector((state) => state.controler.user_domain);
@@ -78,6 +85,8 @@ const HomePage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserDataAfterLogin(request.data));
+        // changeLanguage(request.data.first_language.toLowerCase());
+        changeLanguage("en");
       }
     };
 
@@ -264,7 +273,9 @@ const HomePage = () => {
               <div className={classes.managmentContent}>
                 <div className={classes.managementBtnsArea}>
                   {userRestaurants.length >= 1 ? (
-                    <h1 className={classes.managementHeading}>РЕСТОРАНЫ</h1>
+                    <h1 className={classes.managementHeading}>
+                      {t("restaurants")}
+                    </h1>
                   ) : (
                     ""
                   )}
@@ -274,14 +285,14 @@ const HomePage = () => {
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить сервис
+                      + {t("addServcie")}
                     </button>
                     <button
                       onClick={unHideAddRestaurent}
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить ресторан
+                      + {t("addResturant")}
                     </button>
                   </div>
                 </div>
@@ -308,7 +319,7 @@ const HomePage = () => {
                             }
                             type="button"
                           >
-                            {ele.is_active ? "Активный" : "Неактивный"}
+                            {ele.is_active ? t("active") : t("notActive")}
                           </button>
 
                           <button
@@ -348,14 +359,16 @@ const HomePage = () => {
                 {!restAndServiceLength && (
                   <div className={classes.emptyMsgInnerHeading}>
                     <h1 className={classes.emptyMsgHomePage}>
-                      У вас нет добавленных ресторанов и сервисов
+                      {t("emptyHome")}
                     </h1>
                   </div>
                 )}
 
                 <div className={classes.serviceHeadingArea}>
                   {userServices.length >= 1 ? (
-                    <h1 className={classes.managementHeading}>СЕРВИСЫ</h1>
+                    <h1 className={classes.managementHeading}>
+                      {t("services")}
+                    </h1>
                   ) : (
                     ""
                   )}
@@ -382,7 +395,7 @@ const HomePage = () => {
                             }
                             type="button"
                           >
-                            {ele.is_active ? "Активный" : "Неактивный"}
+                            {ele.is_active ? t("active") : t("notActive")}
                           </button>
 
                           <button

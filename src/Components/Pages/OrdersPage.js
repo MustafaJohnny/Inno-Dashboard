@@ -7,11 +7,22 @@ import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
 const OrdersPage = () => {
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const OrdersNotif = useSelector((state) => state.controler.user_order_notifi);
+
+  const userLang = useSelector(
+    (state) => state.controler.user_first_language
+  ).toLowerCase();
 
   useEffect(() => {
     let mounted = true;
@@ -34,6 +45,8 @@ const OrdersPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserAllOrders(request.data));
+        // changeLanguage(userLang);
+        changeLanguage("en");
       }
     };
 
@@ -69,14 +82,16 @@ const OrdersPage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>Заказы</h1>
+                  <h1 className={classes.managementHeading}>
+                    {t("orderHead")}
+                  </h1>
                 </div>
               </div>
 
               {userOrders.length <= 0 ? (
                 <div className={classes.emptyMsgInnerHeading}>
                   <h1 className={classes.emptyMsgHomePage}>
-                    У вас еще нет заказов...
+                    {t("emptyOrders")}
                   </h1>
                 </div>
               ) : (
@@ -84,17 +99,29 @@ const OrdersPage = () => {
                   <div
                     className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter3}`}
                   >
-                    <span className={classes.waiterHeading}>Номер заказа</span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderNum")}
+                    </span>
                     <span
                       className={`${classes.waiterHeading} ${classes.timeOrderHeadingMove}`}
                     >
-                      Время
+                      {t("orderTime")}
                     </span>
-                    <span className={classes.waiterHeading}>Стол</span>
-                    <span className={classes.waiterHeading}>Статус заказа</span>
-                    <span className={classes.waiterHeading}>Сумма</span>
-                    <span className={classes.waiterHeading}>Тип оплаты</span>
-                    <span className={classes.waiterHeading}>Статус оплаты</span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderTable")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderStatus")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderPrice")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderPayType")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderPayStatus")}
+                    </span>
                   </div>
 
                   <PaginationOrders />

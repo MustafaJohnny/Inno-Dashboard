@@ -12,13 +12,25 @@ import tarrif from "../Icons/tarrif.svg";
 import QRIcon from "../Icons/QRcodeIcon.svg";
 import orderService from "../Icons/orderServicee.svg";
 import { useNavigate, Link, NavLink } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 
 const SideNavigation = () => {
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const [waitLogo, setWaitLogo] = useState(false);
   const userLogo = useSelector((state) => state.controler.user_logo);
   const userLogoText = useSelector((state) => state.controler.user_logo_text);
+
+  const userLang = useSelector(
+    (state) => state.controler.user_first_language
+  ).toLowerCase();
+
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
@@ -26,6 +38,9 @@ const SideNavigation = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    // changeLanguage(userLang);
+    changeLanguage("en");
+
     setTimeout(() => {
       setWaitLogo(true);
     }, 500);
@@ -54,7 +69,7 @@ const SideNavigation = () => {
         </Link>
 
         <div className={classes.actionArea}>
-          <h2 className={classes.actionHeading}>Ресторан</h2>
+          <h2 className={classes.actionHeading}>{t("restaurantNav")}</h2>
           <div className={classes.actionBox}>
             <NavLink
               to="/home"
@@ -72,7 +87,7 @@ const SideNavigation = () => {
                   className={classes.actionIcon}
                 />
 
-                <span className={classes.actionText}>Менеджмент</span>
+                <span className={classes.actionText}>{t("managementNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -88,7 +103,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={order} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Заказы</span>
+                <span className={classes.actionText}>{t("ordersNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -104,7 +119,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={BellSide} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Вызов официанта</span>
+                <span className={classes.actionText}>{t("waiterNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -124,7 +139,9 @@ const SideNavigation = () => {
                   className={classes.actionIcon}
                 />
 
-                <span className={classes.actionText}>Заказ услуг</span>
+                <span className={classes.actionText}>
+                  {t("orderServiceNav")}
+                </span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -140,7 +157,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={QRIcon} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>QR коды</span>
+                <span className={classes.actionText}>{t("QRcodesNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -160,7 +177,7 @@ const SideNavigation = () => {
                   className={classes.actionIcon}
                 />
 
-                <span className={classes.actionText}>Дизайн меню</span>
+                <span className={classes.actionText}>{t("designMenuNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -176,7 +193,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={Settings} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Настройки</span>
+                <span className={classes.actionText}>{t("settingsNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </NavLink>
@@ -187,7 +204,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={tarrif} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Тарифы</span>
+                <span className={classes.actionText}>{t("tariffsNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </a>
@@ -196,7 +213,7 @@ const SideNavigation = () => {
               <div className={classes.iconTextArea}>
                 <img alt="icon" src={statica} className={classes.actionIcon} />
 
-                <span className={classes.actionText}>Статистика</span>
+                <span className={classes.actionText}>{t("statisticsNav")}</span>
               </div>
               <img alt="arrow" src={arrowR} className={classes.arrowSVG} />
             </a>
