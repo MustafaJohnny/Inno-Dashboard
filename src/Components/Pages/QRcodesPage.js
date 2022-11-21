@@ -1,6 +1,5 @@
 import React from "react";
 import ArrowBack from "../Icons/ArrowBack.svg";
-import PenIcon from "../Icons/Pen.svg";
 import axios from "axios";
 import eyeIcon from "../Icons/eyeIcon.svg";
 import downlodIcon from "../Icons/downlodIcon.svg";
@@ -13,6 +12,7 @@ import AddTables from "../UI-Components/AddTables";
 import ModalImgQR from "../UI-Components/ModaImgQR";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import { useTranslation } from "react-i18next";
 import actionBin from "../Icons/actionBin.svg";
 import actionPen from "../Icons/actionPen.svg";
 import classes from "./SettingsQRPages.module.css";
@@ -39,6 +39,16 @@ const QRcodesPage = () => {
     (state) => state.controler.show_delete_table
   );
 
+  const userLang = useSelector(
+    (state) => state.controler.user_first_language
+  ).toLowerCase();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
 
   useEffect(() => {
@@ -58,6 +68,7 @@ const QRcodesPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserQRCodes(request.data));
+        changeLanguage(userLang);
       }
     };
 
@@ -168,7 +179,7 @@ const QRcodesPage = () => {
                 alt="icon"
                 className={classes.arrowBack}
               />
-              <h1 className={classes.settingsHeading}>QR коды</h1>
+              <h1 className={classes.settingsHeading}>{t("QRcodesNav")}</h1>
             </div>
             <button
               onClick={displayAddTables}
@@ -182,9 +193,7 @@ const QRcodesPage = () => {
 
           {userQRCodes.length <= 0 ? (
             <div className={classes.emptyMsgInnerHeading}>
-              <h1 className={classes.emptyMsgHomePage}>
-                Вы еще не добавили столы
-              </h1>
+              <h1 className={classes.emptyMsgHomePage}>{t("emptyQRCodes")}</h1>
             </div>
           ) : (
             <div className={classes.qrBigBox}>
@@ -236,7 +245,7 @@ const QRcodesPage = () => {
                           }
                           type="button"
                         >
-                          {ele.order_call ? "Активный" : "Неактивный"}
+                          {ele.order_call ? t("active") : t("notActive")}
                         </button>
                       </div>
                       <div className={classes.wholeOption}>
@@ -252,7 +261,7 @@ const QRcodesPage = () => {
                           }
                           type="button"
                         >
-                          {ele.garson_call ? "Активный" : "Неактивный"}
+                          {ele.garson_call ? t("active") : t("notActive")}
                         </button>
                       </div>
                       <div className={classes.wholeOption}>
@@ -268,7 +277,7 @@ const QRcodesPage = () => {
                           }
                           type="button"
                         >
-                          {ele.is_active ? "Активный" : "Неактивный"}
+                          {ele.is_active ? t("active") : t("notActive")}
                         </button>
                       </div>
                     </div>
