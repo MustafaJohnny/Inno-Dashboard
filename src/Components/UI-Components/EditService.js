@@ -4,9 +4,10 @@ import Upload from "../Icons/Upload.svg";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EditService = () => {
   const [serviceImage, setServiceImage] = useState([]);
@@ -14,6 +15,12 @@ const EditService = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
 
   const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
@@ -28,11 +35,13 @@ const EditService = () => {
     (state) => state.controler.service_old_data
   );
 
-  console.log(serviceOldData);
-
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsValid = false;
   let imageIsValid = false;
@@ -107,7 +116,7 @@ const EditService = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Редактировать сервис</h1>
+        <h1 className={classes.modalHeading}>{t("editService")}</h1>
         <form className={classes.modalForm}>
           <div
             className={classes.inputImgArea2}
@@ -118,7 +127,7 @@ const EditService = () => {
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -131,9 +140,7 @@ const EditService = () => {
               />
             </div>
             {!imageIsValid && (
-              <span className={classes.requiredImgMess2}>
-                {"Размер изображения должен быть меньше 1 мб"}
-              </span>
+              <span className={classes.requiredImgMess2}>{t("imgLimit")}</span>
             )}
           </div>
           <div
@@ -141,7 +148,7 @@ const EditService = () => {
           >
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="name">
-                Название
+                {t("justName")}
               </label>
               <input
                 type="text"
@@ -159,13 +166,13 @@ const EditService = () => {
             onClick={EditRestaurant}
             className={classes.controlBtn}
           >
-            СОХРАНИТЬ
+            {t("saveBtn")}
           </button>
           <button
             onClick={hideEditService}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideEditService} className={classes.btnCloseModal}>

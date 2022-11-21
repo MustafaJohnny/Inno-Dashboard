@@ -7,6 +7,7 @@ import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
+import { useTranslation } from "react-i18next";
 import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
 
@@ -14,6 +15,16 @@ const OrderServicePage = () => {
   const serviceNotif = useSelector(
     (state) => state.controler.user_service_notifi
   );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  const userLang = useSelector(
+    (state) => state.controler.user_first_language
+  ).toLowerCase();
 
   useEffect(() => {
     let mounted = true;
@@ -36,6 +47,7 @@ const OrderServicePage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserOrdersServices(request.data));
+        changeLanguage(userLang);
       }
     };
 
@@ -74,14 +86,16 @@ const OrderServicePage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>Заказ услуг</h1>
+                  <h1 className={classes.managementHeading}>
+                    {t("orderServiceNav")}
+                  </h1>
                 </div>
               </div>
 
               {ordersServices.length <= 0 ? (
                 <div className={classes.emptyMsgInnerHeading}>
                   <h1 className={classes.emptyMsgHomePage}>
-                    У вас еще нет заказанных услуг...
+                    {t("emptyServiceOrder")}
                   </h1>
                 </div>
               ) : (
@@ -89,13 +103,23 @@ const OrderServicePage = () => {
                   <div
                     className={`${classes.multiHeadingWaiter} ${classes.multiHeadingWaiter2}`}
                   >
-                    <span className={classes.waiterHeading}>Номер стола</span>
                     <span className={classes.waiterHeading}>
-                      Название услуги
+                      {t("tableNum")}
                     </span>
-                    <span className={classes.waiterHeading}>Время</span>
-                    <span className={classes.waiterHeading}>Сумма</span>
-                    <span className={classes.waiterHeading}>Статус</span>
+                    <span className={classes.waiterHeading}>
+                      {t("justName")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderTime")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderPrice")}
+                    </span>
+                    <span
+                      className={`${classes.waiterHeading} ${classes.orderServiceStatusHead}`}
+                    >
+                      {t("status")}
+                    </span>
                   </div>
 
                   <PaginationServices />

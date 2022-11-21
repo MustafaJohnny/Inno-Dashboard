@@ -234,7 +234,7 @@
 }
 
 .multiHeadingWaiter2 {
-  gap: 16.8rem !important;
+  gap: 18.5rem !important;
 }
 
 .multiHeadingWaiter3 {
@@ -252,6 +252,11 @@
   font-weight: 300;
   font-size: 1.3rem;
   color: #fff;
+}
+
+.orderServiceStatusHead {
+  position: absolute;
+  transform: translateX(93rem);
 }
 
 .servicesHeading:nth-child(2) {

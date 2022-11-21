@@ -8,12 +8,23 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { controlActions } from "../Redux/ReduxStore";
 
 const WaiterPage = () => {
   const garsonNotif = useSelector(
     (state) => state.controler.user_garson_notifi
   );
+
+  const userLang = useSelector(
+    (state) => state.controler.user_first_language
+  ).toLowerCase();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -37,6 +48,7 @@ const WaiterPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserWaiterData(request.data));
+        changeLanguage(userLang);
       }
     };
 
@@ -72,21 +84,27 @@ const WaiterPage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>Вызов официанта</h1>
+                  <h1 className={classes.managementHeading}>
+                    {t("waiterNav")}
+                  </h1>
                 </div>
               </div>
               {WaiterData.length <= 0 ? (
                 <div className={classes.emptyMsgInnerHeading}>
                   <h1 className={classes.emptyMsgHomePage}>
-                    У вас еще нет вызовов официанта...
+                    {t("emptyWaiter")}
                   </h1>
                 </div>
               ) : (
                 <div className={classes.waiterItemsBox}>
                   <div className={classes.multiHeadingWaiter}>
-                    <span className={classes.waiterHeading}>Номер стола</span>
-                    <span className={classes.waiterHeading}>Время</span>
-                    <span className={classes.waiterHeading}>Статус</span>
+                    <span className={classes.waiterHeading}>
+                      {t("tableNum")}
+                    </span>
+                    <span className={classes.waiterHeading}>
+                      {t("orderTime")}
+                    </span>
+                    <span className={classes.waiterHeading}>{t("status")}</span>
                   </div>
 
                   <PaginationWaiter />
