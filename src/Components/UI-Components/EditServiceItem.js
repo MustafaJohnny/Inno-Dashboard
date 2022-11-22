@@ -2,10 +2,11 @@ import React from "react";
 import axios from "axios";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
+import { useTranslation } from "react-i18next";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EditServiceItem = () => {
   const [ItemServiceName, setServiceItemName] = useState("");
@@ -28,6 +29,16 @@ const EditServiceItem = () => {
   );
 
   const userLang = useSelector((state) => state.controler.user_first_language);
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLang.toLowerCase());
+  }, []);
 
   let formIsValid = false;
 
@@ -90,12 +101,14 @@ const EditServiceItem = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Редактировать услугу</h1>
+        <h1 className={classes.modalHeading}>
+          {t("justEDIT")} {t("justServiceItem")}
+        </h1>
         <form className={classes.modalForm}>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="name">
-                Название
+                {t("justName")}
               </label>
               <input
                 type="text"
@@ -108,7 +121,7 @@ const EditServiceItem = () => {
 
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="address">
-                цена
+                {t("justPrice")}
               </label>
               <input
                 onChange={(event) => setServiceItemPrice(event.target.value)}
@@ -124,7 +137,7 @@ const EditServiceItem = () => {
             className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
           >
             <label className={classes.modalBasicLable} htmlFor="address">
-              Описание
+              {t("justDescrip")}
             </label>
             <input
               onChange={(event) =>
@@ -143,13 +156,13 @@ const EditServiceItem = () => {
             onClick={editServiceItem}
             className={classes.controlBtn}
           >
-            СОХРАНИТЬ
+            {t("saveBtn")}
           </button>
           <button
             onClick={UnDissplayEditServiceItem}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button

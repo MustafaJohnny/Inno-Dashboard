@@ -6,6 +6,7 @@ import ArrowBack from "../Icons/ArrowBack.svg";
 import UpNavigation from "../UI-Components/UpNavigation";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import { useTranslation } from "react-i18next";
 import EditMenu from "../UI-Components/EditMenu";
 import FallMessage from "../UI-Components/FallMessage";
 import AddMenu from "../UI-Components/AddMenu";
@@ -34,6 +35,16 @@ const MenusPage = () => {
     (state) => state.controler.show_delete_menu
   );
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -51,6 +62,7 @@ const MenusPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserMenus(request.data));
+        changeLanguage(userLanguage.toLowerCase());
       }
     };
     getData();
@@ -125,7 +137,7 @@ const MenusPage = () => {
 
   const displayDeleteMenu = (menuID) => {
     dispatch(controlActions.toggleDeleteMenu(menuID));
-    dispatch(controlActions.getDeleteSomething("меню"));
+    dispatch(controlActions.getDeleteSomething(t("justMenuSmall")));
   };
 
   const goPageBack = () => {
@@ -163,7 +175,7 @@ const MenusPage = () => {
                     </div>
                     <div className={classes.pathAddressArea}>
                       <Link className={classes.pathAddress} to="/home">
-                        Менеджмент /
+                        {t("managementNav")} /
                       </Link>
                       <Link className={classes.pathAddress} to="/menus">
                         {pageHeading}
@@ -176,7 +188,7 @@ const MenusPage = () => {
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить меню
+                      + {t("addBtnSmall")} {t("justMenuSmall")}
                     </button>
                   </div>
                 </div>
@@ -184,7 +196,7 @@ const MenusPage = () => {
                 {userMenus.length <= 0 ? (
                   <div className={classes.emptyMsgInnerHeading}>
                     <h1 className={classes.emptyMsgHomePage}>
-                      Вы еще не добавили меню
+                      {t("emptyMenu")}
                     </h1>
                   </div>
                 ) : (
@@ -209,7 +221,7 @@ const MenusPage = () => {
                             }
                             type="button"
                           >
-                            {ele.is_active ? "Активный" : "Неактивный"}
+                            {ele.is_active ? t("active") : t("notActive")}
                           </button>
 
                           <button

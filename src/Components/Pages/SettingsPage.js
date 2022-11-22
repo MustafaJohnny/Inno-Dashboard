@@ -1,14 +1,15 @@
 import React from "react";
-import axios from "axios";
 import Pen from "../Icons/Pen.svg";
 import ArrowBack from "../Icons/ArrowBack.svg";
 import ChangeClientName from "../UI-Components/ChangeClientName";
 import ChangeClientLogo from "../UI-Components/ChangeClientLogo";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
+import { useTranslation } from "react-i18next";
 import classes from "./SettingsQRPages.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
 import { controlActions } from "../Redux/ReduxStore";
 
 const SettingsPage = () => {
@@ -35,6 +36,20 @@ const SettingsPage = () => {
   const basketMenuState = useSelector(
     (state) => state.controler.user_basket_menu_status
   );
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   const displayChangeClientName = () => {
     dispatch(controlActions.toggleChangeClientName());
@@ -94,13 +109,11 @@ const SettingsPage = () => {
               alt="icon"
               className={classes.arrowBack}
             />
-            <h1 className={classes.settingsHeading}>Настройки</h1>
+            <h1 className={classes.settingsHeading}>{t("settingsNav")}</h1>
           </div>
           <div className={classes.settingsBox}>
             <div className={classes.wholeSetting}>
-              <h2 className={classes.wholeSettingHeading}>
-                Название заведения
-              </h2>
+              <h2 className={classes.wholeSettingHeading}>{t("ownerName")}</h2>
               <button
                 onClick={displayChangeClientName}
                 type="button"
@@ -110,7 +123,7 @@ const SettingsPage = () => {
               </button>
             </div>
             <div className={classes.wholeSetting}>
-              <h2 className={classes.wholeSettingHeading}>Логотип</h2>
+              <h2 className={classes.wholeSettingHeading}>{t("logo")}</h2>
               <button
                 onClick={displayChangeClientLogo}
                 type="button"
@@ -165,7 +178,7 @@ const SettingsPage = () => {
               </button>
             </div> */}
             <div className={classes.wholeSetting}>
-              <h2 className={classes.wholeSettingHeading}>Валюта</h2>
+              <h2 className={classes.wholeSettingHeading}>{t("currency")}</h2>
               <span className={classes.wholeSettingHeadValue}>
                 {userCurrency}
               </span>
@@ -178,7 +191,7 @@ const SettingsPage = () => {
               </button> */}
             </div>
             <div className={classes.wholeSetting}>
-              <h2 className={classes.wholeSettingHeading}>Домен</h2>
+              <h2 className={classes.wholeSettingHeading}>{t("domain")}</h2>
               <span className={classes.wholeSettingHeadValue}>
                 {userDomain}
               </span>

@@ -4,7 +4,8 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useState, useEffect } from "react";
 
 const ChangeClientName = () => {
   const [clientName, setClientName] = useState("");
@@ -16,6 +17,16 @@ const ChangeClientName = () => {
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   const dispatch = useDispatch();
 
@@ -64,7 +75,7 @@ const ChangeClientName = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Название заведения</h1>
+        <h1 className={classes.modalHeading}>{t("justName")}</h1>
         <form className={classes.modalForm}>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
@@ -72,7 +83,7 @@ const ChangeClientName = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Новое название
+                  {t("new")} {t("justName")}
                 </label>
 
                 <span className={classes.required}>*</span>
@@ -94,13 +105,13 @@ const ChangeClientName = () => {
             onClick={addNewClientName}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideChangeClinet}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideChangeClinet} className={classes.btnCloseModal}>

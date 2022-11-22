@@ -6,7 +6,8 @@ import Upload from "../Icons/Upload.svg";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const AddItem = () => {
   const [itemImage, setItemImage] = useState([]);
@@ -25,6 +26,16 @@ const AddItem = () => {
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -122,13 +133,15 @@ const AddItem = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить блюдо</h1>
+        <h1 className={classes.modalHeading}>
+          {t("addBtnSmall")} {t("justItem")}
+        </h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -142,14 +155,14 @@ const AddItem = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+              {!formIsValid && t("imgLimit")}
             </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
+                  {t("justName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -165,7 +178,7 @@ const AddItem = () => {
               className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
             >
               <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
+                {t("justDescrip")}
               </label>
               <input
                 onChange={(event) => setItemDescription(event.target.value)}
@@ -177,7 +190,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Обязательный модификатор (наименование)
+                  {t("mostModifName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -191,7 +204,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Обязательный модификатор (значение)
+                  {t("mostModifValue")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -207,7 +220,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Цена
+                  {t("justPrice")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -222,7 +235,7 @@ const AddItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="lang">
-                  Алкоголь?
+                  {t("chole")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -232,15 +245,15 @@ const AddItem = () => {
                 className={classes.modalBasicInput}
               >
                 <option value=""></option>
-                <option value={true}>Да</option>
-                <option value={false}>Нет</option>
+                <option value={true}>{t("yes")}</option>
+                <option value={false}>{t("no")}</option>
               </select>
             </div>
 
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="lang">
-                  Доставка
+                  {t("delivery")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -250,8 +263,8 @@ const AddItem = () => {
                 className={classes.modalBasicInput}
               >
                 <option value=""></option>
-                <option value={true}>Да</option>
-                <option value={false}>Нет</option>
+                <option value={true}>{t("yes")}</option>
+                <option value={false}>{t("no")}</option>
               </select>
             </div>
           </div>
@@ -262,13 +275,13 @@ const AddItem = () => {
             onClick={createNewItem}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddItem}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddItem} className={classes.btnCloseModal}>

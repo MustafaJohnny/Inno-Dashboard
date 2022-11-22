@@ -149,7 +149,7 @@ const QRcodesPage = () => {
 
   const displayDeleteTable = (tableID) => {
     dispatch(controlActions.toggleDeleteTable(tableID));
-    dispatch(controlActions.getDeleteSomething("стол"));
+    dispatch(controlActions.getDeleteSomething(t("justTable")));
   };
 
   const goPageBack = () => {
@@ -187,7 +187,7 @@ const QRcodesPage = () => {
               className={classes.addTableBtn}
             >
               <img src={QRbtnIcon} alt="btn" className={classes.qrBtnIcon} />
-              Добавить столы
+              {t("addTables")}
             </button>
           </div>
 
@@ -234,7 +234,7 @@ const QRcodesPage = () => {
                     <div className={classes.optionsBox}>
                       <div className={classes.wholeOption}>
                         <span className={classes.optionText}>
-                          Заказ от стола
+                          {t("orderfromTable")}
                         </span>
                         <button
                           onClick={() => activateOrDeactivateOrder(ele.id)}
@@ -250,7 +250,7 @@ const QRcodesPage = () => {
                       </div>
                       <div className={classes.wholeOption}>
                         <span className={classes.optionText}>
-                          Вызов официанта
+                          {t("waiterNav")}
                         </span>
                         <button
                           onClick={() => activateOrDeactivateWaiter(ele.id)}
@@ -266,7 +266,7 @@ const QRcodesPage = () => {
                       </div>
                       <div className={classes.wholeOption}>
                         <span className={classes.optionText}>
-                          Активный стол
+                          {t("activeTable")}
                         </span>
                         <button
                           onClick={() => activateOrDeactivateTable(ele.id)}

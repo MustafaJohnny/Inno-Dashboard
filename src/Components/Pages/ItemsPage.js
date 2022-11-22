@@ -4,6 +4,7 @@ import actionBin from "../Icons/actionBin.svg";
 import SideNavigation from "../UI-Components/SideNavigation";
 import UpNavigation from "../UI-Components/UpNavigation";
 import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import { useTranslation } from "react-i18next";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 import FallMessage from "../UI-Components/FallMessage";
 import AddItem from "../UI-Components/AddItem";
@@ -46,6 +47,16 @@ const ItemsPage = () => {
     (state) => state.controler.show_delete_item
   );
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -63,6 +74,7 @@ const ItemsPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserItems(request.data.product));
+        changeLanguage(userLanguage.toLowerCase());
       }
     };
 
@@ -111,7 +123,7 @@ const ItemsPage = () => {
 
   const displayDeleteItem = (itemID) => {
     dispatch(controlActions.toggleDeleteItem(itemID));
-    dispatch(controlActions.getDeleteSomething("блюдо"));
+    dispatch(controlActions.getDeleteSomething(t("justItem")));
   };
 
   const goPageBack = () => {
@@ -148,7 +160,7 @@ const ItemsPage = () => {
                     </div>
                     <div className={classes.pathAddressArea}>
                       <Link className={classes.pathAddress} to="/home">
-                        Менеджмент /
+                        {t("managementNav")} /
                       </Link>
                       <Link className={classes.pathAddress} to="/menus">
                         {restaurantPageHeading} /
@@ -167,7 +179,7 @@ const ItemsPage = () => {
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить блюдо
+                      + {t("addBtnSmall")} {t("justItem")}
                     </button>
                   </div>
                 </div>
@@ -175,7 +187,7 @@ const ItemsPage = () => {
                 {userItems.length <= 0 ? (
                   <div className={classes.emptyMsgInnerHeading}>
                     <h1 className={classes.emptyMsgHomePage}>
-                      Вы еще не добавили блюдо
+                      {t("emptyItems")}
                     </h1>
                   </div>
                 ) : (
@@ -238,7 +250,7 @@ const ItemsPage = () => {
                               }
                               type="button"
                             >
-                              {ele.is_active ? "Активный" : "Неактивный"}
+                              {ele.is_active ? t("active") : t("notActive")}
                             </button>
                           </div>
                         </div>

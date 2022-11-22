@@ -3,9 +3,10 @@ import axios from "axios";
 import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
+import { useTranslation } from "react-i18next";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddServiceItem = () => {
   const [ItemServiceName, setServiceItemName] = useState("");
@@ -20,6 +21,16 @@ const AddServiceItem = () => {
   const userLanguage = useSelector(
     (state) => state.controler.user_first_language
   );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -80,13 +91,13 @@ const AddServiceItem = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить услугу</h1>
+        <h1 className={classes.modalHeading}>{t("addServiceItem")}</h1>
         <form className={classes.modalForm}>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
+                  {t("justName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -101,7 +112,7 @@ const AddServiceItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  Описание
+                  {t("justDescrip")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -117,7 +128,7 @@ const AddServiceItem = () => {
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="address">
-                  цена
+                  {t("orderPrice")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -136,13 +147,13 @@ const AddServiceItem = () => {
             onClick={createNewServiceItem}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddServiceItem}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddServiceItem} className={classes.btnCloseModal}>

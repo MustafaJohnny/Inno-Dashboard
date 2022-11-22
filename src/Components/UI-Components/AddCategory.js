@@ -6,7 +6,8 @@ import Upload from "../Icons/Upload.svg";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const AddCategory = () => {
   const [categoryImage, setCategoryImage] = useState([]);
@@ -26,6 +27,16 @@ const AddCategory = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsValid = false;
 
@@ -93,13 +104,15 @@ const AddCategory = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Добавить категорию</h1>
+        <h1 className={classes.modalHeading}>
+          {t("addBtnSmall")} {t("justCategory")}
+        </h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -113,14 +126,14 @@ const AddCategory = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              {!formIsValid && "Размер изображения должен быть меньше 1 мб"}
+              {!formIsValid && t("imgLimit")}
             </span>
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <div className={classes.lableRequiredArea}>
                 <label className={classes.modalBasicLable} htmlFor="name">
-                  Название
+                  {t("justName")}
                 </label>
                 <span className={classes.required}>*</span>
               </div>
@@ -135,7 +148,7 @@ const AddCategory = () => {
               className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
             >
               <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
+                {t("justDescrip")}
               </label>
               <input
                 onChange={(event) => setCategoryDescription(event.target.value)}
@@ -152,13 +165,13 @@ const AddCategory = () => {
             onClick={createNewCategory}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddCategory}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddCategory} className={classes.btnCloseModal}>

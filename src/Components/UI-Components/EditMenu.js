@@ -5,8 +5,9 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const EditMenu = () => {
   const [menuImage, setMenuImage] = useState([]);
@@ -27,6 +28,16 @@ const EditMenu = () => {
   const editedMenuID = useSelector((state) => state.controler.menu_edit_id);
   const menuOldData = useSelector((state) => state.controler.menu_old_data);
   const userLang = useSelector((state) => state.controler.user_first_language);
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLang.toLowerCase());
+  }, []);
 
   let formIsValid = false;
   let imageIsValid = false;
@@ -116,7 +127,10 @@ const EditMenu = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Редактировать меню</h1>
+        <h1 className={classes.modalHeading}>
+          {" "}
+          {t("justEDIT")} {t("justMenuSmall")}
+        </h1>
         <form className={classes.modalForm}>
           <div
             className={classes.inputImgArea2}
@@ -127,7 +141,7 @@ const EditMenu = () => {
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -140,15 +154,13 @@ const EditMenu = () => {
               />
             </div>
             {!imageIsValid && (
-              <span className={classes.requiredImgMess2}>
-                {"Размер изображения должен быть меньше 1 мб"}
-              </span>
+              <span className={classes.requiredImgMess2}>{t("imgLimit")}</span>
             )}
           </div>
           <div className={classes.modalInputsContainer}>
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="name">
-                Название
+                {t("justName")}
               </label>
               <input
                 type="text"
@@ -163,7 +175,7 @@ const EditMenu = () => {
               className={`${classes.wholeModalInput} ${classes.wholeModalInputGap}`}
             >
               <label className={classes.modalBasicLable} htmlFor="address">
-                Описание
+                {t("justDescrip")}
               </label>
               <input
                 onChange={(event) => setMenudescription(event.target.value)}
@@ -175,7 +187,7 @@ const EditMenu = () => {
             </div>
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="lang">
-                Действует без ограничения времени
+                {t("validLimt")}
               </label>
 
               <select
@@ -183,15 +195,15 @@ const EditMenu = () => {
                 className={classes.modalBasicInput}
               >
                 <option value=""></option>
-                <option value={true}>Да</option>
-                <option value={false}>Нет</option>
+                <option value={true}>{t("yes")}</option>
+                <option value={false}>{t("no")}</option>
               </select>
             </div>
             <div className={classes.modalInputsContaine2}>
               <div className={classes.twoInputsArea}>
                 <div className={classes.wholeModalInput}>
                   <label className={classes.modalBasicLable2} htmlFor="start">
-                    Начало работы
+                    {t("workStart")}
                   </label>
                   <input
                     onChange={(event) => setMenuStartTime(event.target.value)}
@@ -205,7 +217,7 @@ const EditMenu = () => {
                 </div>
                 <div className={classes.wholeModalInput}>
                   <label className={classes.modalBasicLable2} htmlFor="end">
-                    Конец работы
+                    {t("workEnd")}
                   </label>
                   <input
                     onChange={(event) => setMenuEndTime(event.target.value)}
@@ -227,13 +239,13 @@ const EditMenu = () => {
             onClick={editMenu}
             className={classes.controlBtn}
           >
-            СОХРАНИТЬ
+            {t("saveBtn")}
           </button>
           <button
             onClick={hideEditMenu}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideEditMenu} className={classes.btnCloseModal}>

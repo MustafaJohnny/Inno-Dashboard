@@ -4,8 +4,9 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useTranslation } from "react-i18next";
 
 const ChangeItemPrice = () => {
   const [ItemPrice, setItemPrice] = useState("");
@@ -15,8 +16,22 @@ const ChangeItemPrice = () => {
   const itemOldPrice = useSelector((state) => state.controler.item_price_value);
   const currentItemID = useSelector((state) => state.controler.item_current_ID);
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsVaild = false;
 
@@ -70,14 +85,16 @@ const ChangeItemPrice = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Изменить цену</h1>
+        <h1 className={classes.modalHeading}>
+          {t("justChange")} {t("justPrice")}
+        </h1>
         <form className={classes.modalForm}>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
               <label className={classes.modalBasicLable2} htmlFor="name">
-                новая цена
+                {t("new2")} {t("justPrice")}
               </label>
               <input
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
@@ -96,13 +113,13 @@ const ChangeItemPrice = () => {
             onClick={addNewItemName}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideChangeItemPrice}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideChangeItemPrice} className={classes.btnCloseModal}>

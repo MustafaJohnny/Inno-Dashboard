@@ -254,6 +254,10 @@
   color: #fff;
 }
 
+.designjsHeading {
+  text-transform: uppercase;
+}
+
 .orderServiceStatusHead {
   position: absolute;
   transform: translateX(93rem);

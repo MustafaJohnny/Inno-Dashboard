@@ -16,6 +16,7 @@ import ChangeItemDesc from "../UI-Components/ChangeItemDesc";
 import ChangeItemPrice from "../UI-Components/ChangeItemPrice";
 import ChangeItemImg from "../UI-Components/ChangeItemImg";
 import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
+import { useTranslation } from "react-i18next";
 import FallMessage from "../UI-Components/FallMessage";
 
 const CurrentItemsPage = () => {
@@ -36,6 +37,16 @@ const CurrentItemsPage = () => {
   const showFallCurrentItem = useSelector(
     (state) => state.controler.show_fall_current_item
   );
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
 
   useEffect(() => {
     let mounted = true;
@@ -59,6 +70,7 @@ const CurrentItemsPage = () => {
 
         if (updatedCurrentItem.length !== 0) {
           dispatch(controlActions.getUserCurrentItem(updatedCurrentItem[0]));
+          changeLanguage(userLanguage.toLowerCase());
         }
       }
     };
@@ -164,7 +176,7 @@ const CurrentItemsPage = () => {
                     </div>
                     <div className={classes.pathAddressArea}>
                       <Link className={classes.pathAddress} to="/home">
-                        Менеджмент /
+                        {t("managementNav")} /
                       </Link>
                       <Link className={classes.pathAddress} to="/menus">
                         {restaurantPageHeading} /
@@ -202,7 +214,7 @@ const CurrentItemsPage = () => {
                           htmlFor="name"
                           className={classes.currentItemLable}
                         >
-                          Название
+                          {t("justName")}
                         </label>
                         <div className={classes.inputAndEditArea}>
                           <p className={classes.currentItemInput}>
@@ -228,7 +240,7 @@ const CurrentItemsPage = () => {
                           htmlFor="descrip"
                           className={classes.currentItemLable}
                         >
-                          Описание
+                          {t("justDescrip")}
                         </label>
                         <div className={classes.inputAndEditArea}>
                           <p className={classes.currentItemInput}>
@@ -253,7 +265,7 @@ const CurrentItemsPage = () => {
                             htmlFor="price"
                             className={classes.currentItemLable}
                           >
-                            Цена
+                            {t("justPrice")}
                           </label>
                           <div className={classes.inputAndEditArea}>
                             <p className={classes.currentItemInput}>
@@ -281,20 +293,20 @@ const CurrentItemsPage = () => {
                     <div className={classes.modifierInputsBox}>
                       <div className={classes.modifierHeadingArea}>
                         <h1 className={classes.modifierHeading}>
-                          Исключающие модификаторы
+                          {t("modifHeading")}
                         </h1>
 
                         <button
                           className={`${classes.manageBtn} ${classes.modifierBtn}`}
                           type="button"
                         >
-                          + Добавить модификатор
+                          + {t("addBtnSmall")} {t("justModif")}
                         </button>
                       </div>
 
                       <div className={classes.wholeCurrentModifierEl}>
                         <label htmlFor="size" className={classes.LableModi}>
-                          Название группы модификаторов
+                          {t("nameGroupModif")}
                         </label>
                         <div className={classes.inputAndEditArea}>
                           <p className={classes.currentItemInput}>
@@ -352,7 +364,7 @@ const CurrentItemsPage = () => {
                           type="button"
                           className={classes.modiferAddOption}
                         >
-                          + Добавить вариант
+                          + {t("addOption")}
                         </button>
                       </div>
                     </div>

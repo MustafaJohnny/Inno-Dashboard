@@ -15,11 +15,13 @@ import ForthMenu3 from "../Images/ForthMenu3.jpg";
 import FifthMenu1 from "../Images/FifthMenu1.jpg";
 import FifthMenu2 from "../Images/FifthMenu2.jpg";
 import FifthMenu3 from "../Images/FifthMenu3.jpg";
+import { useTranslation } from "react-i18next";
 import SideNavigation from "../UI-Components/SideNavigation";
 import ConfirmDesign from "../UI-Components/ConfirmDesign";
 import UpNavigation from "../UI-Components/UpNavigation";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination } from "swiper";
+import { useEffect } from "react";
 import classes from "./HomePage.module.css";
 import { useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
@@ -36,6 +38,20 @@ const DesignMenuPage = () => {
   const currentDesignNum = useSelector(
     (state) => state.controler.user_design_number
   );
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   const getDesignNumber = (event) => {
     const designNumber = event.target.value;
@@ -66,15 +82,19 @@ const DesignMenuPage = () => {
                     alt="icon"
                     className={classes.arrowBack}
                   />
-                  <h1 className={classes.managementHeading}>
-                    ВАШЕ АКТИВНОЕ МЕНЮ: МЕНЮ {currentDesignNum}
+                  <h1
+                    className={`${classes.managementHeading} ${classes.designjsHeading}`}
+                  >
+                    {t("yourMenu")}: {t("justMenu")} {currentDesignNum}
                   </h1>
                 </div>
               </div>
 
               <div className={classes.designMenusContainer}>
                 <div className={classes.wholeDesginMenuBox}>
-                  <h1 className={classes.desginMenuHeading}>Меню 1</h1>
+                  <h1 className={classes.desginMenuHeading}>
+                    {t("justMenu")} 1
+                  </h1>
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
@@ -85,7 +105,7 @@ const DesignMenuPage = () => {
                       id="menu1"
                     />
                     <label className={classes.lablesDesigns} htmlFor="menu1">
-                      Выбрать меню
+                      {t("choseMenu")}
                     </label>
                   </div>
 
@@ -123,7 +143,9 @@ const DesignMenuPage = () => {
                 </div>
 
                 <div className={classes.wholeDesginMenuBox}>
-                  <h1 className={classes.desginMenuHeading}>Меню 2</h1>
+                  <h1 className={classes.desginMenuHeading}>
+                    {t("justMenu")} 2
+                  </h1>
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
@@ -134,7 +156,7 @@ const DesignMenuPage = () => {
                       id="menu2"
                     />
                     <label className={classes.lablesDesigns} htmlFor="menu2">
-                      Выбрать меню
+                      {t("choseMenu")}
                     </label>
                   </div>
 
@@ -172,7 +194,9 @@ const DesignMenuPage = () => {
                 </div>
 
                 <div className={classes.wholeDesginMenuBox}>
-                  <h1 className={classes.desginMenuHeading}>Меню 3</h1>
+                  <h1 className={classes.desginMenuHeading}>
+                    {t("justMenu")} 3
+                  </h1>
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
@@ -183,7 +207,7 @@ const DesignMenuPage = () => {
                       id="menu3"
                     />
                     <label className={classes.lablesDesigns} htmlFor="menu3">
-                      Выбрать меню
+                      {t("choseMenu")}
                     </label>
                   </div>
 
@@ -221,7 +245,9 @@ const DesignMenuPage = () => {
                 </div>
 
                 <div className={classes.wholeDesginMenuBox}>
-                  <h1 className={classes.desginMenuHeading}>Меню 4</h1>
+                  <h1 className={classes.desginMenuHeading}>
+                    {t("justMenu")} 4
+                  </h1>
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
@@ -232,7 +258,7 @@ const DesignMenuPage = () => {
                       id="menu4"
                     />
                     <label className={classes.lablesDesigns} htmlFor="menu4">
-                      Выбрать меню
+                      {t("choseMenu")}
                     </label>
                   </div>
 
@@ -270,7 +296,9 @@ const DesignMenuPage = () => {
                 </div>
 
                 <div className={classes.wholeDesginMenuBox}>
-                  <h1 className={classes.desginMenuHeading}>Меню 5</h1>
+                  <h1 className={classes.desginMenuHeading}>
+                    {t("justMenu")} 5
+                  </h1>
                   <div className={classes.selectInputArea}>
                     <input
                       className={classes.radioStyle}
@@ -281,7 +309,7 @@ const DesignMenuPage = () => {
                       id="menu5"
                     />
                     <label className={classes.lablesDesigns} htmlFor="menu5">
-                      Выбрать меню
+                      {t("choseMenu")}
                     </label>
                   </div>
 

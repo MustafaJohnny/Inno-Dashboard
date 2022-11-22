@@ -5,8 +5,9 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ChangeItemImg = () => {
   const [ItemImg, setItemImg] = useState("");
@@ -17,6 +18,20 @@ const ChangeItemImg = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsVaild = false;
 
@@ -76,13 +91,15 @@ const ChangeItemImg = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Изменить изображение</h1>
+        <h1 className={classes.modalHeading}>
+          {t("justChange")} {t("justImg")}
+        </h1>
         <form className={classes.modalForm}>
           <div className={classes.inputImgArea}>
             <div className={classes.requiredImgBox}>
               <label className={classes.btnAddImgModal} htmlFor="fileImg">
                 <img className={classes.uploadIcon} alt="icon" src={Upload} />
-                <span className={classes.textBtnUpload}>ДОБАВИТЬ ФОТО</span>
+                <span className={classes.textBtnUpload}>{t("addPhoto")}</span>
               </label>
               <input
                 className={classes.inputImgModal}
@@ -96,7 +113,7 @@ const ChangeItemImg = () => {
               <span className={classes.requiredImg}>*</span>
             </div>
             <span className={classes.requiredImgMess}>
-              {!formIsVaild && "Размер изображения должен быть меньше 1 мб"}
+              {!formIsVaild && t("imgLimit")}
             </span>
           </div>
         </form>
@@ -106,13 +123,13 @@ const ChangeItemImg = () => {
             onClick={addNewItemName}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideChangeItemImg}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideChangeItemImg} className={classes.btnCloseModal}>

@@ -46,23 +46,23 @@ const DeleteOptionalModal = () => {
       dispatch(controlActions.toggleDeleteService());
     }
 
-    if (deleteSomething === "меню") {
+    if (deleteSomething === t("justMenuSmall")) {
       dispatch(controlActions.toggleDeleteMenu());
     }
 
-    if (deleteSomething === "категорию") {
+    if (deleteSomething === t("justCategory")) {
       dispatch(controlActions.toggleDeleteCategory());
     }
 
-    if (deleteSomething === "блюдо") {
+    if (deleteSomething === t("justItem")) {
       dispatch(controlActions.toggleDeleteItem());
     }
 
-    if (deleteSomething === "услугу") {
+    if (deleteSomething === t("justServiceItem")) {
       dispatch(controlActions.toggleDeleteServiceItem());
     }
 
-    if (deleteSomething === "стол") {
+    if (deleteSomething === t("justTable")) {
       dispatch(controlActions.toggleDeleteTable());
     }
   };
@@ -134,7 +134,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "меню") {
+    if (deleteSomething === t("justMenuSmall")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerMenu());
 
@@ -167,7 +167,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "категорию") {
+    if (deleteSomething === t("justCategory")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerCategories());
 
@@ -202,7 +202,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "блюдо") {
+    if (deleteSomething === t("justItem")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerItems());
 
@@ -234,7 +234,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "услугу") {
+    if (deleteSomething === t("justServiceItem")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerServices());
 
@@ -267,7 +267,7 @@ const DeleteOptionalModal = () => {
         });
     }
 
-    if (deleteSomething === "стол") {
+    if (deleteSomething === t("justTable")) {
       optionalHideDeleteModal();
       dispatch(controlActions.toggleSpinnerQR());
 

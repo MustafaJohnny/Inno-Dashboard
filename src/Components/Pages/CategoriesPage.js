@@ -15,6 +15,7 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigate, Link } from "react-router-dom";
 import { controlActions } from "../Redux/ReduxStore";
+import { t } from "i18next";
 
 const CategoriesPage = () => {
   const dispatch = useDispatch();
@@ -146,7 +147,7 @@ const CategoriesPage = () => {
 
   const displayDeleteCategory = (categoryID) => {
     dispatch(controlActions.toggleDeleteCategory(categoryID));
-    dispatch(controlActions.getDeleteSomething("категорию"));
+    dispatch(controlActions.getDeleteSomething(t("justCategory")));
   };
 
   const goPageBack = () => {
@@ -184,7 +185,7 @@ const CategoriesPage = () => {
                     </div>
                     <div className={classes.pathAddressArea}>
                       <Link className={classes.pathAddress} to="/home">
-                        Менеджмент /
+                        {t("managementNav")} /
                       </Link>
                       <Link className={classes.pathAddress} to="/menus">
                         {restaurantPageHeading} /
@@ -200,7 +201,7 @@ const CategoriesPage = () => {
                       className={classes.manageBtn}
                       type="button"
                     >
-                      + Добавить категорию
+                      + {t("addBtnSmall")} {t("justCategory")}
                     </button>
                   </div>
                 </div>
@@ -208,7 +209,7 @@ const CategoriesPage = () => {
                 {userCategories.length <= 0 ? (
                   <div className={classes.emptyMsgInnerHeading}>
                     <h1 className={classes.emptyMsgHomePage}>
-                      Вы еще не добавили категорию
+                      {t("emptyCategory")}
                     </h1>
                   </div>
                 ) : (
@@ -233,7 +234,7 @@ const CategoriesPage = () => {
                             }
                             type="button"
                           >
-                            {ele.is_active ? "Активный" : "Неактивный"}
+                            {ele.is_active ? t("active") : t("notActive")}
                           </button>
 
                           <button

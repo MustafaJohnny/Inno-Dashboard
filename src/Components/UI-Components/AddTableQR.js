@@ -4,8 +4,9 @@ import classes from "./ModalStyle.module.css";
 import Overlay from "./Overlay";
 import { controlActions } from "../Redux/ReduxStore";
 import { useDispatch, useSelector } from "react-redux";
+import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const AddTableQR = () => {
   const [tableQRdescription, setTableQRdescription] = useState("");
@@ -13,12 +14,27 @@ const AddTableQR = () => {
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const clickedTableIdQR = useSelector((state) => state.controler.user_QR_ID);
+
   const clickedTableDescripValue = useSelector(
     (state) => state.controler.user_table_QR_descrip_value
   );
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
+  useEffect(() => {
+    changeLanguage(userLanguage.toLowerCase());
+  }, []);
 
   let formIsValid = false;
 
@@ -69,14 +85,14 @@ const AddTableQR = () => {
     <React.Fragment>
       <Overlay />
       <div className={classes.modal}>
-        <h1 className={classes.modalHeading}>Изменить описание</h1>
+        <h1 className={classes.modalHeading}>{t("changeDescrip")}</h1>
         <form className={classes.modalForm}>
           <div
             className={`${classes.modalInputsContainer} ${classes.modalContainerService}`}
           >
             <div className={classes.wholeModalInput}>
-              <label className={classes.modalBasicLable} htmlFor="name">
-                Описание
+              <label className={classes.modalBasicLable2} htmlFor="name">
+                {t("justDescrip")}
               </label>
               <input
                 className={`${classes.modalBasicInput} ${classes.modalBasicInputService} ${classes.modalQRinput}`}
@@ -95,13 +111,13 @@ const AddTableQR = () => {
             onClick={createNewTableQR}
             className={classes.controlBtn}
           >
-            ДОБАВИТЬ
+            {t("addBtn")}
           </button>
           <button
             onClick={hideAddTableQR}
             className={`${classes.controlBtn} ${classes.cencelBtn}`}
           >
-            Отменить
+            {t("cancelBtn")}
           </button>
         </div>
         <button onClick={hideAddTableQR} className={classes.btnCloseModal}>

@@ -5,6 +5,7 @@ import UpNavigation from "../UI-Components/UpNavigation";
 import AddServiceItem from "../UI-Components/AddServiceItem";
 import EditServiceItem from "../UI-Components/EditServiceItem";
 import DeleteOptionalModal from "../UI-Components/DeleteOptionalModal";
+import { useTranslation } from "react-i18next";
 import actionBin from "../Icons/actionBin.svg";
 import actionPen from "../Icons/actionPen.svg";
 import classes from "./HomePage.module.css";
@@ -33,6 +34,16 @@ const ServicesPage = () => {
     (state) => state.controler.show_fall_services
   );
 
+  const userLanguage = useSelector(
+    (state) => state.controler.user_first_language
+  );
+
+  const { i18n, t } = useTranslation();
+
+  const changeLanguage = (lang) => {
+    i18n.changeLanguage(lang);
+  };
+
   useEffect(() => {
     let mounted = true;
 
@@ -50,6 +61,7 @@ const ServicesPage = () => {
 
       if (mounted) {
         dispatch(controlActions.getUserServiceItems(request.data));
+        changeLanguage(userLanguage.toLowerCase());
       }
     };
     getData();
@@ -109,7 +121,7 @@ const ServicesPage = () => {
 
   const displayDeleteServiceItem = (serviceItemID) => {
     dispatch(controlActions.toggleDeleteServiceItem(serviceItemID));
-    dispatch(controlActions.getDeleteSomething("услугу"));
+    dispatch(controlActions.getDeleteSomething(t("justServiceItem")));
   };
 
   const goPageBack = () => {
@@ -147,7 +159,7 @@ const ServicesPage = () => {
                     type="button"
                     onClick={showModalItem}
                   >
-                    + Добавить услугу
+                    + {t("addServiceItem")}
                   </button>
                 </div>
               </div>
@@ -161,9 +173,15 @@ const ServicesPage = () => {
               ) : (
                 <div className={classes.serviceItemsBox}>
                   <div className={classes.multiHeadingServices}>
-                    <span className={classes.servicesHeading}>Название</span>
-                    <span className={classes.servicesHeading}>Цена</span>
-                    <span className={classes.servicesHeading}>Описание</span>
+                    <span className={classes.servicesHeading}>
+                      {t("justName")}
+                    </span>
+                    <span className={classes.servicesHeading}>
+                      {t("orderPrice")}
+                    </span>
+                    <span className={classes.servicesHeading}>
+                      {t("justDescrip")}
+                    </span>
                   </div>
                   {userServiceItems.map((element, index) => (
                     <div key={element.id} className={classes.wholeItemService}>
@@ -188,7 +206,7 @@ const ServicesPage = () => {
                           }
                           type="button"
                         >
-                          {element.is_active ? "Активный" : "Неактивный"}
+                          {element.is_active ? t("active") : t("notActive")}
                         </button>
 
                         <button
