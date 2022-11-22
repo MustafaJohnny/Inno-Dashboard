@@ -15,7 +15,6 @@ import { controlActions } from "../Redux/ReduxStore";
 const SettingsPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userCurrency = useSelector((state) => state.controler.user_currency);
@@ -61,7 +60,7 @@ const SettingsPage = () => {
 
   // const editSettingsAndSendPatch = (setting) => {
   //   axios
-  //     .patch(`http://${serverAPI}/api/dash/${setting}ClientChange`, "", {
+  //     .patch(`${process.env.REACT_APP_URL}/api/dash/${setting}ClientChange`, "", {
   //       params: {},
   //       auth: {
   //         username: userEmail,

@@ -11,7 +11,6 @@ import { useNavigate } from "react-router-dom";
 const DeleteOptionalModal = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -77,7 +76,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/rest/delRest`, {
+        .delete(`${process.env.REACT_APP_URL}/api/rest/delRest`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -110,7 +109,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/serv/delService`, {
+        .delete(`${process.env.REACT_APP_URL}/api/serv/delService`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -143,7 +142,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/menu/del_menu`, {
+        .delete(`${process.env.REACT_APP_URL}/api/menu/del_menu`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -176,7 +175,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/cat/delCategory`, {
+        .delete(`${process.env.REACT_APP_URL}/api/cat/delCategory`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -211,7 +210,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/prod/del_product`, {
+        .delete(`${process.env.REACT_APP_URL}/api/prod/del_product`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -243,7 +242,7 @@ const DeleteOptionalModal = () => {
       };
 
       axios
-        .delete(`http://${serverAPI}/api/serv/delUslugi`, {
+        .delete(`${process.env.REACT_APP_URL}/api/serv/delUslugi`, {
           params: serverParams,
           auth: {
             username: userEmail,
@@ -273,7 +272,7 @@ const DeleteOptionalModal = () => {
 
       axios
         .delete(
-          `http://${serverAPI}/api/v1/table/table_delete/${deleteSomethingID}`,
+          `${process.env.REACT_APP_URL}/api/v1/table/table_delete/${deleteSomethingID}`,
           {
             auth: {
               username: userEmail,

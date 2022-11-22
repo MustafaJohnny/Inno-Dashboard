@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 
 const AddTableQR = () => {
   const [tableQRdescription, setTableQRdescription] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const clickedTableIdQR = useSelector((state) => state.controler.user_QR_ID);
@@ -51,7 +50,7 @@ const AddTableQR = () => {
     dispatch(controlActions.toggleSpinnerQR());
 
     axios
-      .post(`http://${serverAPI}/api/v1/table/table_description`, "", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/table/table_description`, "", {
         params: {
           description: tableQRdescription,
           id: clickedTableIdQR,

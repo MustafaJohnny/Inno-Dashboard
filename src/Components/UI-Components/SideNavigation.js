@@ -30,10 +30,9 @@ const SideNavigation = () => {
   const userLang = useSelector(
     (state) => state.controler.user_first_language
   ).toLowerCase();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userDomain = useSelector((state) => state.controler.user_domain);
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const navigate = useNavigate();
 

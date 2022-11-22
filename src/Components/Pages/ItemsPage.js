@@ -18,7 +18,6 @@ import { controlActions } from "../Redux/ReduxStore";
 const ItemsPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userCurrency = useSelector((state) => state.controler.user_currency);
   const userEmail = useSelector((state) => state.controler.user_email);
@@ -62,7 +61,7 @@ const ItemsPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/prod/product_list/${userItemID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_list/${userItemID}`,
         {
           auth: {
             username: userEmail,
@@ -81,12 +80,12 @@ const ItemsPage = () => {
     getData();
   }, []);
 
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateItem = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/prod/product_active_or_deactivate/${menuID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_active_or_deactivate/${menuID}`,
         {},
 
         {

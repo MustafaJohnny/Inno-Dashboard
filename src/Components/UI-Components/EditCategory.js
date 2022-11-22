@@ -16,12 +16,11 @@ const EditCategory = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const edittedCategoryID = useSelector(
     (state) => state.controler.category_edit_id
@@ -88,7 +87,7 @@ const EditCategory = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/cat/categoryDataChange/${edittedCategoryID}/${userLang}`,
+        `${process.env.REACT_APP_URL}/api/cat/categoryDataChange/${edittedCategoryID}/${userLang}`,
         formData,
         {
           auth: {

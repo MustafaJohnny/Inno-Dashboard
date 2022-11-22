@@ -20,7 +20,6 @@ import { useTranslation } from "react-i18next";
 import FallMessage from "../UI-Components/FallMessage";
 
 const CurrentItemsPage = () => {
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userPassword = useSelector((state) => state.controler.user_password);
@@ -53,7 +52,7 @@ const CurrentItemsPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/prod/product_list/${currentCategoryID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_list/${currentCategoryID}`,
         {
           auth: {
             username: userEmail,
@@ -115,7 +114,7 @@ const CurrentItemsPage = () => {
     (state) => state.controler.current_item_page_heading
   );
 
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const displayChangeItemName = (itemOldName, itemID) => {
     dispatch(controlActions.toggleChangeItemName());

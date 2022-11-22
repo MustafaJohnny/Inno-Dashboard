@@ -17,8 +17,7 @@ const AddRestaurant = () => {
   const [restStartTime, setRestStartTime] = useState("");
   const [restEndTime, setRestEndTime] = useState("");
   const [restTimeZone, setRestTimeZone] = useState("");
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -78,7 +77,7 @@ const AddRestaurant = () => {
     formData.append("in_file", restImage, restImage.name);
 
     axios
-      .post(`http://${serverAPI}/api/rest/rest_new/${userLanguage}`, formData, {
+      .post(`${process.env.REACT_APP_URL}/api/rest/rest_new/${userLanguage}`, formData, {
         params: serverParams,
         auth: {
           username: userEmail,

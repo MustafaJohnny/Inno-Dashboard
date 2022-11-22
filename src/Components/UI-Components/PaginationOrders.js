@@ -36,7 +36,6 @@ const PaginationOrders = () => {
 
   // From here this part of code is responsible for controling the orders and anything about them.
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -63,7 +62,7 @@ const PaginationOrders = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/ord_rest/order_one/${clickedOrderId}`,
+        `${process.env.REACT_APP_URL}/api/ord_rest/order_one/${clickedOrderId}`,
         {
           auth: {
             username: userEmail,

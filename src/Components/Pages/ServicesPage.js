@@ -20,7 +20,6 @@ import LoadingSpinner2 from "../UI-Components/LoadingSpinner2";
 const ServicesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
@@ -49,7 +48,7 @@ const ServicesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/serv/uslugi_list/${userServiceID}`,
+        `${process.env.REACT_APP_URL}/api/serv/uslugi_list/${userServiceID}`,
         {
           auth: {
             username: userEmail,
@@ -94,7 +93,7 @@ const ServicesPage = () => {
   const activateOrDeactivateServiceItem = (serviceItemID) => {
     axios
       .post(
-        `http://${serverAPI}/api/serv/uslugi_active_or_deactivate/${serviceItemID}`,
+        `${process.env.REACT_APP_URL}/api/serv/uslugi_active_or_deactivate/${serviceItemID}`,
         {},
 
         {

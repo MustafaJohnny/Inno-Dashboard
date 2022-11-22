@@ -28,7 +28,6 @@ const HomePage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const userDomain = useSelector((state) => state.controler.user_domain);
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServices = useSelector((state) => state.controler.user_services);
@@ -73,7 +72,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/own/restandservice_list`,
+        `${process.env.REACT_APP_URL}/api/own/restandservice_list`,
         {
           auth: {
             username: userEmail,
@@ -92,12 +91,12 @@ const HomePage = () => {
     getData();
   }, []);
 
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/rest/rest_active_or_deactivate/${menuID}`,
+        `${process.env.REACT_APP_URL}/api/rest/rest_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -116,7 +115,7 @@ const HomePage = () => {
   const activateOrDeactivateService = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/serv/service_active_or_deactivate/${menuID}`,
+        `${process.env.REACT_APP_URL}/api/serv/service_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -151,7 +150,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/menu/rest_menu_list/${clickedRestaurantID}`,
+        `${process.env.REACT_APP_URL}/api/menu/rest_menu_list/${clickedRestaurantID}`,
         {
           auth: {
             username: userEmail,
@@ -184,7 +183,7 @@ const HomePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/serv/uslugi_list/${clickedServiceID}`,
+        `${process.env.REACT_APP_URL}/api/serv/uslugi_list/${clickedServiceID}`,
         {
           auth: {
             username: userEmail,

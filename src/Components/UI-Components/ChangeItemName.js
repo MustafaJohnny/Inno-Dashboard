@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 
 const ChangeItemName = () => {
   const [ItemName, setItemName] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const itemOldName = useSelector((state) => state.controler.item_name_value);
@@ -49,7 +48,7 @@ const ChangeItemName = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/prod/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_name_change/${userLanguage}/${ItemName}/${currentItemID}`,
         "",
         {
           params: {},

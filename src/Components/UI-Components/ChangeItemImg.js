@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 
 const ChangeItemImg = () => {
   const [ItemImg, setItemImg] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const currentItemID = useSelector((state) => state.controler.item_current_ID);
@@ -57,7 +56,7 @@ const ChangeItemImg = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/prod/product_image_change/${currentItemID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_image_change/${currentItemID}`,
         formData,
         {
           params: {},

@@ -16,8 +16,7 @@ const AddMenu = () => {
   const [menuEndTime, setMenuEndTime] = useState("");
   const [menuDescription, setMenudescription] = useState("");
   const [menuAllHours, setMenuAllHours] = useState("");
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userMenuID = useSelector((state) => state.controler.user_menu_ID);
@@ -74,7 +73,7 @@ const AddMenu = () => {
     formData.append("in_file", menuImage, menuImage.name);
 
     axios
-      .post(`http://${serverAPI}/api/menu/new/${userLanguage}`, formData, {
+      .post(`${process.env.REACT_APP_URL}/api/menu/new/${userLanguage}`, formData, {
         params: serverParams,
         auth: {
           username: userEmail,

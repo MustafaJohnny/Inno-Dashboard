@@ -24,7 +24,6 @@ import { controlActions } from "../Redux/ReduxStore";
 const QRcodesPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userQRCodes = useSelector((state) => state.controler.user_QR_Codes);
@@ -49,14 +48,14 @@ const QRcodesPage = () => {
     i18n.changeLanguage(lang);
   };
 
-  const URL = `http://${serverAPI}/api/v1/table/qr/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/table/qr/${userDomain}`;
 
   useEffect(() => {
     let mounted = true;
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/v1/table/owner_table`,
+        `${process.env.REACT_APP_URL}/api/v1/table/owner_table`,
         {
           auth: {
             username: userEmail,
@@ -78,7 +77,7 @@ const QRcodesPage = () => {
   const activateOrDeactivateOrder = (IdQR) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/table/table_order/${IdQR}`,
+        `${process.env.REACT_APP_URL}/api/v1/table/table_order/${IdQR}`,
         {},
 
         {
@@ -97,7 +96,7 @@ const QRcodesPage = () => {
   const activateOrDeactivateWaiter = (IdQR) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/table/table_garson/${IdQR}`,
+        `${process.env.REACT_APP_URL}/api/v1/table/table_garson/${IdQR}`,
         {},
 
         {
@@ -116,7 +115,7 @@ const QRcodesPage = () => {
   const activateOrDeactivateTable = (IdQR) => {
     axios
       .post(
-        `http://${serverAPI}/api/v1/table/table_active_or_deactive/${IdQR}`,
+        `${process.env.REACT_APP_URL}/api/v1/table/table_active_or_deactive/${IdQR}`,
         {},
 
         {

@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 
 const ChangeItemPrice = () => {
   const [ItemPrice, setItemPrice] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const itemOldPrice = useSelector((state) => state.controler.item_price_value);
@@ -49,7 +48,7 @@ const ChangeItemPrice = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/prod/product_price_change/${currentItemID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_price_change/${currentItemID}`,
         "",
         {
           params: {

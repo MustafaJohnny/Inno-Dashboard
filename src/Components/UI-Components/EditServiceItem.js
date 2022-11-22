@@ -15,8 +15,7 @@ const EditServiceItem = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -70,7 +69,7 @@ const EditServiceItem = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/serv/uslugiChangeData/${serviceItemEditId}/${userLang}`,
+        `${process.env.REACT_APP_URL}/api/serv/uslugiChangeData/${serviceItemEditId}/${userLang}`,
         formData,
         {
           params: serverParams,

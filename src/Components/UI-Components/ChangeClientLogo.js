@@ -13,7 +13,6 @@ const ChangeClientLogo = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [logoImg, setLogoImg] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -55,7 +54,7 @@ const ChangeClientLogo = () => {
     formData.append("in_file", logoImg, logoImg.name);
 
     axios
-      .patch(`http://${serverAPI}/api/own/logoClientChange`, formData, {
+      .patch(`${process.env.REACT_APP_URL}/api/own/logoClientChange`, formData, {
         params: {},
         auth: {
           username: userEmail,

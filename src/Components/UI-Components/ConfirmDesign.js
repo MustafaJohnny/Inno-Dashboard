@@ -11,7 +11,6 @@ import { useTranslation } from "react-i18next";
 const ConfirmDesign = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -40,7 +39,7 @@ const ConfirmDesign = () => {
 
   const changeDesignNumber = () => {
     axios
-      .post(`http://${serverAPI}/api/own/design/${selectedDesignNum}`, "", {
+      .post(`${process.env.REACT_APP_URL}/api/own/design/${selectedDesignNum}`, "", {
         auth: {
           username: userEmail,
           password: userPassword,

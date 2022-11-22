@@ -21,12 +21,11 @@ const EditService = () => {
   const changeLanguage = (lang) => {
     i18n.changeLanguage(lang);
   };
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const editedServiceID = useSelector(
     (state) => state.controler.service_edit_id
@@ -86,7 +85,7 @@ const EditService = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/serv/serviceDataChange/${editedServiceID}/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/serv/serviceDataChange/${editedServiceID}/${userLanguage}`,
         formData,
         {
           auth: {

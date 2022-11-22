@@ -12,8 +12,7 @@ const AddServiceItem = () => {
   const [ItemServiceName, setServiceItemName] = useState("");
   const [ItemServiceDescription, setServiceItemDescription] = useState("");
   const [ItemServicePrice, setServiceItemPrice] = useState("");
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userServiceID = useSelector((state) => state.controler.user_service_ID);
@@ -62,7 +61,7 @@ const AddServiceItem = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/serv/uslugi_new/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/serv/uslugi_new/${userLanguage}`,
         {},
         {
           params: serverParams,

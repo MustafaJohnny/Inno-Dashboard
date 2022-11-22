@@ -31,7 +31,7 @@ const OrderServicePage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/ord_serv/client_uslugi`,
+        `${process.env.REACT_APP_URL}/api/ord_serv/client_uslugi`,
         {
           params: {
             offset: "0",
@@ -56,7 +56,6 @@ const OrderServicePage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 

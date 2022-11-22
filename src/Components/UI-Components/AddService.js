@@ -18,7 +18,6 @@ const AddService = () => {
 
   const [serviceName, setServiceName] = useState("");
   const [serviceImage, setServiceImage] = useState([]);
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -65,7 +64,7 @@ const AddService = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/serv/service_new/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/serv/service_new/${userLanguage}`,
         formData,
         {
           params: serverParams,

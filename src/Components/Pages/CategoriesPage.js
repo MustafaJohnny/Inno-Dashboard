@@ -20,7 +20,6 @@ import { t } from "i18next";
 const CategoriesPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
@@ -65,7 +64,7 @@ const CategoriesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/cat/category_list/${userCategoryID}`,
+        `${process.env.REACT_APP_URL}/api/cat/category_list/${userCategoryID}`,
         {
           auth: {
             username: userEmail,
@@ -82,12 +81,12 @@ const CategoriesPage = () => {
     getData();
   }, []);
 
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateCategory = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/cat/category_active_or_deactivate/${menuID}`,
+        `${process.env.REACT_APP_URL}/api/cat/category_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -118,7 +117,7 @@ const CategoriesPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/prod/product_list/${clickedCategoryID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_list/${clickedCategoryID}`,
         {
           auth: {
             username: userEmail,

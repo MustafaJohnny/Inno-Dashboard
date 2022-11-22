@@ -31,7 +31,7 @@ const WaiterPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/garson/client_garson`,
+        `${process.env.REACT_APP_URL}/api/garson/client_garson`,
         {
           params: {
             offset: "0",
@@ -57,7 +57,6 @@ const WaiterPage = () => {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const WaiterData = useSelector((state) => state.controler.user_waitor_data);

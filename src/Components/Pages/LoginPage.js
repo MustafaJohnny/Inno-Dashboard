@@ -5,15 +5,11 @@ import LoginImg from "../Images/LoginImg.png";
 import Logo from "../Icons/Logo.svg";
 import { useSelector, useDispatch } from "react-redux";
 import { controlActions } from "../Redux/ReduxStore";
-import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
 
   const getEmail = (event) => {
     dispatch(controlActions.getUserEmail(event.target.value));
@@ -22,42 +18,46 @@ const LoginPage = () => {
   const getPassword = (event) => {
     dispatch(controlActions.getUserPassword(event.target.value));
   };
-
+  
   const checkUserLogin = (event) => {
     event.preventDefault();
-
+    
     const regex = /^([a-z\d\.-]+)@([a-z\d-]+)\.([a-z]{2,8})(\.[a-z]{2,8})?$/;
-
+    
     if (!regex.test(userEmail)) return;
-
+    
     if (userEmail.trim() === "") return;
-
+    
     if (userPassword.trim() === "") return;
-
+    
     if (regex.test(userEmail) && userPassword) {
       let mounted = true;
-
-      const getData = async () => {
-        const request = await axios.post(
-          `http://${serverAPI}/api/v1/user/login`,
-          {},
-
-          {
-            auth: {
-              username: userEmail,
-              password: userPassword,
-            },
+      
+      const getData = async function() {
+        try {
+          const request = await axios.post(
+            `${process.env.REACT_APP_URL}/api/v1/user/login`,
+            {},
+            
+            {
+              auth: {
+                username: userEmail,
+                password: userPassword,
+              },
+            }
+          );
+          
+          if (mounted) {
+            dispatch(controlActions.getUserDataFromServer(request.data));
+            dispatch(controlActions.getAuthUser(true));
           }
-        );
-
-        if (mounted) {
-          dispatch(controlActions.getUserDataFromServer(request.data));
-          navigate("/home", {
-            replace: true,
-          });
+        }
+        
+        catch (e){
+          dispatch(controlActions.getIsAuthUser(false));
         }
       };
-
+      
       getData();
     }
   };
@@ -72,14 +72,14 @@ const LoginPage = () => {
         <main className={classes.loginBox}>
           <div className={classes.loginActionsArea}>
             <div className={classes.actionBox}>
-              <h1 className={classes.loginSmailHeading}>Войти</h1>
+              <h1 className={classes.loginSmailHeading}>LOGIN</h1>
               <form
                 onSubmit={checkUserLogin}
                 className={classes.mainFormInputs}
               >
                 <div className={classes.wholeInput}>
                   <label className={classes.inputsLable} htmlFor="email">
-                    Электронная почта
+                    Email
                   </label>
                   <input
                     onChange={getEmail}
@@ -90,7 +90,7 @@ const LoginPage = () => {
                 </div>
                 <div className={classes.wholeInput}>
                   <label className={classes.inputsLable} htmlFor="password">
-                    Пароль
+                    Password
                   </label>
                   <input
                     onChange={getPassword}
@@ -111,27 +111,29 @@ const LoginPage = () => {
                       className={classes.checkPassLable}
                       htmlFor="remember"
                     >
-                      Запомнить меня
+                      Remember Me
                     </label>
                   </div>
-                  <a href="dashboard/src/Components/Pages/LoginPage#" className={classes.forgetPassLink}>
-                    Забыли пароль?
+                  <a
+                    href="dashboard/src/Components/Pages/LoginPage#"
+                    className={classes.forgetPassLink}
+                  >
+                    Forget Password?
                   </a>
                 </div>
                 <button type="submit" className={classes.loginBtn}>
-                  Войти
+                  Login
                 </button>
               </form>
             </div>
           </div>
           <div className={classes.loginHeadingImgArea}>
-            <h1 className={classes.loginHeading}>Ваше смарт меню</h1>
+            <h1 className={classes.loginHeading}>Your Smart Menu</h1>
             <div className={classes.loginTextArea}>
               <p className={classes.loginText}>
-                Быстрая в освоении и простая в использовании платформа Tactic
-                menu
+                Fast to learn and easy to use Tactic menu platform
               </p>
-              <p className={classes.loginText}>для вашего заведения</p>
+              <p className={classes.loginText}>for your establishment</p>
             </div>
 
             <div className={classes.loginImgBox}>

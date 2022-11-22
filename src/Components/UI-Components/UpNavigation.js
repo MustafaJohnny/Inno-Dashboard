@@ -19,7 +19,7 @@ const UpNavigation = () => {
     const requestToServer = setInterval(() => {
       const getData = async () => {
         const request = await axios.get(
-          `http://${serverAPI}/api/own/client_data`,
+          `${process.env.REACT_APP_URL}/api/own/client_data`,
           {
             auth: {
               username: userEmail,
@@ -70,7 +70,7 @@ const UpNavigation = () => {
 
   //       const getData = async () => {
   //         const request = await axios.get(
-  //           `http://${serverAPI}/api/dash/client_data`,
+  //           `${process.env.REACT_APP_URL}/api/dash/client_data`,
   //           {
   //             auth: {
   //               username: userEmail,
@@ -94,7 +94,6 @@ const UpNavigation = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userName = useSelector((state) => state.controler.user_name);
@@ -131,9 +130,7 @@ const UpNavigation = () => {
   const logOutAndReset = () => {
     window.localStorage.clear();
     window.localStorage.removeItem("persist:root");
-    navigate("/", {
-      replace: true,
-    });
+    dispatch(controlActions.getAuthUser(false));
   };
 
   return (

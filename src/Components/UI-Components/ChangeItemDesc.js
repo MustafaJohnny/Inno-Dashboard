@@ -10,7 +10,6 @@ import { useTranslation } from "react-i18next";
 
 const ChangeItemDesc = () => {
   const [ItemDesc, setItemDesc] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const itemID = useSelector((state) => state.controler.item_current_ID);
@@ -49,7 +48,7 @@ const ChangeItemDesc = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/prod/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
+        `${process.env.REACT_APP_URL}/api/prod/product_desc_change/${userLanguage}/${ItemDesc}/${itemID}`,
         "",
         {
           params: {},

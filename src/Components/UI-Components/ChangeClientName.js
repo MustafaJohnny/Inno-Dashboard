@@ -9,7 +9,6 @@ import { useState, useEffect } from "react";
 
 const ChangeClientName = () => {
   const [clientName, setClientName] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const clientOldName = useSelector((state) => state.controler.user_logo_text);
@@ -47,7 +46,7 @@ const ChangeClientName = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/own/nameClientChange/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/own/nameClientChange/${userLanguage}`,
         "",
         {
           params: {

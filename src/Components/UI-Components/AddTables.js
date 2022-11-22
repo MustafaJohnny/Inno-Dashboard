@@ -10,7 +10,6 @@ import { useState, useEffect } from "react";
 
 const AddTables = () => {
   const [numberOfTables, setNumberOfTables] = useState("");
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
 
@@ -50,7 +49,7 @@ const AddTables = () => {
     }
 
     axios
-      .post(`http://${serverAPI}/api/v1/table/table_new/${userLanguage}`, "", {
+      .post(`${process.env.REACT_APP_URL}/api/v1/table/table_new/${userLanguage}`, "", {
         params: {
           table_pcs: numberOfTables,
         },

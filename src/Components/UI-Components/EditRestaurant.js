@@ -20,12 +20,11 @@ const EditRestaurant = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const editedRestID = useSelector(
     (state) => state.controler.restaurant_edit_id
@@ -110,7 +109,7 @@ const EditRestaurant = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/rest/restDataChange/${editedRestID}/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/rest/restDataChange/${editedRestID}/${userLanguage}`,
         formData,
         {
           auth: {

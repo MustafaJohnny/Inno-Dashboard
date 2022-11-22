@@ -4,6 +4,7 @@ const initialState = {
   /* User Login States */
   user_email: "",
   user_password: "",
+  isAuth: false,
 
   /* User Account States */
   user_name: "",
@@ -119,7 +120,6 @@ const initialState = {
   categories_page_heading: "",
   items_page_heading: "",
   current_item_page_heading: "",
-  serverAPI: "inme.su",
 };
 
 const controlSlice = createSlice({
@@ -134,7 +134,11 @@ const controlSlice = createSlice({
     getUserPassword(state, action) {
       state.user_password = action.payload;
     },
-
+  
+    getAuthUser(state, action){
+      state.isAuth = action.payload;
+    },
+    
     /* user account functions */
     getUserDataFromServer(state, action) {
       state.user_name = action.payload.name;

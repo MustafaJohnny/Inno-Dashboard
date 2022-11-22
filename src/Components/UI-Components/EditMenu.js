@@ -19,12 +19,11 @@ const EditMenu = () => {
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
   const editedMenuID = useSelector((state) => state.controler.menu_edit_id);
   const menuOldData = useSelector((state) => state.controler.menu_old_data);
   const userLang = useSelector((state) => state.controler.user_first_language);
@@ -97,7 +96,7 @@ const EditMenu = () => {
 
     axios
       .patch(
-        `http://${serverAPI}/api/menu/menuDataChange/${editedMenuID}/${userLang}`,
+        `${process.env.REACT_APP_URL}/api/menu/menuDataChange/${editedMenuID}/${userLang}`,
         formData,
         {
           auth: {

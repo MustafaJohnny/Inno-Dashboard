@@ -20,7 +20,6 @@ const AddItem = () => {
   const [itemDelivery, setItemDelivery] = useState("");
 
   const userItemID = useSelector((state) => state.controler.user_item_ID);
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userLanguage = useSelector(
@@ -101,7 +100,7 @@ const AddItem = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/prod/newProduct/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/prod/newProduct/${userLanguage}`,
         formData,
         {
           auth: {

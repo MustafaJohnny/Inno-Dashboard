@@ -21,7 +21,6 @@ const MenusPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const showAddMenu = useSelector((state) => state.controler.show_add_menu);
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
   const userDomain = useSelector((state) => state.controler.user_domain);
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
@@ -50,7 +49,7 @@ const MenusPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/menu/rest_menu_list/${userMenuID}`,
+        `${process.env.REACT_APP_URL}/api/menu/rest_menu_list/${userMenuID}`,
         {
           auth: {
             username: userEmail,
@@ -72,12 +71,12 @@ const MenusPage = () => {
     (state) => state.controler.restaurant_page_heading
   );
 
-  const URL = `http://${serverAPI}/api/v1/client/fileimage/${userDomain}`;
+  const URL = `${process.env.REACT_APP_URL}/api/v1/client/fileimage/${userDomain}`;
 
   const activateOrDeactivateMenu = (menuID) => {
     axios
       .post(
-        `http://${serverAPI}/api/menu/menu_active_or_deactivate/${menuID}`,
+        `${process.env.REACT_APP_URL}/api/menu/menu_active_or_deactivate/${menuID}`,
         {},
 
         {
@@ -108,7 +107,7 @@ const MenusPage = () => {
 
     const getData = async () => {
       const request = await axios.get(
-        `http://${serverAPI}/api/cat/category_list/${clickedMenuID}`,
+        `${process.env.REACT_APP_URL}/api/cat/category_list/${clickedMenuID}`,
         {
           auth: {
             username: userEmail,

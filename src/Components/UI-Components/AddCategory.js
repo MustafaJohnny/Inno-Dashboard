@@ -13,8 +13,7 @@ const AddCategory = () => {
   const [categoryImage, setCategoryImage] = useState([]);
   const [categoryName, setCategoryName] = useState("");
   const [categoryDescription, setCategoryDescription] = useState("");
-
-  const serverAPI = useSelector((state) => state.controler.serverAPI);
+  
   const userEmail = useSelector((state) => state.controler.user_email);
   const userPassword = useSelector((state) => state.controler.user_password);
   const userLanguage = useSelector(
@@ -74,7 +73,7 @@ const AddCategory = () => {
 
     axios
       .post(
-        `http://${serverAPI}/api/cat/newCategory/${userLanguage}`,
+        `${process.env.REACT_APP_URL}/api/cat/newCategory/${userLanguage}`,
         formData,
         {
           params: serverParams,
