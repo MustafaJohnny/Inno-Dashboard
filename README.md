@@ -1,10 +1,8 @@
-# Hotels Management System - React Project
+# Hotels Management System - React Commercial Project
 
 ## Overview
 
 Inno Dashboard allows you to manage all orders on a single portal. Waiters get new orders notifications , managers monitor the order status and history, guests get faster service. You will increase the turnover and customer satisfaction with a single tool.
-
-
 
 ## Built with
 
@@ -21,16 +19,15 @@ Inno Dashboard allows you to manage all orders on a single portal. Waiters get n
 - [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 - [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
 
-
-
 ## Links
 
-* Login: Email: q@qq.qq Password: 111
-- Live Site URL: http://admin.inme.su/login
+- Login: Email: q@qq.qq Password: 111
 
-
+* Live Site URL: http://admin.inme.su/login
 
 ## Screenshots
+
+![app](https://github.com/MustafaJohnny/Inno-Dashboard/blob/master/src/Components/Images/0.png?raw=true)
 ![app](https://github.com/MustafaJohnny/Inno-Dashboard/blob/master/src/Components/Images/1.png?raw=true)
 ![app](https://github.com/MustafaJohnny/Inno-Dashboard/blob/master/src/Components/Images/2.png?raw=true)
 ![app](https://github.com/MustafaJohnny/Inno-Dashboard/blob/master/src/Components/Images/3.png?raw=true)
